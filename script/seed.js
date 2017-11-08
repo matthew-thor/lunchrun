@@ -9,23 +9,52 @@
  *
  * Now that you've got the main idea, check it out in practice below!
  */
-const db = require('../server/db')
-const {User} = require('../server/db/models')
+const db = require('../server/db');
+const { User, Run, Route } = require('../server/db/models');
 
-async function seed () {
-  await db.sync({force: true})
-  console.log('db synced!')
-  // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
-  // executed until that promise resolves!
+async function seed() {
+  await db.sync({ force: true });
+  console.log('db synced!');
 
+  // seed users
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+    User.create({
+      firstName: 'Matthew',
+      lastName: 'Thor',
+      email: 'mjthor@gmail.com',
+      password: '123',
+      admin: true,
+    }),
+    User.create({
+      firstName: 'Lou',
+      lastName: 'Glaser',
+      email: 'lou@email.com',
+      password: '123'
+    })
+  ]);
+  console.log(`seeded ${users.length} users`);
+
+  // seed routes
+  const routes = await Promise.all([
+    Route.create({ name: 'Alley Run' }),
+    Route.create({ name: 'South to Monkey Tree' })
+  ]);
+  console.log(`seeded ${routes.length} routes`);
+
+  // seed runs
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const runs = await Promise.all([
+    Run.create(),
+    Run.create({ date: tomorrow })
+  ]);
+  await runs[0].setRoute(1);
+  await runs[1].setRoute(2);
+  await runs[0].addUsers([1, 2]);
+  console.log(`seeded ${runs.length} runs`);
+
+  // success message
+  console.log(`seeded successfully`);
 }
 
 // Execute the `seed` function
@@ -33,19 +62,19 @@ async function seed () {
 // that might occur inside of `seed`
 seed()
   .catch(err => {
-    console.error(err.message)
-    console.error(err.stack)
-    process.exitCode = 1
+    console.error(err.message);
+    console.error(err.stack);
+    process.exitCode = 1;
   })
   .then(() => {
-    console.log('closing db connection')
-    db.close()
-    console.log('db connection closed')
-  })
+    console.log('closing db connection');
+    db.close();
+    console.log('db connection closed');
+  });
 
 /*
  * note: everything outside of the async function is totally synchronous
  * The console.log below will occur before any of the logs that occur inside
  * of the async function
  */
-console.log('seeding...')
+console.log('seeding...');

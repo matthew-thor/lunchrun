@@ -1,8 +1,9 @@
-const LiveReloadPlugin = require('webpack-livereload-plugin')
-const isDev = process.env.NODE_ENV === 'development'
+require('babel-polyfill');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  entry: './client/index.js',
+  entry: ['babel-polyfill', './client/index.js'],
   output: {
     path: __dirname,
     filename: './public/bundle.js'
@@ -13,7 +14,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015', 'stage-0']
+        }
       },
       {
         test: /\.scss$/,
@@ -33,4 +37,4 @@ module.exports = {
   // to refresh the page for us every time we make a change to our client-side
   // files. It's like `nodemon` for the front end!
   plugins: isDev ? [new LiveReloadPlugin({appendScriptTag: true})] : []
-}
+};

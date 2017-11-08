@@ -1,19 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {DailyRoute, Admin} from '../components';
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
+export const Admin = props => {
   const {user} = props;
 
   return (
     <div>
-      <h3>Hey, {user.firstName}!</h3>
-      <DailyRoute />
-      {user.admin && <Admin />}
+      <h3>Admin options:</h3>
     </div>
   );
 };
@@ -27,11 +24,11 @@ const mapState = state => {
   };
 };
 
-export default connect(mapState)(UserHome);
+export default connect(mapState)(Admin);
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+Admin.propTypes = {
   user: PropTypes.object
 };
