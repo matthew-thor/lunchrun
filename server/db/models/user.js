@@ -57,9 +57,12 @@ User.generateSalt = function () {
 };
 
 User.encryptPassword = function (plainText, salt) {
-  return crypto.createHash('RSA-SHA256').update(plainText).update(salt)
-.digest('hex');
-};
+  return crypto
+    .createHash('RSA-SHA256')
+    .update(plainText)
+    .update(salt)
+    .digest('hex')
+}
 
 /**
  * hooks

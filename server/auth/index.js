@@ -10,7 +10,7 @@ router.post('/login', (req, res, next) => {
       } else if (!user.correctPassword(req.body.password)) {
         res.status(401).send('Incorrect password')
       } else {
-        req.login(user, err => err ? next(err) : res.json(user))
+        req.login(user, err => (err ? next(err) : res.json(user)))
       }
     })
     .catch(next)
@@ -22,11 +22,19 @@ router.post('/signup', (req, res, next) => {
       req.login(user, err => err ? next(err) : res.json(user));
     })
     .catch(err => {
-      if (err.name === 'SequelizeUniqueConstraintError')
+      if (err.name === 'SequelizeUniqueConstraintError') {
         res.status(401).send('User already exists')
+<<<<<<< HEAD
       else next(err);
     });
 });
+=======
+      } else {
+        next(err)
+      }
+    })
+})
+>>>>>>> boilermaker/master
 
 router.post('/logout', (req, res) => {
   req.logout();
