@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const {Run} = require('../db/models');
+const { Run } = require('../db/models');
 module.exports = router;
+
+const { testClog } = require('../../utils');
 
 router.get('/', (req, res, next) => {
   Run.findAll()
@@ -8,23 +10,25 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/id/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
   Run.find({ where: { id: req.params.id }})
     .then(run => res.json(run))
     .catch(next);
 });
 
-router.get('/:date', (req, res, next) => {
-  Run.findOrCreate({ where: { date: req.params.date }})
-    .then(run => res.json(run))
-    .catch(next);
+router.get('/date/:date', async (req, res, next) => {
+  try {
+    const run = await Run.findOrCreate({ where: { date: req.params.date }});
+    run[1] ? res.status(201).json(run[0]) : res.json(run[0]);
+  }
+  catch (err) { next(err); }
 });
 
-router.put('/:date', async (req, res, next) => {
+router.put('/date/:date', async (req, res, next) => {
   try {
     const run = await Run.find({ where: { date: req.params.date}});
-    run.update(req.body);
-    res.sendStatus(202);
+    await run.update(req.body);
+    res.sendStatus(204);
   }
   catch (err) { next(err); }
 });
