@@ -48,8 +48,8 @@ describe('Run routes', () => {
       expect(res.body).to.be.an('object');
       expect(res.status).to.be.equal(204);
 
-      const newBento = await Run.findById(1);
-      expect(newBento.email).to.be.equal(newStart);
+      const updatedRun = await Run.findById(1);
+      expect(updatedRun.email).to.be.equal(newStart);
     });
 
     xit('POST /api/runs', async () => {

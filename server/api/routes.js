@@ -16,22 +16,23 @@ router.get('/:id', (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const user = await Route.findById(req.params.id);
-    user.update(req.body);
-    res.sendStatus(202);
+    const route = await Route.findById(req.params.id);
+    await route.update(req.body);
+    res.sendStatus(204);
   }
   catch (err) { next(err); }
 });
 
 router.post('/', async (req, res, next) => {
-  try { res.json(await Route.create(req.body)); }
+  try {
+    const route = await Route.create(req.body);
+    res.status(201).json(route);
+  }
   catch (err) { next(); }
 });
 
 router.delete('/:id', async (req, res, next) => {
-  const id = req.params.id;
-
-  try { await Route.destroy({ where: { id }}); }
+  try { await Route.destroy({ where: { id: req.params.id }}); }
   catch (err) { next(); }
 
   res.sendStatus(204);
