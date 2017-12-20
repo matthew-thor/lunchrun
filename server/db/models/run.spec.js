@@ -27,4 +27,4 @@ describe('Run model', () => {
       });
     }); // end describe('---TEST DESCRIPTION---')
   }); // end describe('getterMethods')
-}); // end describe('User model')
+}); // end describe('Run model')
