@@ -4,11 +4,11 @@ const db = require('../db');
 const Run = db.define('run', {
   date: {
     type: Sequelize.DATEONLY,
-    defaultValue: new Date()
+    defaultValue: new Date(),
   },
   startTime: {
     type: Sequelize.TIME,
-  }
+  },
 });
 
 module.exports = Run;
