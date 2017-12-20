@@ -13,8 +13,11 @@ describe('Run routes', () => {
     await db.sync({ force: true });
   });
 
+  const start = '12:30:00';
+  const newStart = '11:45:00';
+  const newRun = { startTime: '11:50:00' };
+
   describe('/api/runs', () => {
-    const start = '12:30:00';
 
     beforeEach(async () => {
       await Run.create({ startTime: start });
@@ -37,8 +40,6 @@ describe('Run routes', () => {
     });
 
     xit('PUT /api/runs/:id', async () => {
-      const newStart = '11:45:00';
-
       const res = await request(app)
         .put('/api/runs/1')
         .type('form')
@@ -52,7 +53,6 @@ describe('Run routes', () => {
     });
 
     xit('POST /api/runs', async () => {
-      const newRun = { startTime: '11:50:00' };
 
       const res = await request(app)
         .post('/api/runs')
@@ -78,7 +78,7 @@ describe('Run routes', () => {
     const my32ndBirthday = '2018-07-25';
 
     beforeEach(async () => {
-      await Run.create({ date: NYE2017 });
+      await Run.create({ date: NYE2017, startTime: '12:15:00' });
     });
 
     it('GET /api/runs/date/:date', async () => {
@@ -88,6 +88,22 @@ describe('Run routes', () => {
       expect(res1.body.date).to.be.equal(NYE2017);
 
       const res2 = await request(app).get(`/api/runs/date/${my32ndBirthday}`);
+
+      expect(res2.status).to.be.equal(201);
+      expect(res2.body.date).to.be.equal(my32ndBirthday);
+    });
+
+    it('PUT /api/runs/date/:date', async () => {
+      const res = await request(app)
+        .put(`/api/runs/date/${NYE2017}`)
+        .type('form')
+        .send({ startTime: newStart });
+
+      expect(res.body).to.be.an('object');
+      expect(res.status).to.be.equal(204);
+
+      const updatedRun = await Run.findById(1);
+      expect(updatedRun.startTime).to.be.equal(newStart);
     });
   }); // end describe('/api/runs/date')
 }); // end describe('Run routes')

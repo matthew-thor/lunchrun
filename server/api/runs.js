@@ -19,8 +19,7 @@ router.get('/:id', (req, res, next) => {
 router.get('/date/:date', async (req, res, next) => {
   try {
     const run = await Run.findOrCreate({ where: { date: req.params.date }});
-
-    res.json(run[0]);
+    run[1] ? res.status(201).json(run[0]) : res.json(run[0]);
   }
   catch (err) { next(err); }
 });
@@ -28,7 +27,7 @@ router.get('/date/:date', async (req, res, next) => {
 router.put('/date/:date', async (req, res, next) => {
   try {
     const run = await Run.find({ where: { date: req.params.date}});
-    run.update(req.body);
+    await run.update(req.body);
     res.sendStatus(204);
   }
   catch (err) { next(err); }
