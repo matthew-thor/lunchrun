@@ -29,15 +29,15 @@ async function seed() {
       firstName: 'Lou',
       lastName: 'Glaser',
       email: 'lou@email.com',
-      password: '123'
-    })
+      password: '123',
+    }),
   ]);
   console.log(`seeded ${users.length} users`);
 
   // seed routes
   const routes = await Promise.all([
     Route.create({ name: 'Alley Run' }),
-    Route.create({ name: 'South to Monkey Tree' })
+    Route.create({ name: 'South to Monkey Tree' }),
   ]);
   console.log(`seeded ${routes.length} routes`);
 
@@ -46,7 +46,7 @@ async function seed() {
   tomorrow.setDate(tomorrow.getDate() + 1);
   const runs = await Promise.all([
     Run.create(),
-    Run.create({ date: tomorrow })
+    Run.create({ date: tomorrow }),
   ]);
   await runs[0].setRoute(1);
   await runs[1].setRoute(2);
