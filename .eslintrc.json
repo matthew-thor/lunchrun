@@ -3,7 +3,8 @@
 	"parser": "babel-eslint",
 	"extends": "fullstack",
 	"rules": {
-		"semi": 0,
-		"new-cap": [1, { "capIsNewExceptions": ["Router"] }]
+		"semi": 1,
+		"new-cap": [1, { "capIsNewExceptions": ["Router"] }],
+		"comma-dangle": [1, "always-multiline"]
 	}
 }

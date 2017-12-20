@@ -24,17 +24,11 @@ router.post('/signup', (req, res, next) => {
     .catch(err => {
       if (err.name === 'SequelizeUniqueConstraintError') {
         res.status(401).send('User already exists')
-<<<<<<< HEAD
-      else next(err);
-    });
-});
-=======
       } else {
         next(err)
       }
     })
 })
->>>>>>> boilermaker/master
 
 router.post('/logout', (req, res) => {
   req.logout();
