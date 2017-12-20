@@ -2,7 +2,9 @@ const chalk = require('chalk');
 
 const blueRedBg = text => { console.log(chalk.blue.bgRed.bold(text)); };
 const blue = text => { console.log(chalk.blue.bold(text)); };
-const testClog = text => {
+const testClog = (...args) => {
+  const text = args.join(' ');
+
   blueRedBg('~!~!~!~!~!~\n');
   console.log(text);
   blueRedBg('\n~!~!~!~!~!~');
