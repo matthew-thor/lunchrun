@@ -23,7 +23,7 @@ export const UserHome = (props) => {
  */
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 
@@ -33,5 +33,5 @@ export default connect(mapState)(UserHome);
  * PROP TYPES
  */
 UserHome.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
 };
