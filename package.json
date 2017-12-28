@@ -31,6 +31,7 @@
     "express-session": "^1.15.6",
     "history": "^4.7.2",
     "morgan": "^1.9.0",
+    "nodemailer": "^4.4.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.4.2",
@@ -44,7 +45,8 @@
     "redux-logger": "^2.10.2",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.28.6",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "voucher-code-generator": "^1.1.1"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.9.0",
