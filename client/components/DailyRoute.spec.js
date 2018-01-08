@@ -28,7 +28,6 @@ describe('DailyRoute', () => {
   });
 
   it('renders the name of the route in an h3', () => {
-    console.log('test', dailyRoute.find('.route-title').find('h3'));
     expect(dailyRoute.find('.route-title').find('h3').text()).to.be.equal(`Today's route: ${monkeyTree.name}`);
   });
 
