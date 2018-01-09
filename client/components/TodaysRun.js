@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 /**
  * COMPONENT
  */
-export const DailyRoute = props => {
+export const TodaysRun = props => {
   const { user, run } = props;
-  const route = run.route;
+  const route = run.route || null;
 
   return (
     <div className="route-title">
-      <h3>Today's route: {route.name}</h3>
+      <h3>Today's route: {route ? route.name : 'TBA'}</h3>
     </div>
   );
 };
@@ -22,14 +22,15 @@ export const DailyRoute = props => {
 const mapState = state => {
   return {
     user: state.user,
+    run: state.run,
   };
 };
 
-export default connect(mapState)(DailyRoute);
+export default connect(mapState)(TodaysRun);
 
 /**
  * PROP TYPES
  */
-DailyRoute.propTypes = {
+TodaysRun.propTypes = {
   user: PropTypes.object,
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {DailyRoute, Admin} from '../components';
+import {TodaysRun, Admin} from '../components';
 
 /**
  * COMPONENT
@@ -12,7 +12,7 @@ export const UserHome = (props) => {
   return (
     <div>
       <h3>Hey, {user.firstName}!</h3>
-      <DailyRoute />
+      <TodaysRun />
       {user.admin && <Admin />}
     </div>
   );

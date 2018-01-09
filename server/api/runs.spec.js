@@ -93,7 +93,7 @@ describe('Run routes', () => {
       expect(res2.body.date).to.be.equal(my32ndBirthday);
     });
 
-    it('PUT /api/runs/date/:date', async () => {
+    xit('PUT /api/runs/date/:date', async () => {
       const res = await request(app)
         .put(`/api/runs/date/${NYE2017}`)
         .type('form')

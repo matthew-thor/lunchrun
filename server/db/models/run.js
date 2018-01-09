@@ -24,3 +24,8 @@ module.exports = Run;
 /**
  * hooks
  */
+Run.afterCreate(async (run, options) => {
+  console.log('------', run.routeId);
+  await run.setRoute(1);
+  console.log('------', run.routeId);
+});

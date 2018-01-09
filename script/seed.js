@@ -45,7 +45,7 @@ async function seed() {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const runs = await Promise.all([
-    Run.create(),
+    Run.create({ startTime: '12:00' }),
     Run.create({ date: tomorrow }),
   ]);
   await runs[0].setRoute(1);

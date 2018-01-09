@@ -9,5 +9,5 @@ export {Login, Signup} from './AuthForm';
 export {default as Navbar} from './Navbar';
 export {default as Landing} from './Landing';
 export {default as Account} from './Account';
-export {default as DailyRoute} from './DailyRoute';
+export {default as TodaysRun} from './TodaysRun';
 export {default as Admin} from './Admin';

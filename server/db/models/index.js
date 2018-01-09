@@ -11,6 +11,7 @@ const Route = require('./route');
 
 Run.belongsTo(Route);
 Route.hasMany(Run);
+
 User.belongsToMany(Run, {through: 'Participants'});
 Run.belongsToMany(User, {through: 'Participants'});
 
@@ -23,5 +24,5 @@ Run.belongsToMany(User, {through: 'Participants'});
 module.exports = {
   User,
   Run,
-  Route
+  Route,
 };
