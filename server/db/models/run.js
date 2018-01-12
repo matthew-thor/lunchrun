@@ -14,11 +14,11 @@ const Run = db.define('run', {
 }, {
     defaultScope: {
       include: [
-        { model: Route, attributes: ['id', 'name', 'map'] },
+        { model: Route, attributes: ['id'] },
         {
           model: User,
           as: 'participants',
-          attributes: ['firstName', 'lastName', 'id', 'email'],
+          attributes: ['id'],
           through: { attributes: [] }, // gets rid of nested join table
         }],
     },

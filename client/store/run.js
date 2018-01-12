@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { normalize, schema } from 'normalizr';
 import moment from 'moment-timezone';
 import history from '../history';
 import { testClog } from '../../utils';
