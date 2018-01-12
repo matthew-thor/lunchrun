@@ -10,8 +10,13 @@ export const TodaysRun = props => {
   const route = run.route || null;
 
   return (
-    <div className="route-title">
-      <h3>Today's route: {route ? route.name : 'TBA'}</h3>
+    <div>
+      <div className="route-title">
+        <h3>Today's route: {route ? route.name : 'TBA'}</h3>
+      </div>
+      <div className="start-time">
+        <h3>Start time: {run.startTime}</h3>
+      </div>
     </div>
   );
 };

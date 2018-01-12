@@ -50,7 +50,7 @@ async function seed() {
   ]);
   await runs[0].setRoute(1);
   await runs[1].setRoute(2);
-  await runs[0].addUsers([1, 2]);
+  await runs[0].addParticipants([1, 2]);
   console.log(`seeded ${runs.length} runs`);
 
   // success message

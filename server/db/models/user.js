@@ -33,12 +33,17 @@ const User = db.define('user', {
     defaultValue: false,
   },
 }, {
-  getterMethods: {
-    fullName() {
-      return this.firstName + ' ' + this.lastName;
+    getterMethods: {
+      fullName() {
+        return this.firstName + ' ' + this.lastName;
+      },
     },
-  },
-});
+    scopes: {
+      noSensitive: {
+        attributes: { exclude: ['password', 'salt', 'googleId'] },
+      },
+    },
+  });
 
 module.exports = User;
 

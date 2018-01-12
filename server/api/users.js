@@ -1,23 +1,21 @@
 const router = require('express').Router();
-const {User} = require('../db/models');
+const { User } = require('../db/models');
 module.exports = router;
 
-router.get('/', (req, res, next) => {
-  User.findAll({
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
-    attributes: ['id', 'email', 'firstName', 'lastName', 'admin'],
-  })
-    .then(users => res.json(users))
-    .catch(next);
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.findAll.scope('noSensitive').findAll();
+    res.json(users);
+  }
+  catch (err) { next(err); }
 });
 
-router.get('/:id', (req, res, next) => {
-  User.findById(req.params.id,
-    { attributes: ['id', 'email', 'firstName', 'lastName', 'admin'] })
-    .then(user => res.json(user))
-    .catch(next);
+router.get('/:id', async (req, res, next) => {
+  try {
+    const user = await User.scope('noSensitive').findById(req.params.id);
+    res.json(user);
+  }
+  catch (err) { next(err); }
 });
 
 router.put('/:id', async (req, res, next) => {
@@ -38,7 +36,7 @@ router.post('/', async (req, res, next) => {
 });
 
 router.delete('/:id', async (req, res, next) => {
-  try { await User.destroy({ where: { id: req.params.id }}); }
+  try { await User.destroy({ where: { id: req.params.id } }); }
   catch (err) { next(); }
 
   res.sendStatus(204);
