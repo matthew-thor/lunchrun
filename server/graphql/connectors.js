@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 
+// external API example
 export const FortuneCookie = {
   getOne() {
     return fetch('http://fortunecookieapi.herokuapp.com/v1/cookie')
