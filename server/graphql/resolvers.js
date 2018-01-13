@@ -6,7 +6,7 @@ let nextId = 3;
 
 const resolvers = {
   Query: {
-    user(_, args, context) {
+    user(_, args) {
       return User.findById(args.id);
     },
     allUsers(_, args) {
