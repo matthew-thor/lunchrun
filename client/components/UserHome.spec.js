@@ -15,10 +15,10 @@ describe('UserHome', () => {
   const bento = { firstName: 'Bento', lastName: 'Thor' };
 
   beforeEach(() => {
-    userHome = shallow(<UserHome user={bento} />);
+    userHome = shallow(<UserHome user={{ firstName: 'Bento' }} />);
   });
 
-  it('renders user.firstName in an h3', () => {
-    expect(userHome.find('h3').text()).to.be.equal(`Hey, ${bento.firstName}!`);
+  it('renders user firstName in an h3', () => {
+    expect(userHome.find('h3').text()).to.be.equal('Hey, Bento!');
   });
 });
