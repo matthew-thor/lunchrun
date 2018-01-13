@@ -1,3 +1,7 @@
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import schema from './graphql/schema';
+import { Engine } from 'apollo-engine';
+import graphql from 'graphql';
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
@@ -13,15 +17,27 @@ const app = express();
 const socketio = require('socket.io');
 module.exports = app;
 
-/**
- * In your development environment, you can keep all of your
- * app's secret API keys in a file called `secrets.js`, in your project
- * root. This file is included in the .gitignore - it will NOT be tracked
- * or show up on Github. On your production server, you can add these
- * keys as environment variables, so that they can still be read by the
- * Node process on process.env
- */
 if (process.env.NODE_ENV !== 'production') require('../secrets');
+
+// Apollo Engine setup
+const engine = new Engine({
+  engineConfig: {
+    apiKey: process.env.ENGINE_API_KEY,
+    stores: [
+      {
+        name: 'inMemEmbeddedCache',
+        inMemory: {
+          cacheSize: 20971520, // 20 MB
+        },
+      },
+    ],
+    queryCache: {
+      publicFullQueryStore: 'inMemEmbeddedCache',
+    },
+  },
+  graphqlPort: PORT,
+});
+engine.start();
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
@@ -34,6 +50,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 const createApp = () => {
+  // Apollo Engine middleware
+  app.use(engine.expressMiddleware());
+
   // logging middleware
   if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
@@ -62,6 +81,22 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
+
+  // GraphQL setup
+  app.use('/graphql', bodyParser.json(), graphqlExpress(req => ({
+    schema,
+    tracing: true,
+    cacheControl: true,
+    context: { session: req.user },
+  })));
+  // app.use('/graphql', async (err, req, res, next) => {
+  //   if (err) next(err);
+  //   const data = await graphql(schema, req.body, { user: req.user });
+  //   res.json(data);
+  // });
+
+
+  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
@@ -110,3 +145,4 @@ if (require.main === module) {
 } else {
   createApp();
 }
+
