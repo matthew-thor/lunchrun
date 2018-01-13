@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import moment from 'moment-timezone';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const today = moment(new Date()).format('YYYY-MM-DD');
 
@@ -36,7 +38,7 @@ const addRouteMutation = gql`
   }
 `;
 
-const Landing = ({ data: { loading, error, allRoutes, run }, mutate }) => {
+const Landing = ({ user, data: { loading, error, allRoutes, run }, mutate }) => {
   const handleKeyUp = async event => {
     event.preventDefault();
     if (event.keyCode === 13) {
@@ -61,22 +63,6 @@ const Landing = ({ data: { loading, error, allRoutes, run }, mutate }) => {
 
   return (
     <div className="inner cover">
-      participants:
-      <ul>
-        {run.participants.map(u => <li key={u.id}>{u.fullName}</li>)}
-      </ul>
-      <ul>
-        {allRoutes.map(r => <li key={r.id}>{r.name}</li>)}
-      </ul>
-      <div>start time: {run.startTime}</div>
-      <div>date: {run.date}</div>
-      <div>route: {run.route.name}</div>
-      <input
-        type="text"
-        placeholder="New route"
-        onKeyUp={handleKeyUp}
-      />
-
       <h1 className="cover-heading">Loop Lunch Run</h1>
       <p className="lead">Making Lou's life easier, one website at a time.</p>
       <p className="lead">
@@ -88,7 +74,16 @@ const Landing = ({ data: { loading, error, allRoutes, run }, mutate }) => {
   );
 };
 
+const mapState = state => ({ user: state.user });
+
+const LandingConnected = connect(mapState)(Landing);
+
 export default compose(
   graphql(landingQuery, { options: { variables: { today: today } } }),
   graphql(addRouteMutation)
-)(Landing);
+)(LandingConnected);
+
+/**
+ * PROP TYPES
+ */
+Landing.propTypes = { user: PropTypes.object };

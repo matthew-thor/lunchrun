@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
 import { Main, Login, Signup, UserHome, Landing, Account } from './components';
-import { me, fetchRun } from './store';
+import { me } from './store';
 
 /**
  * COMPONENT
@@ -31,22 +31,17 @@ class Routes extends Component {
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/home" component={UserHome} />
                 <Route path="/account" component={Account} />
-                <Route component={Landing} />
+                <Route component={UserHome} />
               </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={UserHome} />
+            <Route component={Landing} />
           </Switch>
         </Main>
       </Router>
     );
   }
 }
-
-// export default Routes;
-
-// <Main>
-// </Main>
 
 /**
  * CONTAINER
@@ -72,7 +67,7 @@ export default connect(mapState, mapDispatch)(Routes);
 /**
  * PROP TYPES
  */
-// Routes.propTypes = {
-//   loadInitialData: PropTypes.func.isRequired,
-//   isLoggedIn: PropTypes.bool.isRequired,
-// };
+Routes.propTypes = {
+  loadInitialData: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};

@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 /**
  * COMPONENT
  */
-export const Account = props => {
-  const {user} = props;
+export const Account = ({ user }) => {
 
   return (
     <div>
@@ -19,17 +18,11 @@ export const Account = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    user: state.user
-  };
-};
+const mapState = state => ({ user: state.user });
 
 export default connect(mapState)(Account);
 
 /**
  * PROP TYPES
  */
-Account.propTypes = {
-  user: PropTypes.object
-};
+Account.propTypes = { user: PropTypes.object };
