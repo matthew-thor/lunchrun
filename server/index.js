@@ -87,14 +87,7 @@ const createApp = () => {
     schema,
     tracing: true,
     cacheControl: true,
-    context: { session: req.user },
   })));
-  // app.use('/graphql', async (err, req, res, next) => {
-  //   if (err) next(err);
-  //   const data = await graphql(schema, req.body, { user: req.user });
-  //   res.json(data);
-  // });
-
 
   app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 

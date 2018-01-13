@@ -11,63 +11,63 @@ import { me, fetchRun } from './store';
  * COMPONENT
  */
 class Routes extends Component {
-  // componentDidMount() {
-  //   this.props.loadInitialData();
-  // }
+  componentDidMount() {
+    this.props.loadInitialData();
+  }
 
   render() {
-    // const { isLoggedIn } = this.props;
+    const { isLoggedIn } = this.props;
 
     return (
       <Router history={history}>
-        <Landing />
+        <Main>
+          <Switch>
+            {/* Routes placed here are available to all visitors */}
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            {
+              isLoggedIn &&
+              <Switch>
+                {/* Routes placed here are only available after logging in */}
+                <Route path="/home" component={UserHome} />
+                <Route path="/account" component={Account} />
+                <Route component={Landing} />
+              </Switch>
+            }
+            {/* Displays our Login component as a fallback */}
+            <Route component={UserHome} />
+          </Switch>
+        </Main>
       </Router>
     );
   }
 }
 
-export default Routes;
+// export default Routes;
 
 // <Main>
-//   <Switch>
-//     {/* Routes placed here are available to all visitors */}
-//     <Route path="/login" component={Login} />
-//     <Route path="/signup" component={Signup} />
-//     {
-//       isLoggedIn &&
-//       <Switch>
-//         {/* Routes placed here are only available after logging in */}
-//         <Route path="/home" component={UserHome} />
-//         <Route path="/account" component={Account} />
-//         <Route component={UserHome} />
-//       </Switch>
-//     }
-//     {/* Displays our Login component as a fallback */}
-//     <Route component={Landing} />
-//   </Switch>
 // </Main>
 
 /**
  * CONTAINER
  */
-// const mapState = state => {
-//   return {
-//     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-//     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-//     isLoggedIn: !!state.user.id,
-//   };
-// };
+const mapState = state => {
+  return {
+    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
+    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
+    isLoggedIn: !!state.user.id,
+  };
+};
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     loadInitialData() {
-//       dispatch(me());
-//       dispatch(fetchRun());
-//     },
-//   };
-// };
+const mapDispatch = (dispatch) => {
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
+};
 
-// export default connect(mapState, mapDispatch)(Routes);
+export default connect(mapState, mapDispatch)(Routes);
 
 /**
  * PROP TYPES
