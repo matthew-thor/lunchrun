@@ -1,8 +1,5 @@
 import { User, Run, Route, FortuneCookie } from './connectors';
 import _ from 'lodash';
-import { testClog } from '../../utils';
-
-let nextId = 3;
 
 const resolvers = {
   Query: {
