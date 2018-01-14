@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Route = require('./route');
+const User = require('./user');
 
 const Run = db.define('run', {
   date: {
@@ -9,7 +11,18 @@ const Run = db.define('run', {
   startTime: {
     type: Sequelize.TIME,
   },
-});
+}, {
+    defaultScope: {
+      include: [
+        { model: Route, attributes: ['id'] },
+        {
+          model: User,
+          as: 'participants',
+          attributes: ['id'],
+          through: { attributes: [] }, // gets rid of nested join table
+        }],
+    },
+  });
 
 module.exports = Run;
 
@@ -24,3 +37,6 @@ module.exports = Run;
 /**
  * hooks
  */
+Run.afterCreate(async (run, options) => {
+  await run.setRoute(1);
+});

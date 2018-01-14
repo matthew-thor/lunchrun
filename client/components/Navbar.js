@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const Navbar = props => {
+const Navbar = ({ isLoggedIn, handleClick }) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <Link className="navbar-brand" to="/">Loop Lunch Run</Link>
@@ -19,19 +19,19 @@ const Navbar = props => {
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            {props.isLoggedIn &&
+            {isLoggedIn &&
               <NavLink className="nav-link" activeClassName="active" to="/home">Home</NavLink>}
           </li>
           <li className="nav-item">
-            {props.isLoggedIn &&
+            {isLoggedIn &&
               <NavLink className="nav-link" activeClassName="active" to="/account">Account</NavLink>}
           </li>
           <li className="nav-item">
-            {props.isLoggedIn
-              ? <NavLink className="nav-link" activeClassName="active" to="#" onClick={props.handleClick}>Logout</NavLink>
+            {isLoggedIn
+              ? <NavLink className="nav-link" activeClassName="active" to="#" onClick={handleClick}>Logout</NavLink>
               : <NavLink className="nav-link" activeClassName="active" to="/login">Log in</NavLink>}
           </li>
-          {!props.isLoggedIn &&
+          {!isLoggedIn &&
             <li className="nav-item">
               <NavLink className="nav-link" activeClassName="active" to="/signup">Sign up</NavLink>
             </li>}

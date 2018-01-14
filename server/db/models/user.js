@@ -33,12 +33,12 @@ const User = db.define('user', {
     defaultValue: false,
   },
 }, {
-  getterMethods: {
-    fullName() {
-      return this.firstName + ' ' + this.lastName;
+    scopes: {
+      noSensitive: {
+        attributes: { exclude: ['password', 'salt', 'googleId'] },
+      },
     },
-  },
-});
+  });
 
 module.exports = User;
 
@@ -47,6 +47,11 @@ module.exports = User;
  */
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
+};
+
+// getter method for fullName was messing with associations and includes
+User.prototype.fullName = function () {
+  return this.firstName + ' ' + this.lastName;
 };
 
 /**

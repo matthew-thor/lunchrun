@@ -3,11 +3,11 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
-export {default as Main} from './Main';
-export {default as UserHome} from './UserHome';
-export {Login, Signup} from './AuthForm';
-export {default as Navbar} from './Navbar';
-export {default as Landing} from './Landing';
-export {default as Account} from './Account';
-export {default as DailyRoute} from './DailyRoute';
-export {default as Admin} from './Admin';
+export { default as Main } from './Main';
+export { default as UserHome } from './UserHome';
+export { Login, Signup } from './AuthForm';
+export { default as Navbar } from './Navbar';
+export { default as Landing } from './Landing';
+export { default as Account } from './Account';
+export { default as TodaysRun } from './TodaysRun';
+export { default as AdminRunOptions } from './AdminRunOptions';

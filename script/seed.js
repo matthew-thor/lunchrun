@@ -1,14 +1,3 @@
-/**
- * Welcome to the seed file! This seed file uses a newer language feature called...
- *
- *                  -=-= ASYNC...AWAIT -=-=
- *
- * Async-await is a joy to use! Read more about it in the MDN docs:
- *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- *
- * Now that you've got the main idea, check it out in practice below!
- */
 const db = require('../server/db');
 const { User, Run, Route } = require('../server/db/models');
 
@@ -45,12 +34,12 @@ async function seed() {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const runs = await Promise.all([
-    Run.create(),
+    Run.create({ startTime: '12:00' }),
     Run.create({ date: tomorrow }),
   ]);
   await runs[0].setRoute(1);
   await runs[1].setRoute(2);
-  await runs[0].addUsers([1, 2]);
+  await runs[0].addParticipants([1, 2]);
   console.log(`seeded ${runs.length} runs`);
 
   // success message
