@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 /**
  * COMPONENT
  */
-export const Admin = ({ user }) => {
+export const AdminRunOptions = ({ user }) => {
 
   return (
     <div>
@@ -19,9 +19,9 @@ export const Admin = ({ user }) => {
  */
 const mapState = state => ({ user: state.user });
 
-export default connect(mapState)(Admin);
+export default connect(mapState)(AdminRunOptions);
 
 /**
  * PROP TYPES
  */
-Admin.propTypes = { user: PropTypes.object };
+AdminRunOptions.propTypes = { user: PropTypes.object };
