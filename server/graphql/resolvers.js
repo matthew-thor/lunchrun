@@ -6,7 +6,6 @@ const resolvers = {
     me(_, args, context) {
       if (context.user) return User.findById(context.user.id);
       else return {};
-      // throw new Error('Not authorized');
     },
     user(_, args, context) {
       if (context.user) return User.findById(args.id);
