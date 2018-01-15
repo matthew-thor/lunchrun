@@ -9,10 +9,6 @@ const today = moment(new Date()).format('YYYY-MM-DD');
 
 const todaysRunQuery = gql`
   query LandingQuery($today: String!) {
-    allRoutes {
-      id
-      name
-    }
     run(date: $today) {
       id
       date
@@ -21,18 +17,33 @@ const todaysRunQuery = gql`
         name
       }
       participants {
-        id
-        fullName
+        userId
+        comment
+        user {
+          email
+          fullName
+        }
       }
     }
   }
 `;
 
-const addRouteMutation = gql`
-  mutation addRoute($name: String!) {
-    addRoute(name: $name) {
-      id
-      name
+const updateParticipantMutation = gql`
+  mutation updateParticipant(
+    $userId: Int!,
+    $runId: Int!,
+    $type: String!,
+    $comment: String
+  ) {
+    updateParticipant(
+      userId: $userId,
+      runId: $runId,
+      type: $type,
+      comment: $comment
+    ) {
+      userId
+      runId
+      comment
     }
   }
 `;
@@ -43,18 +54,18 @@ const addRouteMutation = gql`
 const TodaysRun = ({
   user,
   data: { loading, error, run },
-  mutate,
+  updateParticipant,
 }) => {
   /** EXAMPLE EVENT HANDLER
-    const handleKeyUp = async event => {
-      event.preventDefault();
-      if (event.keyCode === 13) {
-        event.persist();
-        await mutate({
-          variables: { name: event.target.value },
-          refetchQueries: [{
-            query: todaysRunQuery,
-            variables: { today: today },
+   const handleKeyUp = async event => {
+     event.preventDefault();
+     if (event.keyCode === 13) {
+       event.persist();
+       await mutate({
+         variables: { name: event.target.value },
+         refetchQueries: [{
+           query: todaysRunQuery,
+           variables: { today: today },
           }],
         });
         event.target.value = '';
@@ -63,11 +74,42 @@ const TodaysRun = ({
 
     JSX:
     <input
-      type="text"
-      placeholder="New route"
-      onKeyUp={handleKeyUp}
+    type="text"
+    placeholder="New route"
+    onKeyUp={handleKeyUp}
     />
-   */
+    */
+  const handleMouseUp = event => {
+    event.preventDefault();
+    event.persist();
+    updateParticipant({
+      variables: {
+        userId: user.id,
+        runId: run.id,
+        type: event.target.name,
+        comment: event.target.value,
+      },
+      refetchQueries: [{ // change this to use update and optimisticResponse
+        query: todaysRunQuery,
+        variables: { today: today },
+      }],
+      /* NOT WORKING BUT WILL NEED LATER
+      optimisticResponse: {
+        updateParticipant: {
+          userId: user.id,
+          runId: run.id,
+          comment: event.target.value || null,
+          __typename: 'Participant',
+        },
+      },
+      update: (store, { data: { updateParticipant } }) => {
+        const data = store.readQuery({ query: todaysRunQuery });
+
+        data.run.participants.push(updateParticipant);
+        store.writeQuery({ query: todaysRunQuery, data });
+      }, */
+    });
+  };
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -88,8 +130,14 @@ const TodaysRun = ({
       </div>
       <div className="participants">
         <h3>Who's in?</h3>
-        <ul> {run.participants.map(u => <li key={u.id}>{u.fullName}</li>)}</ul>
+        <ul> {run.participants.map(u => <li key={u.userId}>{u.user.fullName}</li>)}</ul>
       </div>
+      <button name="in" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
+        I'm in!
+        </button>
+      <button name="out" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
+        I'm out
+        </button>
     </div>
   );
 };
@@ -103,10 +151,13 @@ const TodaysRunConnected = connect(mapState)(TodaysRun);
 
 export default compose(
   graphql(todaysRunQuery, { options: { variables: { today: today } } }),
-  graphql(addRouteMutation)
+  graphql(updateParticipantMutation, { name: 'updateParticipant' })
 )(TodaysRunConnected);
 
 /**
  * PROP TYPES
  */
-TodaysRun.propTypes = { user: PropTypes.object };
+TodaysRun.propTypes = {
+  user: PropTypes.object,
+  updateParticipant: PropTypes.func.isRequired,
+};
