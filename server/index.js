@@ -1,7 +1,6 @@
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import schema from './graphql/schema';
 import { Engine } from 'apollo-engine';
-import graphql from 'graphql';
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
@@ -76,17 +75,25 @@ const createApp = () => {
 
   // auth and api routes
   app.use('/auth', require('./auth'));
-  // app.use('/api', require('./api'));
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
   // GraphQL setup
-  app.use('/graphql', bodyParser.json(), graphqlExpress(req => ({
-    schema,
-    tracing: true,
-    cacheControl: true,
-  })));
+  // const getUserFromRequest = req => req.user;
+
+  app.use('/graphql', bodyParser.json(), graphqlExpress(req => {
+    // const userForThisRequest = getUserFromRequest(req);
+
+    return {
+      schema,
+      tracing: true,
+      cacheControl: true,
+      // context: { user: userForThisRequest },
+      context: { user: req.user },
+    };
+  }
+  ));
 
   app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 

@@ -3,6 +3,7 @@ import resolvers from './resolvers';
 
 const typeDefs = `
 type Query {
+  me: User
   user(id: Int): User
   allUsers: [User]
   run(date: String): Run
