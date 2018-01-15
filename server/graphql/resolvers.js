@@ -3,17 +3,25 @@ import _ from 'lodash';
 
 const resolvers = {
   Query: {
-    user(_, args) {
-      return User.findById(args.id);
+    user(_, args, context) {
+      console.log('!@!@!@!!@!@!@@~!~!', context.user);
+      if (context.user) return User.findById(args.id);
+      throw new Error('Not authorized');
     },
-    allUsers(_, args) {
-      return User.findAll();
+    allUsers(_, args, context) {
+      console.log('!@!@!@!!@!@!@@~!~!', context.user);
+      if (context.user) return User.findAll();
+      throw new Error('Not authorized');
     },
-    run(_, args) {
-      return Run.find({ where: args });
+    run(_, args, context) {
+      console.log('!@!@!@!!@!@!@@~!~!', context.user);
+      if (context.user) return Run.find({ where: args });
+      throw new Error('Not authorized');
     },
-    allRoutes(_, args) {
-      return Route.findAll();
+    allRoutes(_, args, context) {
+      console.log('!@!@!@!!@!@!@@~!~!', context.user);
+      if (context.user) return Route.findAll();
+      throw new Error('Not authorized');
     },
   },
   Mutation: {

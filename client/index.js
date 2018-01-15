@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 const client = new ApolloClient({
-  link: new HttpLink(),
+  link: new HttpLink({ credentials: 'same-origin' }),
   cache: new InMemoryCache(),
 });
 
