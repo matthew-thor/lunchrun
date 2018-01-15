@@ -46,7 +46,7 @@ const resolvers = {
         }
         else { throw new Error('Are you in or out?!'); }
       }
-      else { console.log('Not authorized'); }
+      else { throw new Error('Not authorized'); }
     },
   },
   Run: {
