@@ -10,8 +10,6 @@
 @import "../public/cover.css";
 
 body {
-  // font-family: 'Roboto', sans-serif;
-
   a {
     text-decoration: none;
   }
@@ -21,14 +19,36 @@ body {
   }
 }
 
-.auth-form {
+div.todays-run {
+  span.spacer {
+    margin: 10px;
+  }
+
+  form {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  label.col-form-label {
+    text-align: right;
+  }
+}
+
+div.landing {
+  span.spacer {
+    margin: 10px;
+  }
+}
+
+form.auth-form {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
-}
 
-.col-form-label {
-  text-align: left;
+  label.col-form-label {
+    text-align: left;
+  }
 }
 
 .bg-dark {
@@ -55,8 +75,4 @@ body {
 .nav-item {
   font-size: 20px;
   font-family: 'Saira', sans-serif;
-}
-
-.spacer {
-  margin: 10px;
 }
