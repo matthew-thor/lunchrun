@@ -32,8 +32,8 @@ const resolvers = {
     },
     updateParticipant: async (_, args, context) => {
       if (context.user && (context.user.id === args.userId || context.user.admin)) {
-        const run = await Run.findById(args.runId);
         if (args.type === 'in') {
+          const run = await Run.findById(args.runId);
           await run.addParticipant(args.userId);
           return Participant.findOne({
             where: {
@@ -42,7 +42,16 @@ const resolvers = {
           });
         }
         else if (args.type === 'out') {
+          const run = await Run.findById(args.runId);
           return run.removeParticipant(args.userId);
+        }
+        else if (args.type === 'comment') {
+          const participant = await Participant.findOne({
+            where: {
+              runId: args.runId, userId: args.userId,
+            },
+          });
+          return participant.update({ comment: args.comment });
         }
         else { throw new Error('Are you in or out?!'); }
       }

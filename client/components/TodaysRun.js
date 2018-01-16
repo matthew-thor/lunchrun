@@ -56,38 +56,14 @@ const TodaysRun = ({
   data: { loading, error, run },
   updateParticipant,
 }) => {
-  /** EXAMPLE EVENT HANDLER
-   const handleKeyUp = async event => {
-     event.preventDefault();
-     if (event.keyCode === 13) {
-       event.persist();
-       await mutate({
-         variables: { name: event.target.value },
-         refetchQueries: [{
-           query: todaysRunQuery,
-           variables: { today: today },
-          }],
-        });
-        event.target.value = '';
-      }
-    };
-
-    JSX:
-    <input
-    type="text"
-    placeholder="New route"
-    onKeyUp={handleKeyUp}
-    />
-    */
   const handleMouseUp = event => {
     event.preventDefault();
-    event.persist();
     updateParticipant({
       variables: {
         userId: user.id,
         runId: run.id,
         type: event.target.name,
-        comment: event.target.value,
+        // comment: event.target.value,
       },
       refetchQueries: [{ // change this to use update and optimisticResponse
         query: todaysRunQuery,
@@ -111,6 +87,27 @@ const TodaysRun = ({
     });
   };
 
+  const handleSubmit = event => {
+    event.preventDefault();
+    updateParticipant({
+      variables: {
+        userId: user.id,
+        runId: run.id,
+        type: 'comment',
+        comment: event.target.comment.value,
+      },
+      refetchQueries: [{ // change this to use update and optimisticResponse
+        query: todaysRunQuery,
+        variables: { today: today },
+      }],
+    });
+    event.target.comment.value = '';
+  };
+
+  const handleClick = event => {
+    // event.preventDefault();
+  }
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -121,23 +118,64 @@ const TodaysRun = ({
   const route = run.route || null;
 
   return (
-    <div>
+    <div className="todays-run">
       <div className="route-title">
         <h3>Today's route: {route ? route.name : 'TBA'}</h3>
       </div>
       <div className="start-time">
-        <h3>Start time: {run.startTime}</h3>
+        <h3>Start time: {run.startTime.slice(0, -3)}</h3>
       </div>
       <div className="participants">
         <h3>Who's in?</h3>
-        <ul> {run.participants.map(u => <li key={u.userId}>{u.user.fullName}</li>)}</ul>
+        <ul>
+          {
+            run.participants.map(u => {
+              const comment = u.comment ? ' - ' + u.comment : null;
+              return (<li key={u.userId}>
+                {u.user.fullName}{comment}
+              </li>);
+            })
+          }
+        </ul>
       </div>
-      <button name="in" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
-        I'm in!
+      {run.participants.find(p => p.userId === user.id) &&
+        <div>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group row justify-content-center">
+              <label className="col-sm-3 col-form-label" htmlFor="comment">
+                Put a note in here:
+              </label>
+              <div className="col-sm-6">
+                <input
+                  name="comment"
+                  className="form-control"
+                  type="text"
+                  placeholder="Doing a workout? Going to be late?" />
+              </div>
+              <div className="col-sm-1">
+                <button type="submit" className="btn btn-md btn-default">
+                  Submit
+                </button>
+              </div>
+              {run.participants.find(p => (p.userId === user.id && p.comment)) &&
+                <div className="col-sm-2">
+                  <button className="btn btn-md btn-danger" onClick={handleClick}>
+                    Remove
+                  </button>
+                </div>
+              }
+            </div>
+          </form>
+          <button name="out" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
+            I'm out
+          </button>
+        </div>
+      }
+      {!run.participants.find(p => p.userId === user.id) &&
+        <button name="in" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
+          I'm in!
         </button>
-      <button name="out" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
-        I'm out
-        </button>
+      }
     </div>
   );
 };
