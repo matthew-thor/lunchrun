@@ -2,58 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import moment from 'moment-timezone';
-import { TodaysRunAdmin } from '../components';
+import { todaysRunQuery } from '../queries';
+import { updateParticipantMutation } from '../mutations';
 
 const today = moment(new Date()).format('YYYY-MM-DD');
-
-/**
- * QUERIES
- */
-const todaysRunQuery = gql`
-  query TodaysRunQuery($today: String!) {
-    run(date: $today) {
-      id
-      date
-      startTime
-      route {
-        name
-      }
-      participants {
-        userId
-        comment
-        user {
-          email
-          fullName
-        }
-      }
-    }
-  }
-`;
-
-/**
- * MUTATIONS
- */
-const updateParticipantMutation = gql`
-  mutation updateParticipant(
-    $userId: Int!,
-    $runId: Int!,
-    $type: String!,
-    $comment: String
-  ) {
-    updateParticipant(
-      userId: $userId,
-      runId: $runId,
-      type: $type,
-      comment: $comment
-    ) {
-      userId
-      runId
-      comment
-    }
-  }
-`;
 
 /**
  * COMPONENT
