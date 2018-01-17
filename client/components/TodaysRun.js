@@ -8,6 +8,9 @@ import { TodaysRunAdmin } from '../components';
 
 const today = moment(new Date()).format('YYYY-MM-DD');
 
+/**
+ * QUERIES
+ */
 const todaysRunQuery = gql`
   query TodaysRunQuery($today: String!) {
     run(date: $today) {
@@ -29,6 +32,9 @@ const todaysRunQuery = gql`
   }
 `;
 
+/**
+ * MUTATIONS
+ */
 const updateParticipantMutation = gql`
   mutation updateParticipant(
     $userId: Int!,
@@ -64,7 +70,6 @@ const TodaysRun = ({
         userId: user.id,
         runId: run.id,
         type: event.target.name,
-        // comment: event.target.value,
       },
       refetchQueries: [{ // change this to use update and optimisticResponse
         query: todaysRunQuery,
@@ -173,7 +178,6 @@ const TodaysRun = ({
           I'm in!
         </button>
       }
-      {user.admin && <TodaysRunAdmin today={today} />}
     </div>
   );
 };

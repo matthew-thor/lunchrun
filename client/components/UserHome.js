@@ -12,7 +12,10 @@ export const UserHome = (props) => {
   return (
     <div>
       <h3>Hey, {user.firstName}!</h3>
-      <TodaysRun />
+      {user.admin
+        ? <TodaysRunAdmin />
+        : <TodaysRun />
+      }
     </div>
   );
 };

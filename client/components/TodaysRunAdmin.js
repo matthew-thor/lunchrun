@@ -10,7 +10,7 @@ const today = moment(new Date()).format('YYYY-MM-DD');
 /**
  * QUERIES
  */
-const adminRunOptionsQuery = gql`
+const todaysRunAdminQuery = gql`
   query TodaysRunAdminQuery($today: String!) {
     allRoutes {
       id
@@ -21,8 +21,40 @@ const adminRunOptionsQuery = gql`
       date
       startTime
       route {
+        id
         name
       }
+      participants {
+        userId
+        comment
+        user {
+          email
+          fullName
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * MUTATIONS
+ */
+const updateParticipantMutation = gql`
+  mutation updateParticipant(
+    $userId: Int!,
+    $runId: Int!,
+    $type: String!,
+    $comment: String
+  ) {
+    updateParticipant(
+      userId: $userId,
+      runId: $runId,
+      type: $type,
+      comment: $comment
+    ) {
+      userId
+      runId
+      comment
     }
   }
 `;
@@ -32,8 +64,13 @@ const adminRunOptionsQuery = gql`
  */
 export const TodaysRunAdmin = ({
   user,
-  data: { loading, error, run, allRoutes }
+  data: { loading, error, run, allRoutes },
+  updateParticipant,
 }) => {
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log(event.target['start-time'].placeholder);
+  }
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -42,27 +79,47 @@ export const TodaysRunAdmin = ({
     return <p>{error.message}</p>;
   }
 
+  const route = run.route || null;
+
   return (
-    <div className="container admin-run-options">
-      <div className="row justify-content-center">
-        <h3>Admin options:</h3>
-      </div>
-      <div className="row justify-content-center">
+    <form className="container todays-run-admin" onSubmit={handleSubmit}>
+      <div className="route-title row justify-content-center">
         <div className="col-sm-6 left-col">
-          Set route:
+          <h3>Today's route:</h3>
         </div>
         <div className="col-sm-6 right-col">
-          <select className="route-select" defaultValue="default">
-            <option disabled="true" value="default">Select route</option>
+          <select className="route-select" defaultValue={route.name || 'default'}>
+            {!route &&
+              <option disabled="true" value="default">Select route</option>
+            }
             {
-              allRoutes.map(r => (
-                <option key={r.id} value={r.name}>{r.name}</option>
-              ))
+              allRoutes.map(r => {
+                if (route && r.id === route.id) {
+                  return (<option key={r.id} value={r.name}>{r.name}</option>);
+                }
+                else {
+                  return (<option key={r.id} value={r.name}>{r.name}</option>);
+                }
+              })
             }
           </select>
         </div>
       </div>
-    </div>
+      <div className="start-time row">
+        <div className="col-sm-6 left-col">
+          <h3>Start time:</h3>
+        </div>
+        <div className="col-sm-6 right-col">
+          <input
+            name="start-time"
+            type="text"
+            className="form-control"
+            placeholder={run.startTime ? run.startTime.slice(0, -3) : 'TBA'}
+          />
+        </div>
+      </div>
+      <button type="submit" className="btn btn-lg btn-default">Save changes</button>
+    </form>
   );
 };
 
@@ -74,10 +131,14 @@ const mapState = state => ({ user: state.user });
 const TodaysRunAdminConnected = connect(mapState)(TodaysRunAdmin);
 
 export default compose(
-  graphql(adminRunOptionsQuery, { options: { variables: { today: today } } })
+  graphql(todaysRunAdminQuery, { options: { variables: { today: today } } }),
+  graphql(updateParticipantMutation, { name: 'updateParticipant' })
 )(TodaysRunAdminConnected);
 
 /**
  * PROP TYPES
  */
-TodaysRunAdmin.propTypes = { user: PropTypes.object };
+TodaysRunAdmin.propTypes = {
+  user: PropTypes.object,
+  updateParticipant: PropTypes.func.isRequired,
+};
