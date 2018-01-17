@@ -57,6 +57,11 @@ const resolvers = {
       }
       else { throw new Error('Not authorized'); }
     },
+    updateRun: async (_, args, context, info) => {
+      if (!(context.user && context.user.admin)) throw new Error('Not authorized');
+      const run = await Run.findById(args.runId);
+      return run.update(args);
+    },
   },
   Run: {
     participants: run => Participant.findAll({ where: { runId: run.id } }),

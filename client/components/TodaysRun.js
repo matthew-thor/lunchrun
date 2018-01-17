@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import moment from 'moment-timezone';
+import { TodaysRunAdmin } from '../components';
 
 const today = moment(new Date()).format('YYYY-MM-DD');
 
+/**
+ * QUERIES
+ */
 const todaysRunQuery = gql`
-  query LandingQuery($today: String!) {
+  query TodaysRunQuery($today: String!) {
     run(date: $today) {
       id
       date
@@ -28,6 +32,9 @@ const todaysRunQuery = gql`
   }
 `;
 
+/**
+ * MUTATIONS
+ */
 const updateParticipantMutation = gql`
   mutation updateParticipant(
     $userId: Int!,
@@ -63,7 +70,6 @@ const TodaysRun = ({
         userId: user.id,
         runId: run.id,
         type: event.target.name,
-        // comment: event.target.value,
       },
       refetchQueries: [{ // change this to use update and optimisticResponse
         query: todaysRunQuery,
@@ -103,10 +109,6 @@ const TodaysRun = ({
     });
     event.target.comment.value = '';
   };
-
-  const handleClick = event => {
-    // event.preventDefault();
-  }
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -159,7 +161,7 @@ const TodaysRun = ({
               </div>
               {run.participants.find(p => (p.userId === user.id && p.comment)) &&
                 <div className="col-sm-2">
-                  <button className="btn btn-md btn-danger" onClick={handleClick}>
+                  <button className="btn btn-md btn-danger">
                     Remove
                   </button>
                 </div>

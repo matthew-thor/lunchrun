@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { TodaysRun, AdminRunOptions } from '../components';
+import { TodaysRun, TodaysRunAdmin } from '../components';
 
 /**
  * COMPONENT
@@ -12,8 +12,10 @@ export const UserHome = (props) => {
   return (
     <div>
       <h3>Hey, {user.firstName}!</h3>
-      <TodaysRun />
-      {user.admin && <AdminRunOptions />}
+      {user.admin
+        ? <TodaysRunAdmin />
+        : <TodaysRun />
+      }
     </div>
   );
 };

@@ -51,6 +51,23 @@ form.auth-form {
   }
 }
 
+form.todays-run-admin {
+  div.left-col {
+    text-align: right;
+  }
+
+  div.right-col {
+    text-align: left;
+  }
+
+  div.modal {
+    top: 20%;
+    color: #5cb85c;
+    font-size: 1.5em;
+    text-shadow: none;
+  }
+}
+
 .bg-dark {
   background-color: rgba(69, 69, 76, 0.86) !important;
 }
