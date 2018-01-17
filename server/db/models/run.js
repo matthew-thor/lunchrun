@@ -37,6 +37,3 @@ module.exports = Run;
 /**
  * hooks
  */
-Run.afterCreate(async (run, options) => {
-  await run.setRoute(1);
-});

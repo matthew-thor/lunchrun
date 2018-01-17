@@ -123,7 +123,7 @@ const TodaysRun = ({
         <h3>Today's route: {route ? route.name : 'TBA'}</h3>
       </div>
       <div className="start-time">
-        <h3>Start time: {run.startTime.slice(0, -3)}</h3>
+        <h3>Start time: {run.startTime ? run.startTime.slice(0, -3) : 'TBA'}</h3>
       </div>
       <div className="participants">
         <h3>Who's in?</h3>
