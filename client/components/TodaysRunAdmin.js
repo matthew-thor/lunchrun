@@ -4,76 +4,10 @@ import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import moment from 'moment-timezone';
+import { todaysRunAdminQuery } from '../queries';
+import { updateRunMutation } from '../mutations';
 
 const today = moment(new Date()).format('YYYY-MM-DD');
-
-/**
- * QUERIES
- */
-const todaysRunAdminQuery = gql`
-  query TodaysRunAdminQuery($today: String!) {
-    allRoutes {
-      id
-      name
-    }
-    run(date: $today) {
-      id
-      date
-      startTime
-      route {
-        id
-        name
-      }
-      participants {
-        userId
-        comment
-        user {
-          email
-          fullName
-        }
-      }
-    }
-  }
-`;
-
-/**
- * MUTATIONS
- */
-const updateParticipantMutation = gql`
-  mutation updateParticipant(
-    $userId: Int!,
-    $runId: Int!,
-    $type: String!,
-    $comment: String
-  ) {
-    updateParticipant(
-      userId: $userId,
-      runId: $runId,
-      type: $type,
-      comment: $comment
-    ) {
-      userId
-      runId
-      comment
-    }
-  }
-`;
-
-const updateRunMutation = gql`
-  mutation updateRun(
-    $runId: Int!,
-    $startTime: String!,
-    $routeId: Int!
-  ) {
-    updateRun(
-      runId: $runId,
-      startTime: $startTime,
-      routeId: $routeId
-    ) {
-      startTime
-    }
-  }
-`;
 
 /**
  * COMPONENT
@@ -181,7 +115,6 @@ const TodaysRunAdminConnected = connect(mapState)(TodaysRunAdmin);
 
 export default compose(
   graphql(todaysRunAdminQuery, { options: { variables: { today: today } } }),
-  graphql(updateParticipantMutation, { name: 'updateParticipant' }),
   graphql(updateRunMutation, { name: 'updateRun' })
 )(TodaysRunAdminConnected);
 
@@ -190,6 +123,5 @@ export default compose(
  */
 TodaysRunAdmin.propTypes = {
   user: PropTypes.object,
-  updateParticipant: PropTypes.func.isRequired,
   updateRun: PropTypes.func.isRequired,
 };
