@@ -3,32 +3,32 @@ import _ from 'lodash';
 
 const resolvers = {
   Query: {
-    me(_, args, context) {
+    me: (_, args, context) => {
       if (context.user) return User.findById(context.user.id);
       else return {};
     },
-    user(_, args, context) {
-      if (context.user) return User.findById(args.id);
-      throw new Error('Not authorized');
+    user: (_, args, context) => {
+      if (!context.user) throw new Error('Not authorized');
+      return User.findById(args.id);
     },
-    allUsers(_, args, context) {
-      if (context.user) return User.findAll();
-      throw new Error('Not authorized');
+    allUsers: (_, args, context) => {
+      if (!context.user) throw new Error('Not authorized');
+      return User.findAll();
     },
-    run(_, args, context) {
-      if (context.user) return Run.find({ where: args });
-      throw new Error('Not authorized');
+    run: async (_, args, context) => {
+      if (!context.user) throw new Error('Not authorized');
+      const run = await Run.findOrCreate({ where: args });
+      return run[0];
     },
-    allRoutes(_, args, context) {
-      if (context.user) return Route.findAll();
-      throw new Error('Not authorized');
+    allRoutes: (_, args, context) => {
+      if (!context.user) throw new Error('Not authorized');
+      return Route.findAll();
     },
   },
   Mutation: {
     addRoute: (_, args, context) => {
-      if (context.user && context.user.admin) {
-        return Route.create({ name: args.name });
-      }
+      if (!(context.user && context.user.admin)) throw new Error('Not authorized');
+      return Route.create({ name: args.name });
     },
     updateParticipant: async (_, args, context) => {
       if (context.user && (context.user.id === args.userId || context.user.admin)) {
