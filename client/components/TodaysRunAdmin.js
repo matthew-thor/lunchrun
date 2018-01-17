@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import moment from 'moment-timezone';
 import { todaysRunAdminQuery } from '../queries';
 import { updateRunMutation } from '../mutations';
+import { Participants } from '../components';
 
 const today = moment(new Date()).format('YYYY-MM-DD');
 
@@ -53,55 +54,59 @@ const TodaysRunAdmin = ({
   const route = run.route || null;
 
   return (
-    <form className="container todays-run-admin" onSubmit={handleSubmit}>
-      <div className="modal fade success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-sm">
-          <div className="modal-content">
-            <br /><span><i className="fas fa-check" /> Changes saved</span><br />
+    <div className="container todays-run-admin">
+      <form onSubmit={handleSubmit}>
+        <div className="modal fade success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-sm">
+            <div className="modal-content">
+              <br /><span><i className="fa fa-check" /> Changes saved</span><br />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="route-title row justify-content-center">
-        <div className="col-sm-6 left-col">
-          <h3>Today's route:</h3>
+        <div className="route-title row justify-content-center">
+          <div className="col-sm-6 left-col">
+            <h3>Today's route:</h3>
+          </div>
+          <div className="col-sm-6 right-col">
+            <select
+              name="route-select"
+              className="route-select form-control"
+              defaultValue={route ? route.name : 'default'}
+            >
+              {!route &&
+                <option disabled="true" value="default">Select route</option>
+              }
+              {
+                allRoutes.map(r => {
+                  if (route && r.id === route.id) {
+                    return (<option key={r.id} value={r.name}>{r.name}</option>);
+                  }
+                  else {
+                    return (<option key={r.id} value={r.name}>{r.name}</option>);
+                  }
+                })
+              }
+            </select>
+          </div>
         </div>
-        <div className="col-sm-6 right-col">
-          <select
-            name="route-select"
-            className="route-select form-control"
-            defaultValue={route ? route.name : 'default'}
-          >
-            {!route &&
-              <option disabled="true" value="default">Select route</option>
-            }
-            {
-              allRoutes.map(r => {
-                if (route && r.id === route.id) {
-                  return (<option key={r.id} value={r.name}>{r.name}</option>);
-                }
-                else {
-                  return (<option key={r.id} value={r.name}>{r.name}</option>);
-                }
-              })
-            }
-          </select>
+        <div className="start-time row">
+          <div className="col-sm-6 left-col">
+            <h3>Start time:</h3>
+          </div>
+          <div className="col-sm-6 right-col">
+            <input
+              name="start-time"
+              type="text"
+              className="form-control"
+              placeholder={run.startTime ? run.startTime.slice(0, -3) : 'TBA'}
+            />
+          </div>
         </div>
-      </div>
-      <div className="start-time row">
-        <div className="col-sm-6 left-col">
-          <h3>Start time:</h3>
-        </div>
-        <div className="col-sm-6 right-col">
-          <input
-            name="start-time"
-            type="text"
-            className="form-control"
-            placeholder={run.startTime ? run.startTime.slice(0, -3) : 'TBA'}
-          />
-        </div>
-      </div>
-      <button type="submit" className="btn btn-lg btn-default" data-toggle="modal" data-target=".success-modal">Save changes</button>
-    </form>
+        <button type="submit" className="btn btn-lg btn-default" data-toggle="modal" data-target=".success-modal">Save changes</button>
+      </form>
+      <br /><br />
+      <Participants />
+    </div>
   );
 };
 
