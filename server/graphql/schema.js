@@ -19,6 +19,11 @@ type Mutation {
     type: String!,
     comment: String
   ): Participant
+  updateRun(
+    runId: Int!,
+    startTime: String!,
+    routeId: Int!
+  ): Run
 }
 
 type Run {

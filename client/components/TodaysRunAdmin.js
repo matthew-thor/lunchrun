@@ -59,19 +59,31 @@ const updateParticipantMutation = gql`
   }
 `;
 
+const updateRunMutation = gql`
+  mutation updateRun(
+    $runId: Int!,
+    $startTime: String!,
+    $routeId: Int!
+  ) {
+    updateRun(
+      runId: $runId,
+      startTime: $startTime,
+      routeId: $routeId
+    ) {
+      startTime
+    }
+  }
+`;
+
 /**
  * COMPONENT
  */
-export const TodaysRunAdmin = ({
+const TodaysRunAdmin = ({
   user,
   data: { loading, error, run, allRoutes },
   updateParticipant,
+  updateRun,
 }) => {
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(event.target['start-time'].placeholder);
-  }
-
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -79,16 +91,52 @@ export const TodaysRunAdmin = ({
     return <p>{error.message}</p>;
   }
 
+  const displaySuccessMessage = () => {
+    const modal = $('.success-modal');
+    modal.modal({ focus: true });
+    setTimeout(() => { modal.modal('toggle'); }, 1300);
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const routeId = event.target['route-select'].value === 'default'
+      ? null
+      : allRoutes.find(r => r.name === event.target['route-select'].value).id;
+    const res = await updateRun({
+      variables: {
+        runId: run.id,
+        startTime: event.target['start-time'].value || event.target['start-time'].placeholder,
+        routeId: routeId,
+      },
+      refetchQueries: [{ // change this to use update and optimisticResponse
+        query: todaysRunAdminQuery,
+        variables: { today: today },
+      }],
+    });
+    if (res.data) displaySuccessMessage();
+  };
+
   const route = run.route || null;
 
   return (
     <form className="container todays-run-admin" onSubmit={handleSubmit}>
+      <div className="modal fade success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-sm">
+          <div className="modal-content">
+            <br /><span><i className="fas fa-check" /> Changes saved</span><br />
+          </div>
+        </div>
+      </div>
       <div className="route-title row justify-content-center">
         <div className="col-sm-6 left-col">
           <h3>Today's route:</h3>
         </div>
         <div className="col-sm-6 right-col">
-          <select className="route-select" defaultValue={route.name || 'default'}>
+          <select
+            name="route-select"
+            className="route-select form-control"
+            defaultValue={route ? route.name : 'default'}
+          >
             {!route &&
               <option disabled="true" value="default">Select route</option>
             }
@@ -118,10 +166,11 @@ export const TodaysRunAdmin = ({
           />
         </div>
       </div>
-      <button type="submit" className="btn btn-lg btn-default">Save changes</button>
+      <button type="submit" className="btn btn-lg btn-default" data-toggle="modal" data-target=".success-modal">Save changes</button>
     </form>
   );
 };
+
 
 /**
  * CONTAINER
@@ -132,7 +181,8 @@ const TodaysRunAdminConnected = connect(mapState)(TodaysRunAdmin);
 
 export default compose(
   graphql(todaysRunAdminQuery, { options: { variables: { today: today } } }),
-  graphql(updateParticipantMutation, { name: 'updateParticipant' })
+  graphql(updateParticipantMutation, { name: 'updateParticipant' }),
+  graphql(updateRunMutation, { name: 'updateRun' })
 )(TodaysRunAdminConnected);
 
 /**
@@ -141,4 +191,5 @@ export default compose(
 TodaysRunAdmin.propTypes = {
   user: PropTypes.object,
   updateParticipant: PropTypes.func.isRequired,
+  updateRun: PropTypes.func.isRequired,
 };
