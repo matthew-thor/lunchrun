@@ -45,7 +45,13 @@ const TodaysRunAdmin = ({
       },
       refetchQueries: [{ // change this to use update and optimisticResponse
         query: todaysRunAdminQuery,
-        variables: { today: today },
+        variables: {
+          today: today,
+          /**
+           * groupId needs to be changed laterto reflect actual group
+           */
+          groupId: 1,
+        },
       }],
     });
     if (res.data) displaySuccessMessage();
@@ -124,7 +130,7 @@ export default compose(
       variables: {
         today: today,
         /**
-         * groupId needs to be changed later to reflect actual group
+         * groupId needs to be changed laterto reflect actual group
          */
         groupId: 1,
       },
