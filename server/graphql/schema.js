@@ -4,7 +4,8 @@ import resolvers from './resolvers';
 const typeDefs = `
 type Query {
   me: User
-  user(id: Int): User
+  group(id: Int!): Group
+  user(id: Int!): User
   allUsers: [User]
   run(date: String): Run
   allRoutes: [Route]
@@ -26,25 +27,37 @@ type Mutation {
   ): Run
 }
 
-type Run {
+type Group {
   id: Int
-  date: String
-  startTime: String
-  route: Route
-  participants: [Participant]
+  name: String
+  admins: [User]
+  routes: [Route]
 }
 
 type User {
   id: Int
   fullName: String
+  firstName: String
+  lastName: String
   email: String
   admin: Boolean
+  groups: [Group]
 }
 
 type Route {
   id: Int
   name: String
   map: String
+}
+
+type Run {
+  id: Int
+  group: Group
+  date: String
+  startTime: String
+  route: Route
+  participants: [Participant]
+  admins: [User]
 }
 
 type Participant {

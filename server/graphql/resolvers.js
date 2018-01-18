@@ -1,4 +1,4 @@
-import { User, Run, Route, Participant } from './connectors';
+import { User, Run, Route, Participant, Group } from './connectors';
 import _ from 'lodash';
 
 const resolvers = {
@@ -10,6 +10,10 @@ const resolvers = {
     user: (_, args, context) => {
       if (!context.user) throw new Error('Not authorized');
       return User.findById(args.id);
+    },
+    group: (_, args, context) => {
+      if (!context.user) throw new Error('Not authorized');
+      return Group.findById(args.id);
     },
     allUsers: (_, args, context) => {
       if (!context.user) throw new Error('Not authorized');
@@ -63,16 +67,23 @@ const resolvers = {
       return run.update(args);
     },
   },
+  Group: {
+    admins: group => group.getAdmins(),
+    routes: group => group.getRoutes(),
+  },
+  User: {
+    groups: user => user.getGroups(),
+  },
   Run: {
+    // set up this way to allow for comments
     participants: run => Participant.findAll({ where: { runId: run.id } }),
-    route: run => {
-      return Route.findById(run.routeId);
-    },
+    group: run => run.getGroup(),
+    route: run => Route.findById(run.routeId),
+    admins: run => run.getAdmins(),
   },
   Participant: {
-    user: participant => {
-      return User.findById(participant.userId);
-    },
+    // set up this way to allow for comments
+    user: participant => User.findById(participant.userId),
   },
 };
 
