@@ -12,7 +12,7 @@
     "deploy": "script/deploy",
     "lint": "eslint ./ --ignore-path .gitignore",
     "postinstall": "touch secrets.js",
-    "seed": "nodemon script/seed.js --exec babel-node",
+    "seed": "nodemon script/seed/index.js --exec babel-node",
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public --exec babel-node",

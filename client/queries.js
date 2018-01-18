@@ -12,6 +12,10 @@ export const participantsQuery = gql`
           fullName
         }
       }
+      admins {
+        id
+        fullName
+      }
     }
   }
 `;
@@ -33,15 +37,25 @@ export const todaysRunQuery = gql`
           fullName
         }
       }
+      admins {
+        id
+      }
     }
   }
 `;
 
 export const todaysRunAdminQuery = gql`
-query TodaysRunAdminQuery($today: String!) {
-  allRoutes {
+query TodaysRunAdminQuery(
+  $today: String!,
+  $groupId: Int!,
+) {
+  group(id: $groupId) {
     id
     name
+    routes {
+      id
+      name
+    }
   }
   run(date: $today) {
     id
@@ -58,6 +72,9 @@ query TodaysRunAdminQuery($today: String!) {
         email
         fullName
       }
+    }
+    admins {
+      id
     }
   }
 }

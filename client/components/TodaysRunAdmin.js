@@ -15,7 +15,7 @@ const today = moment(new Date()).format('YYYY-MM-DD');
  */
 const TodaysRunAdmin = ({
   user,
-  data: { loading, error, run, allRoutes },
+  data: { loading, error, run, group },
   updateParticipant,
   updateRun,
 }) => {
@@ -36,7 +36,7 @@ const TodaysRunAdmin = ({
     event.preventDefault();
     const routeId = event.target['route-select'].value === 'default'
       ? null
-      : allRoutes.find(r => r.name === event.target['route-select'].value).id;
+      : group.routes.find(r => r.name === event.target['route-select'].value).id;
     const res = await updateRun({
       variables: {
         runId: run.id,
@@ -45,7 +45,13 @@ const TodaysRunAdmin = ({
       },
       refetchQueries: [{ // change this to use update and optimisticResponse
         query: todaysRunAdminQuery,
-        variables: { today: today },
+        variables: {
+          today: today,
+          /**
+           * groupId needs to be changed laterto reflect actual group
+           */
+          groupId: 1,
+        },
       }],
     });
     if (res.data) displaySuccessMessage();
@@ -77,7 +83,7 @@ const TodaysRunAdmin = ({
                 <option disabled="true" value="default">Select route</option>
               }
               {
-                allRoutes.map(r => {
+                group.routes.map(r => {
                   if (route && r.id === route.id) {
                     return (<option key={r.id} value={r.name}>{r.name}</option>);
                   }
@@ -119,7 +125,17 @@ const mapState = state => ({ user: state.user });
 const TodaysRunAdminConnected = connect(mapState)(TodaysRunAdmin);
 
 export default compose(
-  graphql(todaysRunAdminQuery, { options: { variables: { today: today } } }),
+  graphql(todaysRunAdminQuery, {
+    options: {
+      variables: {
+        today: today,
+        /**
+         * groupId needs to be changed laterto reflect actual group
+         */
+        groupId: 1,
+      },
+    },
+  }),
   graphql(updateRunMutation, { name: 'updateRun' })
 )(TodaysRunAdminConnected);
 
