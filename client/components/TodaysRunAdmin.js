@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import moment from 'moment-timezone';
 import { todaysRunAdminQuery } from '../queries';
 import { updateRunMutation } from '../mutations';
 import { Participants } from '../components';
+
+/**
+ * groupId needs to be changed later to reflect actual group
+ */
+const groupId = 1;
 
 const today = moment(new Date()).format('YYYY-MM-DD');
 
@@ -16,7 +20,6 @@ const today = moment(new Date()).format('YYYY-MM-DD');
 const TodaysRunAdmin = ({
   user,
   data: { loading, error, run, group },
-  updateParticipant,
   updateRun,
 }) => {
   if (loading) {
@@ -48,9 +51,9 @@ const TodaysRunAdmin = ({
         variables: {
           today: today,
           /**
-           * groupId needs to be changed laterto reflect actual group
+           * groupId needs to be changed later to reflect actual group
            */
-          groupId: 1,
+          groupId: groupId,
         },
       }],
     });
@@ -130,13 +133,13 @@ export default compose(
       variables: {
         today: today,
         /**
-         * groupId needs to be changed laterto reflect actual group
+         * groupId needs to be changed later to reflect actual group
          */
-        groupId: 1,
+        groupId: groupId,
       },
     },
   }),
-  graphql(updateRunMutation, { name: 'updateRun' })
+  graphql(updateRunMutation, { name: 'updateRun' }),
 )(TodaysRunAdminConnected);
 
 /**
