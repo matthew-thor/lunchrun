@@ -9,7 +9,8 @@ const Run = db.define('run', {
     defaultValue: new Date(),
   },
   startTime: {
-    type: Sequelize.TIME,
+    type: Sequelize.STRING,
+    defaultValue: 'TBA',
   },
 });
 

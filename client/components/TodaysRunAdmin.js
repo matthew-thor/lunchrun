@@ -40,11 +40,14 @@ const TodaysRunAdmin = ({
     const routeId = event.target['route-select'].value === 'default'
       ? null
       : group.routes.find(r => r.name === event.target['route-select'].value).id;
+    // const startTime = event.target['start-time'].placeholder === 'TBA'
+    //   ? 'TBA'
+    //   : event.target['start-time'].value || event.target['start-time'].placeholder;
     const res = await updateRun({
       variables: {
         runId: run.id,
         startTime: event.target['start-time'].value || event.target['start-time'].placeholder,
-        routeId: routeId,
+        routeId,
       },
       refetchQueries: [{ // change this to use update and optimisticResponse
         query: todaysRunAdminQuery,
@@ -105,9 +108,9 @@ const TodaysRunAdmin = ({
           <div className="col-sm-6 right-col">
             <input
               name="start-time"
-              type="text"
+              type="time"
               className="form-control"
-              placeholder={run.startTime ? run.startTime.slice(0, -3) : 'TBA'}
+              defaultValue={run.startTime}
             />
           </div>
         </div>

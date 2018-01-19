@@ -22,8 +22,8 @@ type Mutation {
   ): Participant
   updateRun(
     runId: Int!,
-    startTime: String!,
-    routeId: Int!
+    startTime: String,
+    routeId: Int
   ): Run
 }
 
