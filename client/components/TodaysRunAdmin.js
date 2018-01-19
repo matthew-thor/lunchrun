@@ -40,9 +40,6 @@ const TodaysRunAdmin = ({
     const routeId = event.target['route-select'].value === 'default'
       ? null
       : group.routes.find(r => r.name === event.target['route-select'].value).id;
-    // const startTime = event.target['start-time'].placeholder === 'TBA'
-    //   ? 'TBA'
-    //   : event.target['start-time'].value || event.target['start-time'].placeholder;
     const res = await updateRun({
       variables: {
         runId: run.id,
