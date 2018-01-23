@@ -1,4 +1,4 @@
-import { User, Run, Route, Participant, Group } from './connectors';
+import { User, Run, Route, Participant, Group, Invite } from './connectors';
 import _ from 'lodash';
 
 const resolvers = {
@@ -61,10 +61,22 @@ const resolvers = {
       }
       else { throw new Error('Not authorized'); }
     },
-    updateRun: async (_, args, context, info) => {
+    updateRun: async (_, args, context) => {
       if (!(context.user && context.user.admin)) throw new Error('Not authorized');
       const run = await Run.findById(args.runId);
       return run.update(args);
+    },
+    inviteUser: async (_, args, context) => {
+      const invite = await Invite.findOrCreate({
+        where: {
+          email: args.email,
+          groupId: args.groupId,
+        },
+      });
+
+      if (!invite[1]) { await invite[0].generateNewCode(); }
+
+      return invite[0].sendEmail();
     },
   },
   Group: {

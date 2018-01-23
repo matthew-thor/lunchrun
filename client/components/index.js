@@ -12,3 +12,4 @@ export { default as Account } from './Account';
 export { default as TodaysRun } from './TodaysRun';
 export { default as TodaysRunAdmin } from './TodaysRunAdmin';
 export { default as Participants } from './Participants';
+export { default as Invite } from './Invite';

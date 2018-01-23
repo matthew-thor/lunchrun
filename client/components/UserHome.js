@@ -25,6 +25,7 @@ const UserHome = ({
   }
 
   const isAdmin = group.admins.find(u => u.id === user.id);
+
   return (
     <div>
       <h3>Hey, {user.firstName}!</h3>

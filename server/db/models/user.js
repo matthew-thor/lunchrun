@@ -28,9 +28,6 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING,
   },
-  inviteCode: {
-    type: Sequelize.STRING,
-  },
   admin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,

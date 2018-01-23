@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { accountQuery } from '../queries';
-// import { Invite } from '../components';
+import { Invite } from '../components';
 
 /**
  * groupId needs to be changed later to reflect actual group
@@ -24,10 +24,13 @@ const Account = ({
     return <p>{error.message}</p>;
   }
 
+  const isAdmin = group.admins.find(u => u.id === user.id);
+
   return (
     <div>
       <h3>Name: {user.fullName}</h3>
       <h3>Email: {user.email}</h3>
+      {isAdmin && <Invite groupId={groupId} />}
     </div>
   );
 };

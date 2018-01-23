@@ -10,7 +10,6 @@ import qs from 'query-string';
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
   const { email, gId, invite } = qs.parse(props.location.search);
-  console.log('SEARCH', email, gId, invite);
 
   return (
     <div>
@@ -52,7 +51,8 @@ const AuthForm = props => {
               name="email"
               type="text"
               className="form-control"
-              placeholder="Email" />
+              placeholder="Email"
+              defaultValue={email} />
           </div>
         </div>
         <div className="form-group row">
