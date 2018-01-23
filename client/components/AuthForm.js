@@ -2,12 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
+import qs from 'query-string';
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
+  const { email, gId, invite } = qs.parse(props.location.search);
+  console.log('SEARCH', email, gId, invite);
 
   return (
     <div>

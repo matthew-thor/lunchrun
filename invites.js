@@ -1,4 +1,10 @@
-require('./secrets');
+let siteUrl = 'http://looplunchrun.com';
+
+if (process.env.NODE_ENV !== 'production') {
+  require('./secrets');
+  siteUrl = 'http://localhost:8080';
+}
+
 const voucherCodes = require('voucher-code-generator');
 const nodemailer = require('nodemailer');
 
@@ -13,7 +19,7 @@ const invite = voucherCodes.generate({
 const message = {
   to: toEmail,
   subject: 'Invitation to Lunch Run',
-  html: `<p>Join your friends at <a href='http://looplunchrun.com/${toEmail}/invite?${invite}'>Lunch Run</a>!</p>`,
+  html: `<p>Join your friends at <a href='${siteUrl}/signup?email=${toEmail}&invite=${invite}&gId=${group}'>Lunch Run</a>!</p>`,
   // textEncoding: 'base64',
 };
 

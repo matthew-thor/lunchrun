@@ -28,6 +28,9 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING,
   },
+  inviteCode: {
+    type: Sequelize.STRING,
+  },
   admin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
@@ -35,7 +38,7 @@ const User = db.define('user', {
 }, {
     scopes: {
       noSensitive: {
-        attributes: { exclude: ['password', 'salt', 'googleId'] },
+        attributes: { exclude: ['password', 'salt', 'googleId', 'inviteCode'] },
       },
     },
   });
