@@ -9,20 +9,10 @@ const Run = db.define('run', {
     defaultValue: new Date(),
   },
   startTime: {
-    type: Sequelize.TIME,
+    type: Sequelize.STRING,
+    defaultValue: 'TBA',
   },
-}, {
-    defaultScope: {
-      include: [
-        { model: Route, attributes: ['id'] },
-        {
-          model: User,
-          as: 'participants',
-          attributes: ['id'],
-          through: { attributes: [] }, // gets rid of nested join table
-        }],
-    },
-  });
+});
 
 module.exports = Run;
 
@@ -37,6 +27,8 @@ module.exports = Run;
 /**
  * hooks
  */
-Run.afterCreate(async (run, options) => {
-  await run.setRoute(1);
+Run.afterSave('setDefaultAdmins', async (run, options) => {
+  const group = await run.getGroup();
+  const groupAdmins = await group.getAdmins();
+  return run.addAdmins(groupAdmins);
 });

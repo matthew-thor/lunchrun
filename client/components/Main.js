@@ -15,7 +15,7 @@ const Main = props => {
   const { children, handleClick, isLoggedIn } = props;
 
   return (
-    <div>
+    <div className="container">
       <Navbar isLoggedIn={isLoggedIn} handleClick={handleClick} />
       {children}
     </div>

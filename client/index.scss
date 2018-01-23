@@ -1,5 +1,5 @@
 // Bootstrap main
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
 // Font Awesome
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 // Bootstrap social
@@ -10,8 +10,6 @@
 @import "../public/cover.css";
 
 body {
-  // font-family: 'Roboto', sans-serif;
-
   a {
     text-decoration: none;
   }
@@ -21,14 +19,53 @@ body {
   }
 }
 
-.auth-form {
+div.todays-run {
+  span.spacer {
+    margin: 10px;
+  }
+
+  form {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  label.col-form-label {
+    text-align: right;
+  }
+}
+
+div.landing {
+  span.spacer {
+    margin: 10px;
+  }
+}
+
+form.auth-form {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
+
+  label.col-form-label {
+    text-align: left;
+  }
 }
 
-.col-form-label {
-  text-align: left;
+div.todays-run-admin {
+  div.left-col {
+    text-align: right;
+  }
+
+  div.right-col {
+    text-align: left;
+  }
+
+  div.modal {
+    top: 20%;
+    color: #5cb85c;
+    font-size: 1.5em;
+    text-shadow: none;
+  }
 }
 
 .bg-dark {
@@ -55,8 +92,4 @@ body {
 .nav-item {
   font-size: 20px;
   font-family: 'Saira', sans-serif;
-}
-
-.spacer {
-  margin: 10px;
 }

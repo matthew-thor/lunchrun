@@ -16,7 +16,7 @@ const Navbar = ({ isLoggedIn, handleClick }) => {
       >
         <span className="navbar-toggler-icon" />
       </button>
-      <div className="collapse navbar-collapse" id="navbarCollapse">
+      <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             {isLoggedIn &&
