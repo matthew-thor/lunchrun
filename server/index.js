@@ -13,6 +13,8 @@ const db = require('./db');
 const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
+const schedule = require('node-schedule');
+const { testClog } = require('../utils');
 module.exports = app;
 
 if (process.env.NODE_ENV !== 'production') require('../secrets');
@@ -80,16 +82,11 @@ const createApp = () => {
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
   // GraphQL setup
-  // const getUserFromRequest = req => req.user;
-
   app.use('/graphql', bodyParser.json(), graphqlExpress(req => {
-    // const userForThisRequest = getUserFromRequest(req);
-
     return {
       schema,
       tracing: true,
       cacheControl: true,
-      // context: { user: userForThisRequest },
       context: { user: req.user },
     };
   }
@@ -122,7 +119,12 @@ const createApp = () => {
 };
 
 const startListening = () => {
-  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+  app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`);
+    const job = schedule.scheduleJob('41 * * * *', (fireDate) => {
+      testClog(`job executed at ${fireDate}`);
+    });
+  });
 };
 
 const syncDb = () => db.sync();
