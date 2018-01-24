@@ -4,6 +4,7 @@ const User = require('./user');
 const Route = require('./route');
 const Run = require('./run');
 const Group = require('./group');
+const Invite = require('./invite');
 
 /**
  * run-route relationship
@@ -60,4 +61,5 @@ module.exports = {
   Route,
   Group,
   Participant,
+  Invite,
 };

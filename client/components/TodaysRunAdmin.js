@@ -63,7 +63,7 @@ const TodaysRunAdmin = ({
   const route = run.route || null;
 
   return (
-    <div className="container todays-run-admin">
+    <div className="container todays-run-admin input-form">
       <form onSubmit={handleSubmit}>
         <div className="modal fade success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-sm">
@@ -111,7 +111,7 @@ const TodaysRunAdmin = ({
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-lg btn-default" data-toggle="modal" data-target=".success-modal">Save changes</button>
+        <button type="submit" className="btn btn-lg btn-default" data-target=".success-modal">Save changes</button>
       </form>
       <br /><br />
       <Participants />

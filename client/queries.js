@@ -10,6 +10,16 @@ export const userHomeQuery = gql`
   }
 `;
 
+export const accountQuery = gql`
+  query group($groupId: Int!) {
+    group(id: $groupId) {
+      admins {
+        id
+      }
+    }
+  }
+`;
+
 export const participantsQuery = gql`
   query ParticipantsQuery($today: String!) {
     run(date: $today) {

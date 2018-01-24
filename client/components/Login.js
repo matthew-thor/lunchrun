@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
+import qs from 'query-string';
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
+  const { email, gId, invite } = qs.parse(props.location.search);
 
   return (
     <div>
@@ -49,7 +51,8 @@ const AuthForm = props => {
               name="email"
               type="text"
               className="form-control"
-              placeholder="Email" />
+              placeholder="Email"
+              defaultValue={email} />
           </div>
         </div>
         <div className="form-group row">
@@ -85,7 +88,7 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google" className="btn btn-social btn-google">
+      <a href="/auth/google/login" className="btn btn-social btn-google">
         <i className="fa fa-google" />
         <span>{displayName} with Google</span>
       </a>
@@ -122,7 +125,7 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm);
+export default connect(mapLogin, mapDispatch)(AuthForm);
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
 
 /**

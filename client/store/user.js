@@ -38,6 +38,19 @@ export const auth = (email, password, method) =>
       .catch(error =>
         dispatch(getUser({ error })));
 
+export const signup = userData => {
+  return async dispatch => {
+    try {
+      const res = await axios.post('/auth/signup', userData);
+
+      dispatch(getUser(res.data));
+      history.push('/home');
+    }
+    catch (err) { dispatch(getUser({ err })); }
+  };
+};
+
+
 export const logout = () =>
   dispatch =>
     axios.post('/auth/logout')

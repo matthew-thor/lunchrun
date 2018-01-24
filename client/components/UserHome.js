@@ -13,7 +13,7 @@ const groupId = 1;
 /**
  * COMPONENT
  */
-export const UserHome = ({
+const UserHome = ({
   user,
   data: { loading, error, group },
  }) => {
@@ -24,10 +24,12 @@ export const UserHome = ({
     return <p>{error.message}</p>;
   }
 
+  const isAdmin = group.admins.find(u => u.id === user.id);
+
   return (
     <div>
       <h3>Hey, {user.firstName}!</h3>
-      {group.admins.find(u => u.id === user.id)
+      {isAdmin
         ? <TodaysRunAdmin />
         : <TodaysRun />
       }

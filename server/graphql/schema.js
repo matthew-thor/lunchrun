@@ -18,13 +18,17 @@ type Mutation {
     userId: Int!,
     runId: Int!,
     type: String!,
-    comment: String
+    comment: String,
   ): Participant
   updateRun(
     runId: Int!,
     startTime: String,
-    routeId: Int
+    routeId: Int,
   ): Run
+  inviteUser(
+    email: String!,
+    groupId: Int!,
+  ): Invite
 }
 
 type Group {
@@ -42,6 +46,7 @@ type User {
   email: String
   admin: Boolean
   groups: [Group]
+  googleId: String
 }
 
 type Route {
@@ -67,6 +72,12 @@ type Participant {
   fullName: String
   email: String
   user: User
+}
+
+type Invite {
+  code: String
+  email: String
+  groupId: Int
 }
 `;
 
