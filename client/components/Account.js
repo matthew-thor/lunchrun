@@ -25,11 +25,18 @@ const Account = ({
   }
 
   const isAdmin = group.admins.find(u => u.id === user.id);
+  const isGoogleConnected = user.googleId;
 
   return (
     <div>
       <h3>Name: {user.fullName}</h3>
       <h3>Email: {user.email}</h3>
+      {!isGoogleConnected &&
+        <a href="/auth/google/connect" className="btn btn-social btn-google">
+          <i className="fa fa-google" />
+          <span>Connect Google Account</span>
+        </a>
+      }
       {isAdmin && <Invite groupId={groupId} />}
     </div>
   );

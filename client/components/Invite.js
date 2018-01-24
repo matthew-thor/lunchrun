@@ -63,7 +63,7 @@ const Invite = ({
         <button
           type="submit"
           className="btn btn-lg btn-default"
-          data-toggle="modal"
+          // data-toggle="modal"
           data-target=".success-modal"
         >
           Send email

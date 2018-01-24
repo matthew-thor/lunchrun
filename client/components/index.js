@@ -5,7 +5,7 @@
  */
 export { default as Main } from './Main';
 export { default as UserHome } from './UserHome';
-export { Login, Signup } from './AuthForm';
+export { default as Login } from './Login';
 export { default as Navbar } from './Navbar';
 export { default as Landing } from './Landing';
 export { default as Account } from './Account';
@@ -13,3 +13,4 @@ export { default as TodaysRun } from './TodaysRun';
 export { default as TodaysRunAdmin } from './TodaysRunAdmin';
 export { default as Participants } from './Participants';
 export { default as Invite } from './Invite';
+export { default as Signup } from './Signup';

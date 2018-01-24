@@ -46,6 +46,7 @@ type User {
   email: String
   admin: Boolean
   groups: [Group]
+  googleId: String
 }
 
 type Route {

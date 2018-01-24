@@ -111,7 +111,7 @@ const TodaysRunAdmin = ({
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-lg btn-default" data-toggle="modal" data-target=".success-modal">Save changes</button>
+        <button type="submit" className="btn btn-lg btn-default" data-target=".success-modal">Save changes</button>
       </form>
       <br /><br />
       <Participants />

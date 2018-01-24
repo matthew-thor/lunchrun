@@ -32,10 +32,16 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  fullName: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return this.getDataValue('firstName') + ' ' + this.getDataValue('lastName');
+    },
+  },
 }, {
     scopes: {
       noSensitive: {
-        attributes: { exclude: ['password', 'salt', 'googleId', 'inviteCode'] },
+        attributes: { exclude: ['password', 'salt', 'googleId'] },
       },
     },
   });
@@ -47,11 +53,6 @@ module.exports = User;
  */
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
-};
-
-// getter method for fullName was messing with associations and includes
-User.prototype.fullName = function () {
-  return this.firstName + ' ' + this.lastName;
 };
 
 /**

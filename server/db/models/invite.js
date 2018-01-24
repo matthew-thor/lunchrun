@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+const randomstring = require('randomstring');
 const Sequelize = require('sequelize');
 const db = require('../db');
 const { sendInviteEmail } = require('../../../utils');
@@ -6,7 +6,10 @@ const { sendInviteEmail } = require('../../../utils');
 const Invite = db.define('invite', {
   code: {
     type: Sequelize.STRING,
-    defaultValue: crypto.randomBytes(12).toString('base64'),
+    defaultValue: randomstring.generate({
+      length: 16,
+      charset: 'alphanumeric',
+    }),
   },
   email: {
     type: Sequelize.STRING,
@@ -25,7 +28,10 @@ module.exports = Invite;
  * instanceMethods
  */
 Invite.prototype.generateNewCode = function () {
-  this.code = crypto.randomBytes(12).toString('base64');
+  this.code = randomstring.generate({
+    length: 16,
+    charset: 'alphanumeric',
+  });
   this.save();
 };
 
