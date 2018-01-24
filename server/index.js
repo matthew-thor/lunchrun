@@ -134,8 +134,7 @@ if (require.main === module) {
     .then(syncDb)
     .then(createApp)
     .then(startListening)
-    .then(startEmailService)
-    .then(stopEmailService);
+    .then(startEmailService);
 } else {
   createApp();
 }

@@ -3,7 +3,11 @@ const {
   sendFirstEmail,
   sendUpdateEmail,
  } = require('./announcements');
-const { startEmailService, stopEmailService } = require('./emailSchedule');
+const {
+  startEmailService,
+  stopEmailService,
+  updateEmailService,
+} = require('./emailSchedule');
 const chalk = require('chalk');
 
 const blueRedBg = text => { console.log(chalk.blue.bgRed.bold(text)); };
@@ -25,4 +29,5 @@ module.exports = {
   sendUpdateEmail,
   startEmailService,
   stopEmailService,
+  updateEmailService,
 };

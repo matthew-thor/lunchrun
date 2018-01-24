@@ -5,26 +5,18 @@ const { sendFirstEmail, sendUpdateEmail } = require('./announcements');
 const startEmailService = async () => {
   const emails = await Email.findAll();
 
-  emails.push({
-    groupId: 1,
-    type: 'test',
-    time: '12:00',
-  });
-
   emails.forEach(email => {
     const name = email.groupId + email.type;
     const minutes = email.time.slice(3);
     const hours = email.time.slice(0, 2);
     const days = '1-5';
-    let cron = `${minutes} ${hours} * ${days} *`;
-
-    if (name === '1test') cron = '*/5 * * * * *';
+    const cron = `${minutes} ${hours} * ${days} *`;
 
     schedule.scheduleJob(name, cron, (fireDate) => {
       if (email.type === 'first') sendFirstEmail(email.groupId);
       else if (email.type === 'update') sendUpdateEmail(email.groupId);
       else sendFirstEmail(1);
-      console.log(`${email.type} email sent at ${fireDate}`);
+      console.log(`Group ${email.groupId} ${email.type} email sent at ${fireDate}`);
     });
   });
 
@@ -33,17 +25,36 @@ const startEmailService = async () => {
 
 const stopEmailService = () => {
   const jobs = Object.values(schedule.scheduledJobs);
-  setTimeout(() => {
-    jobs.forEach(j => {
-      console.log(j.name, 'canceled');
-      j.cancel();
-    });
-  }, 7000);
+  jobs.forEach(j => {
+    j.cancel();
+  });
+
+  console.log('Email services stopped');
 };
 
+const updateEmailService = async emailId => {
+  const email = await Email.findById(emailId);
+
+  const name = email.groupId + email.type;
+  const minutes = email.time.slice(3);
+  const hours = email.time.slice(0, 2);
+  const days = '1-5';
+  const cron = `${minutes} ${hours} * ${days} *`;
+
+  schedule.scheduledJobs[name].cancel();
+
+  schedule.scheduleJob(name, cron, (fireDate) => {
+    if (email.type === 'first') sendFirstEmail(email.groupId);
+    else if (email.type === 'update') sendUpdateEmail(email.groupId);
+    else sendFirstEmail(1);
+    console.log(`${email.type} email sent at ${fireDate}`);
+  });
+
+  console.log(`Group ${email.groupId} ${email.type} email rescheduled for ${email.time}`);
+};
 
 module.exports = {
   startEmailService,
   stopEmailService,
-  // updateEmailService,
+  updateEmailService,
 };
