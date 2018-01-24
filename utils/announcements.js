@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const moment = require('moment-timezone');
-const { Run } = require('../server/db/models');
+const Run = require('../server/db/models/run');
+const Group = require('../server/db/models/group');
 
 const today = moment(new Date()).format('YYYY-MM-DD');
 let siteUrl = 'http://looplunchrun.com';
@@ -35,15 +36,9 @@ const sendAnnouncementEmail = (type, message, groupId) => {
 };
 
 const sendFirstEmail = async groupId => {
-  const run = await Run.find({
-    where: {
-      date: today,
-      groupId,
-    },
-    include: [{ all: true }],
-  });
-
-  const emails = run.participants.map(p => p.email);
+  const group = await Group.findById(groupId);
+  const members = await group.getMembers();
+  const emails = members.map(u => u.email);
 
   const message = {
     to: emails,
@@ -52,7 +47,7 @@ const sendFirstEmail = async groupId => {
     <p>Login at <a href='${siteUrl}/'>Lunch Run</a> to RSVP and check the details!</p>`,
   };
 
-  sendAnnouncementEmail('First announcement', message, groupId);
+  sendAnnouncementEmail('First', message, groupId);
 };
 
 const sendUpdateEmail = async groupId => {

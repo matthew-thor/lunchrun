@@ -13,8 +13,7 @@ const db = require('./db');
 const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
-const schedule = require('node-schedule');
-const { testClog } = require('../utils');
+const { startEmailService, stopEmailService } = require('../utils');
 module.exports = app;
 
 if (process.env.NODE_ENV !== 'production') require('../secrets');
@@ -121,9 +120,6 @@ const createApp = () => {
 const startListening = () => {
   app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
-    const job = schedule.scheduleJob('41 * * * *', (fireDate) => {
-      testClog(`job executed at ${fireDate}`);
-    });
   });
 };
 
@@ -137,7 +133,9 @@ if (require.main === module) {
   sessionStore.sync()
     .then(syncDb)
     .then(createApp)
-    .then(startListening);
+    .then(startListening)
+    .then(startEmailService)
+    .then(stopEmailService);
 } else {
   createApp();
 }

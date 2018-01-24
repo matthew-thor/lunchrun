@@ -5,6 +5,13 @@ const Route = require('./route');
 const Run = require('./run');
 const Group = require('./group');
 const Invite = require('./invite');
+const Email = require('./email');
+
+/**
+ * group-email relationship
+ */
+Email.belongsTo(Group);
+Group.hasMany(Email);
 
 /**
  * run-route relationship
@@ -62,4 +69,5 @@ module.exports = {
   Group,
   Participant,
   Invite,
+  Email,
 };
