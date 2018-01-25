@@ -14,3 +14,4 @@ export { default as TodaysRunAdmin } from './TodaysRunAdmin';
 export { default as Participants } from './Participants';
 export { default as Invite } from './Invite';
 export { default as Signup } from './Signup';
+export { default as GroupEmails } from './GroupEmails';

@@ -76,11 +76,6 @@ query TodaysRunAdminQuery(
       id
       name
     }
-    emails {
-      id
-      type
-      time
-    }
   }
   run(date: $today) {
     id
@@ -100,6 +95,18 @@ query TodaysRunAdminQuery(
     }
     admins {
       id
+    }
+  }
+}
+`;
+
+export const groupEmailsQuery = gql`
+query group($groupId: Int!) {
+  group(id: $groupId) {
+    emails {
+      id
+      type
+      time
     }
   }
 }

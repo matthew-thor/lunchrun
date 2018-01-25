@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import moment from 'moment-timezone';
 import { todaysRunAdminQuery } from '../queries';
-import { updateRunMutation, updateEmailScheduleMutation } from '../mutations';
-import { Participants } from '../components';
+import { updateRunMutation } from '../mutations';
+import { Participants, GroupEmails } from '../components';
 
 /**
  * groupId needs to be changed later to reflect actual group
@@ -67,7 +67,7 @@ const TodaysRunAdmin = ({
       variables: {
         groupId,
         type: 'first',
-        time: '01:45',
+        time: '18:45',
       },
     });
   };
@@ -127,7 +127,6 @@ const TodaysRunAdmin = ({
       </form>
       <br /><br />
       <Participants />
-      <button onClick={testMutation}>Test button</button>
     </div>
   );
 };
@@ -153,7 +152,6 @@ export default compose(
     },
   }),
   graphql(updateRunMutation, { name: 'updateRun' }),
-  graphql(updateEmailScheduleMutation, { name: 'updateEmailSchedule' }),
 )(TodaysRunAdminConnected);
 
 /**
