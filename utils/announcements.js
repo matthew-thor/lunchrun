@@ -61,7 +61,11 @@ const sendUpdateEmail = async groupId => {
 
   const routeName = run.route.name;
   const emails = run.participants.map(p => p.email);
-  const participants = run.participants.map(p => `<li>${p.fullName}</li>`).join('');
+  const participants = run.participants.map(p => {
+    let returnString = `<li>${p.fullName}`;
+    if (p.participant.comment) returnString += ` - ${p.participant.comment}`;
+    return returnString + '</li>';
+  }).join('');
   const startTime = run.startTime;
 
   const message = {

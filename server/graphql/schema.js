@@ -33,6 +33,7 @@ type Mutation {
     groupId: Int!,
     type: String!,
     time: String!,
+    days: String!,
   ): Email
 }
 
@@ -91,6 +92,7 @@ type Email {
   time: String
   type: String
   groupId: Int
+  days: String
 }
 `;
 

@@ -38,7 +38,9 @@ const Account = ({
         </a>
       }
       {isAdmin && <Invite groupId={groupId} />}
-      <GroupEmails groupId={groupId} />
+      {
+        <GroupEmails group={group} />
+      }
     </div>
   );
 };

@@ -9,6 +9,9 @@ const Email = db.define('email', {
     type: Sequelize.ENUM,
     values: ['first', 'update'],
   },
+  days: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Email;

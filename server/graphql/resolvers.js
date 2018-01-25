@@ -87,7 +87,7 @@ const resolvers = {
         },
       });
 
-      const updated = await email.update({ time: args.time });
+      const updated = await email.update({ time: args.time, days: args.days });
 
       updateEmailService(updated.id);
 

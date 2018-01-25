@@ -9,7 +9,7 @@ const startEmailService = async () => {
     const name = email.groupId + email.type;
     const minutes = email.time.slice(3);
     const hours = email.time.slice(0, 2);
-    const days = '1-5';
+    const days = email.days;
     const cron = `${minutes} ${hours} * ${days} *`;
 
     schedule.scheduleJob(name, cron, (fireDate) => {
@@ -38,7 +38,7 @@ const updateEmailService = async emailId => {
   const name = email.groupId + email.type;
   const minutes = email.time.slice(3);
   const hours = email.time.slice(0, 2);
-  const days = '1-5';
+  const days = email.days;
   const cron = `${minutes} ${hours} * ${days} *`;
 
   schedule.scheduledJobs[name].cancel();

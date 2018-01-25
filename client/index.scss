@@ -1,4 +1,5 @@
 // Bootstrap main
+// @import "../public/css/bootstrap.min.css";
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
 // Font Awesome
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
@@ -6,8 +7,8 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css");
 // Google fonts
 @import url("https://fonts.googleapis.com/css?family=Pacifico|Saira|Ubuntu|Roboto");
-@import "../public/navbar-top.css";
-@import "../public/cover.css";
+// local styles
+@import "../public/css/cover.css";
 
 body {
   a {
