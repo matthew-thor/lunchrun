@@ -49,3 +49,19 @@ mutation inviteUser(
   }
 }
 `;
+
+export const updateEmailScheduleMutation = gql`
+mutation updateEmailSchedule(
+  $groupId: Int!,
+  $type: String!,
+  $time: String!,
+) {
+  updateEmailSchedule(
+    groupId: $groupId,
+    type: $type,
+    time: $time,
+  ) {
+    id
+  }
+}
+`;

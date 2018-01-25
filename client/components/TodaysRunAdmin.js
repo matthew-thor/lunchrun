@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import moment from 'moment-timezone';
 import { todaysRunAdminQuery } from '../queries';
-import { updateRunMutation } from '../mutations';
+import { updateRunMutation, updateEmailScheduleMutation } from '../mutations';
 import { Participants } from '../components';
 
 /**
@@ -21,6 +21,7 @@ const TodaysRunAdmin = ({
   user,
   data: { loading, error, run, group },
   updateRun,
+  updateEmailSchedule,
 }) => {
   if (loading) {
     return <h1>Loading...</h1>;
@@ -58,6 +59,17 @@ const TodaysRunAdmin = ({
       }],
     });
     if (res.data) displaySuccessMessage();
+  };
+
+  const testMutation = async event => {
+    event.preventDefault();
+    const res = await updateEmailSchedule({
+      variables: {
+        groupId,
+        type: 'first',
+        time: '01:45',
+      },
+    });
   };
 
   const route = run.route || null;
@@ -115,6 +127,7 @@ const TodaysRunAdmin = ({
       </form>
       <br /><br />
       <Participants />
+      <button onClick={testMutation}>Test button</button>
     </div>
   );
 };
@@ -140,6 +153,7 @@ export default compose(
     },
   }),
   graphql(updateRunMutation, { name: 'updateRun' }),
+  graphql(updateEmailScheduleMutation, { name: 'updateEmailSchedule' }),
 )(TodaysRunAdminConnected);
 
 /**

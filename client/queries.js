@@ -76,6 +76,11 @@ query TodaysRunAdminQuery(
       id
       name
     }
+    emails {
+      id
+      type
+      time
+    }
   }
   run(date: $today) {
     id

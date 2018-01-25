@@ -29,6 +29,11 @@ type Mutation {
     email: String!,
     groupId: Int!,
   ): Invite
+  updateEmailSchedule(
+    groupId: Int!,
+    type: String!,
+    time: String!,
+  ): Email
 }
 
 type Group {
@@ -36,6 +41,7 @@ type Group {
   name: String
   admins: [User]
   routes: [Route]
+  emails: [Email]
 }
 
 type User {
@@ -77,6 +83,13 @@ type Participant {
 type Invite {
   code: String
   email: String
+  groupId: Int
+}
+
+type Email {
+  id: Int
+  time: String
+  type: String
   groupId: Int
 }
 `;
