@@ -16,3 +16,4 @@ export { default as Invite } from './Invite';
 export { default as Signup } from './Signup';
 export { default as GroupEmails } from './GroupEmails';
 export { default as Footer } from './Footer';
+export { default as AddRoute } from './AddRoute';

@@ -13,7 +13,11 @@ type Query {
 }
 
 type Mutation {
-  addRoute(name: String!): Route
+  addRoute(
+    name: String!,
+    map: String,
+    groupId: Int!,
+  ): Route
   updateParticipant(
     userId: Int!,
     runId: Int!,
@@ -60,6 +64,7 @@ type Route {
   id: Int
   name: String
   map: String
+  groupId: Int
 }
 
 type Run {

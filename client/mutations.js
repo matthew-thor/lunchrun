@@ -67,3 +67,22 @@ mutation updateEmailSchedule(
   }
 }
 `;
+
+export const addRouteMutation = gql`
+mutation addRoute(
+  $name: String!,
+  $map: String,
+  $groupId: Int!,
+) {
+  addRoute(
+    name: $name,
+    map: $map,
+    groupId: $groupId,
+  ) {
+    id
+    name
+    map
+    groupId
+  }
+}
+`;

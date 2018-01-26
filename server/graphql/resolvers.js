@@ -33,7 +33,7 @@ const resolvers = {
   Mutation: {
     addRoute: (_, args, context) => {
       if (!(context.user && context.user.admin)) throw new Error('Not authorized');
-      return Route.create({ name: args.name });
+      return Route.create(args);
     },
     updateParticipant: async (_, args, context) => {
       if (context.user && (context.user.id === args.userId || context.user.admin)) {
