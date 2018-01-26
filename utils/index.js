@@ -1,4 +1,13 @@
 const sendInviteEmail = require('./invites');
+const {
+  sendFirstEmail,
+  sendUpdateEmail,
+ } = require('./announcements');
+const {
+  startEmailService,
+  stopEmailService,
+  updateEmailService,
+} = require('./emailSchedule');
 const chalk = require('chalk');
 
 const blueRedBg = text => { console.log(chalk.blue.bgRed.bold(text)); };
@@ -16,4 +25,9 @@ module.exports = {
   blue,
   testClog,
   sendInviteEmail,
+  sendFirstEmail,
+  sendUpdateEmail,
+  startEmailService,
+  stopEmailService,
+  updateEmailService,
 };

@@ -13,6 +13,7 @@ const db = require('./db');
 const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
+const { startEmailService } = require('../utils');
 module.exports = app;
 
 if (process.env.NODE_ENV !== 'production') require('../secrets');
@@ -80,16 +81,11 @@ const createApp = () => {
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
   // GraphQL setup
-  // const getUserFromRequest = req => req.user;
-
   app.use('/graphql', bodyParser.json(), graphqlExpress(req => {
-    // const userForThisRequest = getUserFromRequest(req);
-
     return {
       schema,
       tracing: true,
       cacheControl: true,
-      // context: { user: userForThisRequest },
       context: { user: req.user },
     };
   }
@@ -122,7 +118,9 @@ const createApp = () => {
 };
 
 const startListening = () => {
-  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+  app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`);
+  });
 };
 
 const syncDb = () => db.sync();
@@ -135,7 +133,8 @@ if (require.main === module) {
   sessionStore.sync()
     .then(syncDb)
     .then(createApp)
-    .then(startListening);
+    .then(startListening)
+    .then(startEmailService);
 } else {
   createApp();
 }

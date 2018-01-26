@@ -8,6 +8,7 @@ const seedUsers = () => {
       lastName: 'Thor',
       email: 'mjthor@gmail.com',
       password: '123',
+      googleId: '103769715326299458196',
       admin: true,
     }),
     User.create({

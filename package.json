@@ -18,7 +18,8 @@
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public --exec babel-node",
     "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/lunchrun-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register --require babel-polyfill",
     "test-client-watch": "NODE_ENV='test' mocha -w ./client/**/*.spec.js --compilers js:babel-register --require babel-polyfill",
-    "test-server-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/lunchrun-test' mocha -w ./server/**/*.spec.js ./server/**/**/*.spec.js --compilers js:babel-register --require babel-polyfill"
+    "test-server-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/lunchrun-test' mocha -w ./server/**/*.spec.js ./server/**/**/*.spec.js --compilers js:babel-register --require babel-polyfill",
+    "test-specific-file": "nodemon utils/announcements.js --exec babel-node"
   },
   "author": "",
   "license": "ISC",
@@ -42,6 +43,7 @@
     "moment-timezone": "^0.5.14",
     "morgan": "^1.9.0",
     "node-fetch": "^1.7.3",
+    "node-schedule": "^1.3.0",
     "nodemailer": "^4.4.2",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
@@ -81,6 +83,7 @@
     "eslint": "^4.13.1",
     "eslint-config-fullstack": "^3.0.0",
     "eslint-plugin-react": "^7.5.1",
+    "file-loader": "^1.1.6",
     "mocha": "^3.5.3",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.0",

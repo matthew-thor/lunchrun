@@ -18,7 +18,10 @@ const Signup = props => {
         className="auth-form"
         onSubmit={handleSubmit}
         name="test"
-        data-groupid={gId}
+        /**
+         * needs to be changed later to use actual group ID
+         */
+        data-groupid={gId || 1}
         data-invitecode={code}
       >
         <div>
@@ -121,8 +124,9 @@ const mapDispatch = dispatch => {
       const userData = {
         email: event.target.email.value,
         password: event.target.password.value,
-        code: event.target.attributes['data-invitecode'].value
-          || event.target['invite-code'].value,
+        code: event.target.attributes['data-invitecode']
+          ? event.target.attributes['data-invitecode'].value
+          : event.target['invite-code'].value,
         firstName: event.target['first-name'].value,
         lastName: event.target['last-name'].value,
         groupId: event.target.attributes['data-groupid'].value,

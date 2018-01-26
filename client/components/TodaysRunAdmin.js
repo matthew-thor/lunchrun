@@ -30,7 +30,7 @@ const TodaysRunAdmin = ({
   }
 
   const displaySuccessMessage = () => {
-    const modal = $('.success-modal');
+    const modal = $('.todays-run-success-modal');
     modal.modal({ focus: true });
     setTimeout(() => { modal.modal('toggle'); }, 1300);
   };
@@ -65,7 +65,7 @@ const TodaysRunAdmin = ({
   return (
     <div className="container todays-run-admin input-form">
       <form onSubmit={handleSubmit}>
-        <div className="modal fade success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div className="modal fade todays-run-success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-sm">
             <div className="modal-content">
               <br /><span><i className="fa fa-check" /> Changes saved</span><br />
@@ -111,7 +111,7 @@ const TodaysRunAdmin = ({
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-lg btn-default" data-target=".success-modal">Save changes</button>
+        <button type="submit" className="btn btn-lg btn-default" data-target=".todays-run-success-modal">Save changes</button>
       </form>
       <br /><br />
       <Participants />

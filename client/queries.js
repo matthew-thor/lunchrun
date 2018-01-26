@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const userHomeQuery = gql`
-  query group($groupId: Int!) {
+  query UserHomeQuery($groupId: Int!) {
     group(id: $groupId) {
       admins {
         id
@@ -11,10 +11,17 @@ export const userHomeQuery = gql`
 `;
 
 export const accountQuery = gql`
-  query group($groupId: Int!) {
+  query AccountQuery($groupId: Int!) {
     group(id: $groupId) {
+      id
       admins {
         id
+      }
+      emails {
+        id
+        type
+        time
+        days
       }
     }
   }
@@ -95,6 +102,18 @@ query TodaysRunAdminQuery(
     }
     admins {
       id
+    }
+  }
+}
+`;
+
+export const groupEmailsQuery = gql`
+query GroupEmailsQuery($groupId: Int!) {
+  group(id: $groupId) {
+    emails {
+      id
+      type
+      time
     }
   }
 }

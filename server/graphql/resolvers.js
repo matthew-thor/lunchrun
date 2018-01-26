@@ -1,4 +1,5 @@
-import { User, Run, Route, Participant, Group, Invite } from './connectors';
+import { User, Run, Route, Participant, Group, Invite, Email } from './connectors';
+import { updateEmailService } from '../../utils';
 import _ from 'lodash';
 
 const resolvers = {
@@ -78,10 +79,25 @@ const resolvers = {
 
       return invite[0].sendEmail();
     },
+    updateEmailSchedule: async (_, args, context) => {
+      const email = await Email.find({
+        where: {
+          groupId: args.groupId,
+          type: args.type,
+        },
+      });
+
+      const updated = await email.update({ time: args.time, days: args.days });
+
+      updateEmailService(updated.id);
+
+      return updated;
+    },
   },
   Group: {
     admins: group => group.getAdmins(),
     routes: group => group.getRoutes(),
+    emails: group => group.getEmails(),
   },
   User: {
     groups: user => user.getGroups(),

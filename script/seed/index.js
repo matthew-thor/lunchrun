@@ -3,6 +3,7 @@ const seedUsers = require('./user');
 const seedGroups = require('./group');
 const seedRuns = require('./run');
 const seedRoutes = require('./route');
+const seedEmails = require('./email')
 const setAssociations = require('./associations');
 
 const seed = async () => {
@@ -25,7 +26,10 @@ const seed = async () => {
   const runs = await seedRuns();
   console.log(`seeded ${runs.length} runs`);
 
-  const associations = await setAssociations(groups, users, routes, runs);
+  const emails = await seedEmails();
+  console.log(`seeded ${emails.length} emails`);
+
+  const associations = await setAssociations(groups, users, routes, runs, emails);
   console.log(`${associations.length} association operations complete`);
 
   // success message

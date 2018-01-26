@@ -11,8 +11,8 @@ module.exports = (code, email, groupId) => {
   const message = {
     to: email,
     subject: 'Invitation to Lunch Run',
-    html: `<p>Join your friends at <a href='${siteUrl}/signup?email=${email}&code=${code}&gId=${groupId}'>Lunch Run</a>!</p>`,
-    // textEncoding: 'base64',
+    html: `<p>Join your friends at <a href='${siteUrl}/signup?email=${email}&code=${code}&gId=${groupId}'>Lunch Run</a>!</p>
+      <p>Link not working? Head to ${siteUrl}/signup?gId=${groupId} and use code <strong>${code}</strong></p>`,
   };
 
   const transporter = nodemailer.createTransport({
