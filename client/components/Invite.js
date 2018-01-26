@@ -42,7 +42,7 @@ const Invite = ({
         >
           <div className="modal-dialog modal-sm">
             <div className="modal-content">
-              <br /><span><i className="fa fa-envelope" /> Email sent</span><br />
+              <br /><span><i className="fas fa-envelope" /> Email sent</span><br />
             </div>
           </div>
         </div>

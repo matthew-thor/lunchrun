@@ -3,8 +3,6 @@
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
 // Font Awesome
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-// Bootstrap social
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css");
 // Google fonts
 @import url("https://fonts.googleapis.com/css?family=Pacifico|Saira|Ubuntu|Roboto");
 // local styles
@@ -69,6 +67,21 @@ div.input-form {
   }
 }
 
+footer .container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: rgba(69, 69, 76, 0.86) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .span {
+  font-size: .9rem;
+}
+
 .bg-dark {
   background-color: rgba(69, 69, 76, 0.86) !important;
 }
@@ -93,4 +106,25 @@ div.input-form {
 .nav-item {
   font-size: 20px;
   font-family: 'Saira', sans-serif;
+}
+
+.google-btn {
+  width: 15em;
+  padding: 1em;
+  background-color: #DD4B39;
+  border-radius: 0.5rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out;
+}
+
+.google-btn:hover, .google-btn:focus {
+  text-decoration: none;
+  background-color: #c23321;
+}
+
+.fa-google {
+  margin-right: 0.6em;
+}
+
+.fa-github, .fa-linkedin-in, .fa-envelope-open {
+  margin-left: 0.9em;
 }
