@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { logout } from '../store';
-import Navbar from './Navbar';
+import { Navbar, Footer } from '../components';
+// import { Navbar } from '../components';
 
 /**
  * COMPONENT
@@ -18,6 +19,7 @@ const Main = props => {
     <div className="container">
       <Navbar isLoggedIn={isLoggedIn} handleClick={handleClick} />
       {children}
+      <Footer />
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Account = ({
       <h3>Email: {user.email}</h3>
       {!isGoogleConnected &&
         <a href="/auth/google/connect" className="btn btn-social btn-google">
-          <i className="fa fa-google" />
+          <i className="fab fa-google" />
           <span>Connect Google Account</span>
         </a>
       }

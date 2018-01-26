@@ -87,7 +87,7 @@ const GroupEmails = ({ group, updateEmailSchedule }) => {
       <div className="modal fade email-success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-sm">
           <div className="modal-content">
-            <br /><span><i className="fa fa-check" /> Changes saved</span><br />
+            <br /><span><i className="fas fa-check" /> Changes saved</span><br />
           </div>
         </div>
       </div>
