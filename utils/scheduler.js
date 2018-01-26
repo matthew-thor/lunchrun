@@ -1,5 +1,7 @@
 const schedule = require('node-schedule');
 const Email = require('../server/db/models/email');
+const Group = require('../server/db/models/group');
+const Run = require('../server/db/models/run');
 const { sendFirstEmail, sendUpdateEmail } = require('./announcements');
 
 const startEmailService = async () => {
@@ -20,7 +22,7 @@ const startEmailService = async () => {
     });
   });
 
-  console.log('Email services running');
+  console.log('Email service running');
 };
 
 const stopEmailService = () => {
@@ -29,7 +31,7 @@ const stopEmailService = () => {
     j.cancel();
   });
 
-  console.log('Email services stopped');
+  console.log('Email service stopped');
 };
 
 const updateEmailService = async emailId => {
@@ -53,8 +55,19 @@ const updateEmailService = async emailId => {
   console.log(`Group ${email.groupId} ${email.type} email rescheduled for ${email.time}`);
 };
 
+const createRunsAtMidnight = () => {
+  schedule.scheduleJob('midnightRunCreation', '0 0 * * * *', async (fireDate) => {
+    const groups = await Group.findAll();
+    const newRuns = await Promise.all(groups.map(g => Run.create({ groupId: g.id })));
+    console.log(`New runs created for ${groups.length} groups at ${fireDate}`);
+  });
+
+  console.log('Run creation service running');
+};
+
 module.exports = {
   startEmailService,
   stopEmailService,
   updateEmailService,
+  createRunsAtMidnight,
 };

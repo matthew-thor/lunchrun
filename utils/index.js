@@ -7,7 +7,8 @@ const {
   startEmailService,
   stopEmailService,
   updateEmailService,
-} = require('./emailSchedule');
+  createRunsAtMidnight,
+} = require('./scheduler');
 const chalk = require('chalk');
 
 const blueRedBg = text => { console.log(chalk.blue.bgRed.bold(text)); };
@@ -30,4 +31,5 @@ module.exports = {
   startEmailService,
   stopEmailService,
   updateEmailService,
+  createRunsAtMidnight,
 };
