@@ -13,7 +13,7 @@ const Invite = ({
   inviteUser,
 }) => {
   const displaySuccessMessage = () => {
-    const modal = $('.success-modal');
+    const modal = $('.invite-success-modal');
     modal.modal({ focus: true });
     setTimeout(() => { modal.modal('toggle'); }, 1300);
   };
@@ -34,7 +34,7 @@ const Invite = ({
     <div className="container invite-form input-form">
       <form onSubmit={handleSubmit}>
         <div
-          className="modal fade success-modal"
+          className="modal fade invite-success-modal"
           tabIndex="-1"
           role="dialog"
           aria-labelledby="mySmallModalLabel"
@@ -64,7 +64,7 @@ const Invite = ({
           type="submit"
           className="btn btn-lg btn-default"
           // data-toggle="modal"
-          data-target=".success-modal"
+          data-target=".invite-success-modal"
         >
           Send email
         </button>

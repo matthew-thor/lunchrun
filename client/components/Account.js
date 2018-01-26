@@ -37,9 +37,11 @@ const Account = ({
           <span>Connect Google Account</span>
         </a>
       }
-      {isAdmin && <Invite groupId={groupId} />}
-      {
-        <GroupEmails group={group} />
+      {isAdmin &&
+        <div>
+          <Invite groupId={groupId} />
+          <GroupEmails group={group} />
+        </div>
       }
     </div>
   );

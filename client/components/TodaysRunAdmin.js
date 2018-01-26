@@ -5,7 +5,7 @@ import { graphql, compose } from 'react-apollo';
 import moment from 'moment-timezone';
 import { todaysRunAdminQuery } from '../queries';
 import { updateRunMutation } from '../mutations';
-import { Participants, GroupEmails } from '../components';
+import { Participants } from '../components';
 
 /**
  * groupId needs to be changed later to reflect actual group
@@ -21,7 +21,6 @@ const TodaysRunAdmin = ({
   user,
   data: { loading, error, run, group },
   updateRun,
-  updateEmailSchedule,
 }) => {
   if (loading) {
     return <h1>Loading...</h1>;
@@ -31,7 +30,7 @@ const TodaysRunAdmin = ({
   }
 
   const displaySuccessMessage = () => {
-    const modal = $('.success-modal');
+    const modal = $('.todays-run-success-modal');
     modal.modal({ focus: true });
     setTimeout(() => { modal.modal('toggle'); }, 1300);
   };
@@ -61,23 +60,12 @@ const TodaysRunAdmin = ({
     if (res.data) displaySuccessMessage();
   };
 
-  const testMutation = async event => {
-    event.preventDefault();
-    const res = await updateEmailSchedule({
-      variables: {
-        groupId,
-        type: 'first',
-        time: '18:45',
-      },
-    });
-  };
-
   const route = run.route || null;
 
   return (
     <div className="container todays-run-admin input-form">
       <form onSubmit={handleSubmit}>
-        <div className="modal fade success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div className="modal fade todays-run-success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-sm">
             <div className="modal-content">
               <br /><span><i className="fa fa-check" /> Changes saved</span><br />
@@ -123,7 +111,7 @@ const TodaysRunAdmin = ({
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-lg btn-default" data-target=".success-modal">Save changes</button>
+        <button type="submit" className="btn btn-lg btn-default" data-target=".todays-run-success-modal">Save changes</button>
       </form>
       <br /><br />
       <Participants />
