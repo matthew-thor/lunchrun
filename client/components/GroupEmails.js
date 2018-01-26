@@ -51,7 +51,6 @@ const GroupEmails = ({ group, updateEmailSchedule }) => {
       }
     }
     const dayString = daysArray.join(',');
-    console.log(event.target['first-email-time'].value);
 
     await updateEmailSchedule({
       variables: {

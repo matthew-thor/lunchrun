@@ -18,6 +18,9 @@ const Signup = props => {
         className="auth-form"
         onSubmit={handleSubmit}
         name="test"
+        /**
+         * needs to be changed later to use actual group ID
+         */
         data-groupid={gId || 1}
         data-invitecode={code}
       >
