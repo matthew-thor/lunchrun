@@ -6,7 +6,7 @@ const User = require('./user');
 const Run = db.define('run', {
   date: {
     type: Sequelize.DATEONLY,
-    defaultValue: new Date(),
+    defaultValue: Date.now(),
   },
   startTime: {
     type: Sequelize.STRING,
