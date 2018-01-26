@@ -1,27 +1,29 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import { inviteUserMutation } from '../mutations';
+import { addRouteMutation } from '../mutations';
 
 /**
  * COMPONENT
  */
 
 
-const Invite = ({
+const AddRoute = ({
   groupId,
-  inviteUser,
+  addRoute,
 }) => {
   const displaySuccessMessage = () => {
-    const modal = $('.invite-success-modal');
+    const modal = $('.add-route-success-modal');
     modal.modal({ focus: true });
     setTimeout(() => { modal.modal('toggle'); }, 1300);
   };
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const res = await inviteUser({
+    console.log(event.target.map.value)
+    const res = await addRoute({
       variables: {
-        email: event.target.email.value,
+        name: event.target.name.value,
+        map: event.target.map.value || undefined,
         groupId,
       },
     });
@@ -33,7 +35,7 @@ const Invite = ({
     <div className="container invite-form input-form">
       <form onSubmit={handleSubmit}>
         <div
-          className="modal fade invite-success-modal"
+          className="modal fade add-route-success-modal"
           tabIndex="-1"
           role="dialog"
           aria-labelledby="mySmallModalLabel"
@@ -41,30 +43,43 @@ const Invite = ({
         >
           <div className="modal-dialog modal-sm">
             <div className="modal-content">
-              <br /><span><i className="fas fa-envelope" /> Email sent</span><br />
+              <br /><span><i className="fas fa-check" /> Route added</span><br />
             </div>
           </div>
         </div>
-        <h3>Invite someone:</h3>
+        <h3>Add a new route:</h3>
         <div className="route-title row justify-content-center">
           <div className="col-sm-6 left-col">
-            <h2>Email:</h2>
+            <h4>Name:</h4>
           </div>
           <div className="col-sm-6 right-col">
             <input
-              name="email"
+              name="name"
               type="text"
               className="form-control"
-              placeholder="email@domain.com"
+              placeholder="Name your route"
+            />
+          </div>
+        </div>
+        <div className="route-title row justify-content-center">
+          <div className="col-sm-6 left-col">
+            <h4>Link to map:</h4>
+          </div>
+          <div className="col-sm-6 right-col">
+            <input
+              name="map"
+              type="text"
+              className="form-control"
+              placeholder="MapMyRun, Gmap-pedometer, etc."
             />
           </div>
         </div>
         <button
           type="submit"
           className="btn btn-lg btn-default"
-          data-target=".invite-success-modal"
+          data-target=".add-route-success-modal"
         >
-          Send email
+          Save
         </button>
       </form>
     </div>
@@ -72,5 +87,5 @@ const Invite = ({
 };
 
 export default compose(
-  graphql(inviteUserMutation, { name: 'inviteUser' }),
-)(Invite);
+  graphql(addRouteMutation, { name: 'addRoute' }),
+)(AddRoute);
