@@ -3,8 +3,6 @@
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
 // Font Awesome
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-// Bootstrap social
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css");
 // Google fonts
 @import url("https://fonts.googleapis.com/css?family=Pacifico|Saira|Ubuntu|Roboto");
 // local styles
@@ -104,4 +102,28 @@ footer .container {
 .nav-item {
   font-size: 20px;
   font-family: 'Saira', sans-serif;
+}
+
+.google-btn {
+  width: 15em;
+  padding: 1em;
+  background-color: #DD4B39;
+  border-radius: 0.5rem;
+  border-color: rgba(0,0,0,.2);
+  border-width: .25rem;
+  border-bottom-style: solid;
+  border-right-style: solid;
+}
+
+.google-btn:hover, .google-btn:focus {
+  text-decoration: none;
+  background-color: #c23321;
+  border-bottom-style: none;
+  border-right-style: none;
+  border-left-style: solid;
+  border-top-style: solid;
+}
+
+.svg-inline--fa {
+  margin-right: 0.5em;
 }
