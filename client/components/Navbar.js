@@ -18,31 +18,60 @@ const Navbar = ({ isLoggedIn, handleClick, isSiteAdmin, isGroupAdmin }) => {
       </button>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            {isSiteAdmin &&
-              <NavLink className="nav-link" activeClassName="active" to="/admin">Site Admin</NavLink>}
-          </li>
-          <li className="nav-item">
-            {isGroupAdmin &&
-              <NavLink className="nav-link" activeClassName="active" to="/groupadmin">Group Settings</NavLink>}
-          </li>
-          <li className="nav-item">
-            {isLoggedIn &&
-              <NavLink className="nav-link" activeClassName="active" to="/home">Home</NavLink>}
-          </li>
-          <li className="nav-item">
-            {isLoggedIn &&
-              <NavLink className="nav-link" activeClassName="active" to="/account">Account</NavLink>}
-          </li>
-          <li className="nav-item">
-            {isLoggedIn
-              ? <NavLink className="nav-link" activeClassName="active" to="#" onClick={handleClick}>Logout</NavLink>
-              : <NavLink className="nav-link" activeClassName="active" to="/login">Log in</NavLink>}
-          </li>
+          {isLoggedIn &&
+            <li className="nav-item">
+              <NavLink className="nav-link" activeClassName="active" to="/home">
+                Home
+              </NavLink>
+            </li>
+          }
           {!isLoggedIn &&
             <li className="nav-item">
-              <NavLink className="nav-link" activeClassName="active" to="/signup">Sign up</NavLink>
-            </li>}
+              <NavLink className="nav-link" activeClassName="active" to="/signup">
+                Sign up
+              </NavLink>
+            </li>
+          }
+          <li className="nav-item">
+            {isLoggedIn
+              ? <NavLink className="nav-link" activeClassName="active" to="#" onClick={handleClick}>
+                Logout
+              </NavLink>
+              : <NavLink className="nav-link" activeClassName="active" to="/login">
+                Log in
+              </NavLink>}
+          </li>
+          {isLoggedIn && !(isGroupAdmin || isSiteAdmin) &&
+            <li className="nav-item">
+              <NavLink className="nav-link" activeClassName="active" to="/account">
+                <i className="fas fa-cog" />
+              </NavLink>
+            </li>
+          }
+          {(isGroupAdmin || isSiteAdmin) &&
+            <li className="nav-item">
+              <div className="btn-group">
+                <button type="button" className="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i className="fas fa-cogs" />
+                </button>
+                <div className="dropdown-menu">
+                  <Link className="dropdown-item" to="/account">
+                    Account Settings
+                  </Link>
+                  {isGroupAdmin &&
+                    <Link className="dropdown-item" to="/groupadmin">
+                      Group Settings
+                    </Link>
+                  }
+                  {isSiteAdmin &&
+                    <Link className="dropdown-item" to="/admin">
+                      Site Settings
+                    </Link>
+                  }
+                </div>
+              </div>
+            </li>
+          }
         </ul>
       </div>
     </nav>

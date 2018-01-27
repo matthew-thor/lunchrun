@@ -128,3 +128,13 @@ div.modal {
 .fa-github, .fa-linkedin-in, .fa-envelope-open {
   margin-left: 0.9em;
 }
+
+.btn-outline-secondary.dropdown-toggle {
+  border: 0px !important;
+  color: rgba(255,255,255,.5) !important;
+}
+
+.nav-link {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}

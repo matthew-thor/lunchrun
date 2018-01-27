@@ -18,7 +18,6 @@ const Main = ({
   isLoggedIn,
   isGroupAdmin,
   isSiteAdmin,
-  // groupId,
 }) => {
   return (
     <div className="container">
@@ -27,7 +26,6 @@ const Main = ({
         handleClick={handleClick}
         isGroupAdmin={isGroupAdmin}
         isSiteAdmin={isSiteAdmin}
-      // groupId={groupId}
       />
       {children}
       <Footer />
