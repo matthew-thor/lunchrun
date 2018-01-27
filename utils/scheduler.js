@@ -56,7 +56,7 @@ const updateEmailService = async emailId => {
 };
 
 const createRunsAtMidnight = () => {
-  schedule.scheduleJob('midnightRunCreation', '0 0 * * * *', async (fireDate) => {
+  schedule.scheduleJob('midnightRunCreation', '1 0 * * *', async (fireDate) => {
     const groups = await Group.findAll();
     const newRuns = await Promise.all(groups.map(g => Run.create({ groupId: g.id })));
     console.log(`New runs created for ${groups.length} groups at ${fireDate}`);
