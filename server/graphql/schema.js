@@ -39,6 +39,11 @@ type Mutation {
     time: String!,
     days: String!,
   ): Email
+  changePassword(
+    userId: Int!,
+    currentPw: String!,
+    newPw: String!,
+  ): User
 }
 
 type Group {

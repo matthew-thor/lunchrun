@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { accountQuery } from '../queries';
-import { Invite, GroupEmails, AddRoute } from '../components';
+import { Invite, GroupEmails, AddRoute, ChangePassword } from '../components';
 
 /**
  * groupId needs to be changed later to reflect actual group
@@ -13,40 +13,62 @@ const groupId = 1;
 /**
  * COMPONENT
  */
-const Account = ({
-  user,
-  data: { loading, error, group },
-}) => {
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-  if (error) {
-    return <p>{error.message}</p>;
+class Account extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPasswordForm: false,
+    };
   }
 
-  const isAdmin = group.admins.find(u => u.id === user.id);
-  const isGoogleConnected = user.googleId;
+  componentWillReceiveProps() {
+    this.setState({ showPasswordForm: false });
+  }
 
-  return (
-    <div>
-      <h3>Name: {user.fullName}</h3>
-      <h3>Email: {user.email}</h3>
-      {!isGoogleConnected &&
-        <a href="/auth/google/connect" className="google-btn">
-          <i className="fab fa-google" />
-          <span>Connect Google Account</span>
-        </a>
-      }
-      {isAdmin &&
-        <div>
-          <Invite groupId={groupId} />
-          <GroupEmails group={group} />
-          <AddRoute groupId={groupId} />
-        </div>
-      }
-    </div>
-  );
-};
+  handleClick = event => {
+    event.preventDefault();
+    this.setState({ showPasswordForm: !this.state.showPasswordForm });
+  }
+
+  render() {
+    const {
+      user,
+      data: { loading, error, group },
+     } = this.props;
+
+    if (loading) {
+      return <h1>Loading...</h1>;
+    }
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
+    const isAdmin = group.admins.find(u => u.id === user.id);
+    const isGoogleConnected = user.googleId;
+
+    return (
+      <div>
+        <h3>Name: {user.fullName}</h3>
+        <h3>Email: {user.email}</h3>
+        <button onClick={this.handleClick}>Change password</button>
+        {this.state.showPasswordForm && <ChangePassword />}
+        {!isGoogleConnected &&
+          <a href="/auth/google/connect" className="google-btn">
+            <i className="fab fa-google" />
+            <span>Connect Google Account</span>
+          </a>
+        }
+        {isAdmin &&
+          <div>
+            <Invite groupId={groupId} />
+            <GroupEmails group={group} />
+            <AddRoute groupId={groupId} />
+          </div>
+        }
+      </div>
+    );
+  }
+}
 
 /**
  * CONTAINER

@@ -58,13 +58,6 @@ div.input-form {
   div.right-col {
     text-align: left;
   }
-
-  div.modal {
-    top: 20%;
-    color: #5cb85c;
-    font-size: 1.5em;
-    text-shadow: none;
-  }
 }
 
 footer .container {
@@ -80,6 +73,13 @@ footer .container {
 
 footer .span {
   font-size: .9rem;
+}
+
+div.modal {
+  top: 20%;
+  color: #5cb85c;
+  font-size: 1.5em;
+  text-shadow: none;
 }
 
 .bg-dark {
