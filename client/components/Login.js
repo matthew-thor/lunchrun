@@ -9,7 +9,7 @@ import qs from 'query-string';
  */
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
-  const { email, gId, invite } = qs.parse(props.location.search);
+  const { email } = qs.parse(props.location.search);
 
   return (
     <div>
@@ -104,15 +104,6 @@ const mapLogin = state => {
   };
 };
 
-const mapSignup = state => {
-  return {
-    name: 'signup',
-    displayName: 'Sign up',
-    error: state.user.error,
-    invited: false,
-  };
-};
-
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
@@ -126,7 +117,6 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapLogin, mapDispatch)(AuthForm);
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
 
 /**
  * PROP TYPES

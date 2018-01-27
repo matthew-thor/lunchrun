@@ -10,7 +10,6 @@ import qs from 'query-string';
 const Signup = props => {
   const { handleSubmit, error } = props;
   const { email, gId, code } = qs.parse(props.location.search);
-  console.log(email, gId, code);
 
   return (
     <div>
@@ -131,7 +130,6 @@ const mapDispatch = dispatch => {
         lastName: event.target['last-name'].value,
         groupId: event.target.attributes['data-groupid'].value,
       };
-      console.log('USER DATA', userData);
       dispatch(signup(userData));
     },
   };

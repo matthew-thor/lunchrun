@@ -86,3 +86,19 @@ mutation addRoute(
   }
 }
 `;
+
+export const changePasswordMutation = gql`
+mutation changePassword(
+  $userId: Int!,
+  $currentPw: String!,
+  $newPw: String!,
+) {
+  changePassword(
+    userId: $userId,
+    currentPw: $currentPw,
+    newPw: $newPw,
+  ) {
+    id
+  }
+}
+`;
