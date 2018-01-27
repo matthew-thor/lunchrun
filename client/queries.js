@@ -118,3 +118,13 @@ query GroupEmailsQuery($groupId: Int!) {
   }
 }
 `;
+
+export const routesQuery = gql`
+query RoutesQuery($groupId: Int!) {
+  group(id: $groupId) {
+    admins {
+      id
+    }
+  }
+}
+`;

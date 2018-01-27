@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const Navbar = ({ isLoggedIn, handleClick }) => {
+const Navbar = ({ isLoggedIn, handleClick, isSiteAdmin, isGroupAdmin }) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <Link className="navbar-brand" to="/">Loop Lunch Run</Link>
@@ -9,8 +9,8 @@ const Navbar = ({ isLoggedIn, handleClick }) => {
         className="navbar-toggler"
         type="button"
         data-toggle="collapse"
-        data-target="#navbarCollapse"
-        aria-controls="navbarCollapse"
+        data-target=".navbar-collapse"
+        aria-controls="navbar-collapse"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
@@ -18,6 +18,14 @@ const Navbar = ({ isLoggedIn, handleClick }) => {
       </button>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            {isSiteAdmin &&
+              <NavLink className="nav-link" activeClassName="active" to="/admin">Site Admin</NavLink>}
+          </li>
+          <li className="nav-item">
+            {isGroupAdmin &&
+              <NavLink className="nav-link" activeClassName="active" to="/groupadmin">Group Settings</NavLink>}
+          </li>
           <li className="nav-item">
             {isLoggedIn &&
               <NavLink className="nav-link" activeClassName="active" to="/home">Home</NavLink>}
