@@ -28,6 +28,7 @@ class GroupAdmin extends React.Component {
   render() {
     const {
       user,
+      groupId,
       // data: { loading, error, group },
     } = this.props;
 
@@ -37,10 +38,9 @@ class GroupAdmin extends React.Component {
     // if (error) {
     //   return <p>{error.message}</p>;
     // }
-
     return (
       <div>
-        Group Admin Options
+        Group {groupId} Admin Options
       </div>
     );
     // const isAdmin = group.admins.find(u => u.id === user.id);

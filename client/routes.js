@@ -22,6 +22,7 @@ class Routes extends Component {
       isLoggedIn,
       user,
       data: { loading, error, group },
+      groupId,
      } = this.props;
 
     if (loading) {
@@ -51,7 +52,7 @@ class Routes extends Component {
             }
             {
               isGroupAdmin &&
-              <Route path="/groupadmin" component={GroupAdmin} groupId={group.id} />
+              <Route path="/groupadmin" component={() => (<GroupAdmin groupId={groupId} />)} />
             }
             {
               isLoggedIn &&
