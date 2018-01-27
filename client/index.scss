@@ -1,6 +1,6 @@
 // Bootstrap main
-// @import "../public/css/bootstrap.min.css";
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
+@import "../public/css/bootstrap.min.css";
+// @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
 // Font Awesome
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 // Google fonts
@@ -137,4 +137,25 @@ div.modal {
 .nav-link {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+}
+
+.container.group-admin-page {
+  display: grid;
+  grid-template-columns: 150px auto;
+
+  .item-sidenav {
+    padding-left: 10px;
+    border-right: 1px solid;
+    text-align: start;
+  }
+
+  .item-sidenav:hover,
+  .item-sidenav:focus,
+  .item-sidenav:active,
+  .nav-link:hover,
+  .nav-link:focus,
+  .nav-link:active,
+  {
+    background-color: #6c6c6c !important;
+  }
 }

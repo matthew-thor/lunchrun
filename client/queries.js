@@ -17,6 +17,17 @@ export const accountQuery = gql`
       admins {
         id
       }
+    }
+  }
+`;
+
+export const groupAdminQuery = gql`
+  query GroupAdminQuery($groupId: Int!) {
+    group(id: $groupId) {
+      id
+      admins {
+        id
+      }
       emails {
         id
         type

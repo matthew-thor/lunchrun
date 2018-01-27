@@ -61,7 +61,6 @@ class Account extends React.Component {
         {isAdmin &&
           <div>
             <Invite groupId={groupId} />
-            <GroupEmails group={group} />
             <AddRoute groupId={groupId} />
           </div>
         }
