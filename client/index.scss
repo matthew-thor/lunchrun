@@ -1,7 +1,6 @@
 // Bootstrap main
-// @import "../public/css/bootstrap.min.css";
-// @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
 @import "node_modules/bootstrap/scss/bootstrap";
+
 // Bootstrap selective
 // @import "node_modules/bootstrap/scss/functions";
 // @import "node_modules/bootstrap/scss/variables";
@@ -11,11 +10,14 @@
 // @import "node_modules/bootstrap/scss/images";
 // @import "node_modules/bootstrap/scss/code";
 // @import "node_modules/bootstrap/scss/grid";
+
 // Font Awesome
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
 // Google fonts
 @import url("https://fonts.googleapis.com/css?family=Pacifico|Saira|Ubuntu|Roboto");
-// local styles
+
+// template styles
 @import "../public/css/cover.css";
 
 body {
