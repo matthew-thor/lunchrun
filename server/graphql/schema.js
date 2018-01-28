@@ -9,7 +9,6 @@ type Query {
   allUsers: [User]
   run(date: String): Run
   allRoutes: [Route]
-  getFortuneCookie: String @cacheControl(maxAge: 10)
 }
 
 type Mutation {

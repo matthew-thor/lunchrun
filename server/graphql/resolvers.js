@@ -13,7 +13,7 @@ const resolvers = {
       return User.findById(args.id);
     },
     group: (_, args, context) => {
-      if (!context.user) throw new Error('Not authorized');
+      // if (!context.user) throw new Error('Not authorized');
       return Group.findById(args.id);
     },
     allUsers: (_, args, context) => {

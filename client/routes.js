@@ -4,8 +4,10 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { Main, Login, Signup, UserHome, Landing, Account } from './components';
+import { Main, Login, Signup, UserHome, Landing, Account, GroupAdmin, SiteAdmin } from './components';
 import { me } from './store';
+import { graphql, compose } from 'react-apollo';
+import { routesQuery } from './queries';
 
 /**
  * COMPONENT
@@ -16,15 +18,42 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const {
+      isLoggedIn,
+      user,
+      data: { loading, error, group },
+      groupId,
+     } = this.props;
+
+    if (loading) {
+      return <h1>Loading...</h1>;
+    }
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
+    const isGroupAdmin = group.admins.find(u => u.id === user.id);
+    const isSiteAdmin = user.admin;
 
     return (
       <Router history={history}>
-        <Main>
+        <Main
+          isGroupAdmin={isGroupAdmin}
+          isSiteAdmin={isSiteAdmin}
+        // groupId={group.id}
+        >
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            {
+              isSiteAdmin &&
+              <Route path="/admin" component={SiteAdmin} />
+            }
+            {
+              isGroupAdmin &&
+              <Route path="/groupadmin" component={() => (<GroupAdmin groupId={groupId} />)} />
+            }
             {
               isLoggedIn &&
               <Switch>
@@ -51,6 +80,7 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    user: state.user,
   };
 };
 
@@ -62,7 +92,11 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Routes);
+const RoutesConnected = connect(mapState, mapDispatch)(Routes);
+
+export default compose(
+  graphql(routesQuery, { options: props => ({ variables: { groupId: props.groupId } }) }),
+)(RoutesConnected);
 
 /**
  * PROP TYPES

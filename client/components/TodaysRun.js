@@ -15,7 +15,6 @@ const today = moment(new Date()).format('YYYY-MM-DD');
 const TodaysRun = ({
   user,
   data: { loading, error, run },
-  updateParticipant,
 }) => {
 
   if (loading) {
@@ -57,5 +56,4 @@ export default compose(
  */
 TodaysRun.propTypes = {
   user: PropTypes.object,
-  updateParticipant: PropTypes.func.isRequired,
 };

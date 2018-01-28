@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import { accountQuery } from '../queries';
+import { groupAdminQuery } from '../queries';
 import { updateEmailScheduleMutation } from '../mutations';
 
 const getDayFromCron = cronNum => {
@@ -69,7 +69,7 @@ const GroupEmails = ({ group, updateEmailSchedule }) => {
         days: dayString,
       },
       refetchQueries: [{ // change this to use update and optimisticResponse
-        query: accountQuery,
+        query: groupAdminQuery,
         variables: {
           groupId: group.id,
         },

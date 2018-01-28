@@ -1,11 +1,23 @@
 // Bootstrap main
-// @import "../public/css/bootstrap.min.css";
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// Bootstrap selective
+// @import "node_modules/bootstrap/scss/functions";
+// @import "node_modules/bootstrap/scss/variables";
+// @import "node_modules/bootstrap/scss/mixins";
+// @import "node_modules/bootstrap/scss/reboot";
+// @import "node_modules/bootstrap/scss/type";
+// @import "node_modules/bootstrap/scss/images";
+// @import "node_modules/bootstrap/scss/code";
+// @import "node_modules/bootstrap/scss/grid";
+
 // Font Awesome
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
 // Google fonts
 @import url("https://fonts.googleapis.com/css?family=Pacifico|Saira|Ubuntu|Roboto");
-// local styles
+
+// template styles
 @import "../public/css/cover.css";
 
 body {
@@ -127,4 +139,35 @@ div.modal {
 
 .fa-github, .fa-linkedin-in, .fa-envelope-open {
   margin-left: 0.9em;
+}
+
+.btn-outline-secondary.dropdown-toggle {
+  border: 0px !important;
+  color: rgba(255,255,255,.5) !important;
+}
+
+.nav-link {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.container.group-admin-page {
+  display: grid;
+  grid-template-columns: 150px auto;
+
+  .item-sidenav {
+    padding-left: 10px;
+    border-right: 1px solid;
+    text-align: start;
+  }
+
+  .item-sidenav:hover,
+  .item-sidenav:focus,
+  .item-sidenav:active,
+  .nav-link:hover,
+  .nav-link:focus,
+  .nav-link:active,
+  {
+    background-color: #6c6c6c !important;
+  }
 }

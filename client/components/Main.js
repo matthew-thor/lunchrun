@@ -12,12 +12,21 @@ import { Navbar, Footer } from '../components';
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = props => {
-  const { children, handleClick, isLoggedIn } = props;
-
+const Main = ({
+  children,
+  handleClick,
+  isLoggedIn,
+  isGroupAdmin,
+  isSiteAdmin,
+}) => {
   return (
     <div className="container">
-      <Navbar isLoggedIn={isLoggedIn} handleClick={handleClick} />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        handleClick={handleClick}
+        isGroupAdmin={isGroupAdmin}
+        isSiteAdmin={isSiteAdmin}
+      />
       {children}
       <Footer />
     </div>
