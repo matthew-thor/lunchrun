@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { accountQuery } from '../queries';
-import { Invite, GroupEmails, AddRoute, ChangePassword } from '../components';
+import { ChangePassword } from '../components';
 
 /**
  * groupId needs to be changed later to reflect actual group
@@ -57,12 +57,6 @@ class Account extends React.Component {
             <i className="fab fa-google" />
             <span>Connect Google Account</span>
           </a>
-        }
-        {isAdmin &&
-          <div>
-            <Invite groupId={groupId} />
-            <AddRoute groupId={groupId} />
-          </div>
         }
       </div>
     );

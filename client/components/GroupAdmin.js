@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import { groupAdminQuery } from '../queries';
-import { Invite, GroupEmails, AddRoute, ChangePassword } from '../components';
+import { Invite, GroupEmails, AddRoute } from '../components';
 
 /**
  * COMPONENT
@@ -16,15 +16,6 @@ class GroupAdmin extends React.Component {
       showPasswordForm: false,
       view: 'default',
     };
-  }
-
-  // componentWillReceiveProps() {
-  //   this.setState({ showPasswordForm: false });
-  // }
-
-  handleClick = event => {
-    event.preventDefault();
-    this.setState({ showPasswordForm: !this.state.showPasswordForm });
   }
 
   navHandler = event => {
@@ -41,8 +32,13 @@ class GroupAdmin extends React.Component {
         // return (<GroupMembers groupId={this.props.groupId} />);
         return (<div>Group Members</div>);
       case 'Routes':
-        // return (<GroupRoutes groupId={this.props.groupId} />);
-        return (<div>Group Routes</div>);
+        // <GroupRoutes groupId={this.props.groupId} />
+        return (
+          <div>
+            Group Routes
+            <AddRoute groupId={this.props.groupId} />
+          </div>
+        );
       case 'Emails':
         return (<GroupEmails group={this.props.data.group} />);
       default:
@@ -74,12 +70,13 @@ class GroupAdmin extends React.Component {
       )
       );
 
-    // if (loading) {
-    //   return <h1>Loading...</h1>;
-    // }
-    // if (error) {
-    //   return <p>{error.message}</p>;
-    // }
+    if (loading) {
+      return <h1>Loading...</h1>;
+    }
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
     return (
       <div className="container group-admin-page">
         <ul className="nav flex-column">
@@ -91,30 +88,6 @@ class GroupAdmin extends React.Component {
         </div>
       </div>
     );
-    // const isAdmin = group.admins.find(u => u.id === user.id);
-    // const isGoogleConnected = user.googleId;
-
-    // return (
-    //   <div>
-    //     <h3>Name: {user.fullName}</h3>
-    //     <h3>Email: {user.email}</h3>
-    //     <button onClick={this.handleClick}>Change password</button>
-    //     {this.state.showPasswordForm && <ChangePassword />}
-    //     {!isGoogleConnected &&
-    //       <a href="/auth/google/connect" className="google-btn">
-    //         <i className="fab fa-google" />
-    //         <span>Connect Google Account</span>
-    //       </a>
-    //     }
-    //     {isAdmin &&
-    //       <div>
-    //         <Invite groupId={groupId} />
-    //         <GroupEmails group={group} />
-    //         <AddRoute groupId={groupId} />
-    //       </div>
-    //     }
-    //   </div>
-    // );
   }
 }
 

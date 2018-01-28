@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import { accountQuery } from '../queries';
 import { Invite, GroupEmails, AddRoute, ChangePassword } from '../components';
@@ -17,23 +18,50 @@ class SiteAdmin extends React.Component {
     super(props);
     this.state = {
       showPasswordForm: false,
+      view: 'default',
     };
   }
 
-  componentWillReceiveProps() {
-    this.setState({ showPasswordForm: false });
+  navHandler = event => {
+    event.preventDefault();
+    const view = event.target.name;
+    this.setState({ view });
   }
 
-  handleClick = event => {
-    event.preventDefault();
-    this.setState({ showPasswordForm: !this.state.showPasswordForm });
+  displayView = () => {
+    switch (this.state.view) {
+      case 'Users':
+        return (<div>Users</div>);
+      case 'Groups':
+        return (<div>Groups</div>);
+      default:
+        return null;
+    }
+
   }
 
   render() {
     const {
       user,
+      // groupId,
       // data: { loading, error, group },
     } = this.props;
+
+    const generateNavLinks = nameArray =>
+      nameArray.map(name => (
+        <li className="nav-item item-sidenav" key={name}>
+          <NavLink
+            className="nav-link"
+            activeClassName="active"
+            name={name}
+            to="#"
+            onClick={this.navHandler}
+          >
+            {name}
+          </NavLink>
+        </li>
+      )
+      );
 
     // if (loading) {
     //   return <h1>Loading...</h1>;
@@ -43,34 +71,16 @@ class SiteAdmin extends React.Component {
     // }
 
     return (
-      <div>
-        Site Admin Options
+      <div className="container group-admin-page">
+        <ul className="nav flex-column">
+          {generateNavLinks(['Users', 'Groups'])}
+        </ul>
+        <div className="item-content">
+          Site Admin Options
+          {this.displayView()}
+        </div>
       </div>
     );
-    // const isAdmin = group.admins.find(u => u.id === user.id);
-    // const isGoogleConnected = user.googleId;
-
-    // return (
-    //   <div>
-    //     <h3>Name: {user.fullName}</h3>
-    //     <h3>Email: {user.email}</h3>
-    //     <button onClick={this.handleClick}>Change password</button>
-    //     {this.state.showPasswordForm && <ChangePassword />}
-    //     {!isGoogleConnected &&
-    //       <a href="/auth/google/connect" className="google-btn">
-    //         <i className="fab fa-google" />
-    //         <span>Connect Google Account</span>
-    //       </a>
-    //     }
-    //     {isAdmin &&
-    //       <div>
-    //         <Invite groupId={groupId} />
-    //         <GroupEmails group={group} />
-    //         <AddRoute groupId={groupId} />
-    //       </div>
-    //     }
-    //   </div>
-    // );
   }
 }
 
