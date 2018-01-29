@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import Routes from './Routes';
 import { Provider } from 'react-redux';
 import store from './store';
+import './responsive';
 
 const client = new ApolloClient({
   link: new HttpLink({ credentials: 'same-origin' }),
