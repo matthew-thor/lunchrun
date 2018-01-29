@@ -22,7 +22,7 @@ const startEmailService = async () => {
     });
   });
 
-  console.log('Email service running');
+  console.log('Started email service');
 };
 
 const stopEmailService = () => {
@@ -31,7 +31,7 @@ const stopEmailService = () => {
     j.cancel();
   });
 
-  console.log('Email service stopped');
+  console.log('Stopped email service');
 };
 
 const updateEmailService = async emailId => {
@@ -62,7 +62,7 @@ const createRunsAtMidnight = () => {
     console.log(`New runs created for ${groups.length} groups at ${fireDate}`);
   });
 
-  console.log('Run creation service running');
+  console.log('Started run creation service');
 };
 
 module.exports = {
