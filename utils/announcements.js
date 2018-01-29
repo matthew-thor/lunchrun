@@ -59,7 +59,7 @@ const sendUpdateEmail = async groupId => {
     include: [{ all: true }],
   });
 
-  const routeName = run.route.name;
+  const routeName = run.route ? run.route.name : 'TBA';
   const emails = run.participants.map(p => p.email);
   const participants = run.participants.map(p => {
     let returnString = `<li>${p.fullName}`;
