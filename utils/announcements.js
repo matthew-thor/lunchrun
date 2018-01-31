@@ -2,6 +2,9 @@ const nodemailer = require('nodemailer');
 const moment = require('moment-timezone');
 const Run = require('../server/db/models/run');
 const Group = require('../server/db/models/group');
+const chalk = require('chalk');
+
+const blueRedBg = text => { console.log(chalk.blue.bgRed.bold(text)); };
 
 const today = moment(new Date()).format('YYYY-MM-DD');
 let siteUrl = 'http://looplunchrun.com';
@@ -31,7 +34,7 @@ const sendAnnouncementEmail = (type, message, groupId) => {
 
   transporter.sendMail(message, (err, info) => {
     if (err) console.log(err);
-    else console.log(`${type} email sent to group ${groupId}\n`, info);
+    else blueRedBg(`${type} email sent to group ${groupId}\n`, info);
   });
 };
 
@@ -58,6 +61,8 @@ const sendUpdateEmail = async groupId => {
     },
     include: [{ all: true }],
   });
+
+  if (!run.participants.length) return 'no participants';
 
   const routeName = run.route ? run.route.name : 'TBA';
   const emails = run.participants.map(p => p.email);
