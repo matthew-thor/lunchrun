@@ -69,7 +69,7 @@ const Signup = props => {
           placeholder="Re-type Password" />
       </div>
       <div className="item-button">
-        <button type="submit" className="btn btn-lg btn-default">Sign up</button>
+        <button type="submit" className="btn btn-lg button-default">Sign up</button>
       </div>
       {error && error.response && <div> {error.response.data} </div>}
     </form>

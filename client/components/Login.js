@@ -32,12 +32,12 @@ const Login = props => {
       <div className="item-button">
         <button type="submit" className="btn btn-lg button-default">Log in</button>
       </div>
-      <Link to="/auth/google/login" className="item-button">
+      <a href="/auth/google/login" className="item-button">
         <button type="button" className="btn btn-lg google-btn">
           <i className="fab fa-google" />
           <span>Log in with Google</span>
         </button>
-      </Link>
+      </a>
       {error && error.response && <div> {error.response.data} </div>}
     </form>
   );
