@@ -7,7 +7,6 @@ const Navbar = ({ isLoggedIn, handleClick, isSiteAdmin, isGroupAdmin }) => {
       <div className="item">
         <Link className="navbar-brand" to="/">Loop Lunch Run</Link>
       </div>
-      <div className="item" />
       {isLoggedIn &&
         <div className="item">
           <NavLink className="navbar-link" activeClassName="active" to="/home">

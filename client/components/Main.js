@@ -20,7 +20,7 @@ const Main = ({
   isSiteAdmin,
 }) => {
   return (
-    <div className="container">
+    <div className="container-main">
       <Navbar
         isLoggedIn={isLoggedIn}
         handleClick={handleClick}

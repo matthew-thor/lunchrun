@@ -54,6 +54,10 @@ body {
 /* Padding for spacing */
 .inner {
   padding: 30px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 
