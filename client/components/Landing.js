@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 
 const Landing = ({ user }) => {
   return (
-    <div className="landing-container">
+    <div className="container-landing">
       <div className="heading">Loop Lunch Run</div>
       <div className="subtitle">Making Lou's life easier, one website at a time.</div>
       <div className="content left">
         <Link to="/login" className="btn btn-lg btn-default">Log in</Link>
       </div>
-      <div className="content right">
-        <Link to="/signup" className="btn btn-lg btn-default">Sign up</Link>
-      </div>
+      <button type="button" className="content right btn btn-lg btn-default">
+        <Link to="/signup">Sign up</Link>
+      </button>
     </div>
   );
 };
