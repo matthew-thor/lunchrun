@@ -68,51 +68,64 @@ const Participants = ({
   };
 
   return (
-    <div className="participants">
+    <div className="container-participants">
       <h3>Who's in?</h3>
-      <ul>
+      <div className="participant-list">
         {
           run.participants.map(u => {
-            const comment = u.comment ? ' - ' + u.comment : null;
-            return (<li key={u.userId}>
-              {u.user.fullName}{comment}
-            </li>);
+            if (!u.comment) {
+              // const comment = u.comment ? ' - ' + u.comment : null;
+              return (
+                <div className="name-only" key={u.userId}>
+                  {u.user.fullName}
+                </div>
+              );
+            } else {
+              return (
+                <React.Fragment>
+                  <div className="name" key={u.userId}>
+                    {u.user.fullName}
+                  </div>
+                  <div className="comment">
+                    {u.comment}
+                  </div>
+                </React.Fragment>
+              );
+            }
           })
         }
-      </ul>
+      </div>
       {
         run.participants.find(p => p.userId === user.id) &&
-        <div>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group row justify-content-center">
-              <label className="col-sm-3 col-form-label" htmlFor="comment">
-                Put a note in here:
+        <form onSubmit={handleSubmit}>
+          <div className="form-group row justify-content-center">
+            <label className="col-sm-3 col-form-label" htmlFor="comment">
+              Put a note in here:
               </label>
-              <div className="col-sm-6">
-                <input
-                  name="comment"
-                  className="form-control"
-                  type="text"
-                  placeholder="Doing a workout? Going to be late?" />
-              </div>
-              <div className="col-sm-1">
-                <button type="submit" className="btn btn-md btn-default">
-                  Submit
-                </button>
-              </div>
-              {run.participants.find(p => (p.userId === user.id && p.comment)) &&
-                <div className="col-sm-2">
-                  <button className="btn btn-md btn-danger">
-                    Remove
-                  </button>
-                </div>
-              }
+            <div className="col-sm-6">
+              <input
+                name="comment"
+                className="form-control"
+                type="text"
+                placeholder="Doing a workout? Going to be late?" />
             </div>
-          </form>
+            <div className="col-sm-1">
+              <button type="submit" className="btn btn-md btn-default">
+                Submit
+                </button>
+            </div>
+            {run.participants.find(p => (p.userId === user.id && p.comment)) &&
+              <div className="col-sm-2">
+                <button className="btn btn-md btn-danger">
+                  Remove
+                  </button>
+              </div>
+            }
+          </div>
           <button name="out" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
             I'm out
-          </button>
-        </div>
+            </button>
+        </form>
       }
       {
         !run.participants.find(p => p.userId === user.id) &&
