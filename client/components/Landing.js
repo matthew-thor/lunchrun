@@ -8,12 +8,12 @@ const Landing = ({ user }) => {
     <div className="container-landing">
       <div className="heading">Loop Lunch Run</div>
       <div className="subtitle">Making Lou's life easier, one website at a time.</div>
-      <div className="content left">
-        <Link to="/login" className="btn btn-lg btn-default">Log in</Link>
-      </div>
-      <button type="button" className="content right btn btn-lg btn-default">
-        <Link to="/signup">Sign up</Link>
-      </button>
+      <Link to="/login" className="content left">
+        <button type="button" className="btn btn-lg btn-default">Log in</button>
+      </Link>
+      <Link to="/signup" className="content right">
+        <button type="button" className="btn btn-lg btn-default">Sign up</button>
+      </Link>
     </div>
   );
 };
