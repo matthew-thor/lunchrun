@@ -63,7 +63,7 @@ const TodaysRunAdmin = ({
   const route = run.route || null;
 
   return (
-    <div className="container todays-run-admin input-form">
+    <div className="container-todays-run-admin">
       <form onSubmit={handleSubmit}>
         <div className="modal fade todays-run-success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-sm">
@@ -72,48 +72,37 @@ const TodaysRunAdmin = ({
             </div>
           </div>
         </div>
-        <div className="route-title row justify-content-center">
-          <div className="col-sm-6 left-col">
-            <h3>Today's route:</h3>
-          </div>
-          <div className="col-sm-6 right-col">
-            <select
-              name="route-select"
-              className="route-select form-control"
-              defaultValue={route ? route.name : 'default'}
-            >
-              {!route &&
-                <option disabled="true" value="default">Select route</option>
+        <h3>Today's route:</h3>
+        <select
+          name="route-select"
+          className="route-select form-control"
+          defaultValue={route ? route.name : 'default'}
+        >
+          {!route &&
+            <option disabled="true" value="default">Select route</option>
+          }
+          {
+            group.routes.map(r => {
+              if (route && r.id === route.id) {
+                return (<option key={r.id} value={r.name}>{r.name}</option>);
               }
-              {
-                group.routes.map(r => {
-                  if (route && r.id === route.id) {
-                    return (<option key={r.id} value={r.name}>{r.name}</option>);
-                  }
-                  else {
-                    return (<option key={r.id} value={r.name}>{r.name}</option>);
-                  }
-                })
+              else {
+                return (<option key={r.id} value={r.name}>{r.name}</option>);
               }
-            </select>
-          </div>
+            })
+          }
+        </select>
+        <h3>Start time:</h3>
+        <input
+          name="start-time"
+          type="time"
+          className="input"
+          defaultValue={run.startTime}
+        />
+        <div className="item-button">
+          <button type="submit" className="btn btn-default" data-target=".todays-run-success-modal">Save changes</button>
         </div>
-        <div className="start-time row">
-          <div className="col-sm-6 left-col">
-            <h3>Start time:</h3>
-          </div>
-          <div className="col-sm-6 right-col">
-            <input
-              name="start-time"
-              type="time"
-              className="form-control"
-              defaultValue={run.startTime}
-            />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-lg btn-default" data-target=".todays-run-success-modal">Save changes</button>
       </form>
-      <br /><br />
       <Participants />
     </div>
   );

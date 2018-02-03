@@ -69,7 +69,7 @@ const ChangePassword = ({
         className="input"
         type="password"
         placeholder="Re-type New Password" />
-      <div>
+      <div className="submit">
         <button
           type="submit"
           className="btn btn-default"
@@ -78,7 +78,9 @@ const ChangePassword = ({
           Submit
       </button>
       </div>
-      <button className="btn btn-default" onClick={handleClick}>Cancel</button>
+      <div className="cancel">
+        <button className="btn btn-default" onClick={handleClick}>Cancel</button>
+      </div>
     </form>
   );
 };

@@ -17,6 +17,10 @@
 // Google fonts
 @import url("https://fonts.googleapis.com/css?family=Pacifico|Saira|Ubuntu|Roboto");
 
+/**
+ * Top level setup
+ */
+
 html, body {
   background-color: #333;
 }
@@ -24,6 +28,10 @@ html, body {
 body {
   color: #fff;
 }
+
+/**
+ * Global class attributes
+ */
 
 a, a:focus, a:hover {
   text-decoration: none;
@@ -59,6 +67,26 @@ a, a:focus, a:hover {
 .fa-google {
   margin-right: 0.6em;
 }
+
+.modal {
+  top: 20%;
+  color: #5cb85c;
+  font-size: 1.5em;
+  text-shadow: none;
+
+  .modal-content {
+    text-align: center;
+  }
+}
+
+.btn-outline-secondary.dropdown-toggle {
+  border: 0px !important;
+  color: rgba(255,255,255,.5) !important;
+}
+
+/**
+ * Containers and children
+ */
 
 .container-nav {
   background-color: rgba(69, 69, 76, 0.86) !important;
@@ -199,6 +227,25 @@ footer {
   }
 }
 
+.container-todays-run-admin {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  grid-gap: 3rem;
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
+    grid-gap: .5rem;
+
+    .item-button {
+      grid-column: span 2;
+      justify-self: center;
+    }
+  }
+}
+
 .container-participants {
   display: grid;
   grid-template-rows: repeat(3, auto) 1fr;
@@ -271,33 +318,15 @@ footer {
     .input {
       grid-column: span 2;
     }
+
+    .submit {
+      justify-self: right;
+    }
+
+    .cancel {
+      justify-self: left;
+    }
   }
-}
-
-div.input-form {
-  div.left-col {
-    text-align: right;
-  }
-
-  div.right-col {
-    text-align: left;
-  }
-}
-
-.modal {
-  top: 20%;
-  color: #5cb85c;
-  font-size: 1.5em;
-  text-shadow: none;
-
-  .modal-content {
-    text-align: center;
-  }
-}
-
-.btn-outline-secondary.dropdown-toggle {
-  border: 0px !important;
-  color: rgba(255,255,255,.5) !important;
 }
 
 .container.group-admin-page {
