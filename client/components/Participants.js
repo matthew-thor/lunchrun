@@ -21,6 +21,7 @@ const Participants = ({
   }
 
   const handleMouseUp = event => {
+    console.log(event.target.name)
     event.preventDefault();
     updateParticipant({
       variables: {
@@ -82,12 +83,12 @@ const Participants = ({
               );
             } else {
               return (
-                <React.Fragment>
-                  <div className="name" key={u.userId}>
+                <React.Fragment key={u.userId}>
+                  <div className="name">
                     {u.user.fullName}
                   </div>
-                  <div className="comment">
-                    {u.comment}
+                  <div className="comment" key={u.comment}>
+                    {'  - "' + u.comment + '"'}
                   </div>
                 </React.Fragment>
               );
@@ -97,41 +98,39 @@ const Participants = ({
       </div>
       {
         run.participants.find(p => p.userId === user.id) &&
-        <form onSubmit={handleSubmit}>
-          <div className="form-group row justify-content-center">
-            <label className="col-sm-3 col-form-label" htmlFor="comment">
-              Put a note in here:
-              </label>
-            <div className="col-sm-6">
-              <input
-                name="comment"
-                className="form-control"
-                type="text"
-                placeholder="Doing a workout? Going to be late?" />
-            </div>
-            <div className="col-sm-1">
-              <button type="submit" className="btn btn-md btn-default">
-                Submit
-                </button>
-            </div>
-            {run.participants.find(p => (p.userId === user.id && p.comment)) &&
-              <div className="col-sm-2">
-                <button className="btn btn-md btn-danger">
-                  Remove
-                  </button>
-              </div>
-            }
-          </div>
-          <button name="out" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
-            I'm out
+        <React.Fragment>
+          <form className="comment-form" onSubmit={handleSubmit}>
+            <input
+              name="comment"
+              className="input"
+              type="text"
+              placeholder="Workout? Late? Add a note"
+            />
+            <button type="submit" className="btn btn-md btn-default">
+              Submit
             </button>
-        </form>
+            {
+              run.participants.find(p => (p.userId === user.id && p.comment)) &&
+              <button className="btn btn-md btn-danger">
+                Remove
+              </button>
+            }
+          </form>
+          <div className="out">
+            <button name="out" onMouseUp={handleMouseUp} className="btn btn-lg button-default">
+              I'm out
+            </button>
+          </div>
+        </React.Fragment>
+
       }
       {
         !run.participants.find(p => p.userId === user.id) &&
-        <button name="in" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
-          I'm in!
-        </button>
+        <div className="in">
+          <button name="in" onMouseUp={handleMouseUp} className="btn btn-lg btn-default">
+            I'm in!
+          </button>
+        </div>
       }
     </div>
   );
