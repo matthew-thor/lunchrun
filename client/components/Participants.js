@@ -73,9 +73,12 @@ const Participants = ({
       <h3>Who's in?</h3>
       <div className="participant-list">
         {
+          !run.participants.length &&
+          <div className="name-only">Nobody's in yet!</div>
+        }
+        {
           run.participants.map(u => {
             if (!u.comment) {
-              // const comment = u.comment ? ' - ' + u.comment : null;
               return (
                 <div className="name-only" key={u.userId}>
                   {u.user.fullName}

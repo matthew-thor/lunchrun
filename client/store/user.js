@@ -42,14 +42,12 @@ export const signup = userData => {
   return async dispatch => {
     try {
       const res = await axios.post('/auth/signup', userData);
-
       dispatch(getUser(res.data));
       history.push('/home');
     }
-    catch (err) { dispatch(getUser({ err })); }
+    catch (error) { dispatch(getUser({ error })); }
   };
 };
-
 
 export const logout = () =>
   dispatch =>

@@ -11,6 +11,7 @@ const Signup = props => {
   const { handleSubmit, error } = props;
   const { email, gId, code } = qs.parse(props.location.search);
 
+  console.log('error', error);
   return (
     <form
       className="container-auth signup"
@@ -71,7 +72,7 @@ const Signup = props => {
       <div className="item-button">
         <button type="submit" className="btn btn-lg button-default">Sign up</button>
       </div>
-      {error && error.response && <div> {error.response.data} </div>}
+      {error && error.response && <div className="error"> {error.response.data} </div>}
     </form>
   );
 };
