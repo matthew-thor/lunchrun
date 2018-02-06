@@ -23,7 +23,7 @@ const Main = ({
     <div className="container-main">
       <Navbar
         isLoggedIn={isLoggedIn}
-        handleClick={handleClick}
+        handleLogout={handleClick}
         isGroupAdmin={isGroupAdmin}
         isSiteAdmin={isSiteAdmin}
       />
