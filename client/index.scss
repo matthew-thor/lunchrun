@@ -89,6 +89,8 @@ a, a:focus, a:hover {
  */
 
 .container-nav {
+  // DIVIDE INTO GRID AREAS
+
   background-color: rgba(69, 69, 76, 0.86) !important;
   padding: 0 1.5rem;
   display: grid;
@@ -105,12 +107,12 @@ a, a:focus, a:hover {
 
   .navbar-link {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 20px;
+    font-size: 1.3rem;
     font-family: 'Saira', sans-serif;
     justify-content: right;
   }
 
-  .navbar-link:hover, .navbar-link:active {
+  a:hover, a:active, a:focus {
     color: white;
     text-decoration: none;
   }
@@ -119,6 +121,47 @@ a, a:focus, a:hover {
     font-size: 30px;
     font-family: 'Pacifico', cursive;
     justify-content: left;
+  }
+
+  .test-dropdown-toggle {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    position: relative;
+
+    .test-dropdown-menu {
+      left: -7rem;
+      right: 0;
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-columns: auto;
+      grid-template-rows: repeat(3, auto);
+      justify-content: center;
+      background-color: #c3c3c5;
+      font-size: 1rem;
+      color: #212529;
+      border-radius: .25rem;
+      padding: .2rem;
+
+
+      .nav-dropdown-item {
+        color: #212529;
+      }
+
+      .nav-dropdown-item:hover, .nav-dropdown-item:active, .nav-dropdown-item:focus {
+        color: #fff;
+      }
+    }
+  }
+
+  .test-dropdown-toggle > * {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .test-dropdown-toggle:hover, .test-dropdown-toggle:active, .test-dropdown-toggle:focus {
+    color: white;
   }
 }
 
