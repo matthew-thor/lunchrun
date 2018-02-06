@@ -7,7 +7,7 @@ class Navbar extends React.Component {
     this.state = { showDropdown: false };
   }
 
-  toggle = event => {
+  handleClick = event => {
     event.preventDefault();
     this.setState({ showDropdown: !this.state.showDropdown });
   }
@@ -61,11 +61,14 @@ class Navbar extends React.Component {
         {
           (isGroupAdmin || isSiteAdmin) &&
           <div className="item">
-            <div className="navbar-link test-dropdown-toggle" onClick={this.toggle}>
-              <i title="settings dropdown" className="fas fa-cogs" aria-hidden="false" />
+            <div
+              className="navbar-link nav-dropdown-toggle"
+              onClick={this.handleClick}
+            >
+              <i className="fas fa-cogs" /> <i className="fas fa-caret-down" />
               {
                 this.state.showDropdown &&
-                <div className="test-dropdown-menu">
+                <div className="nav-dropdown-menu">
                   <Link className="nav-dropdown-item" to="/account">
                     Account Settings
                   </Link>
@@ -90,8 +93,6 @@ class Navbar extends React.Component {
     );
   }
 }
-
-<i className="fas fa-cogs" />
 
 export default Navbar;
 

@@ -123,14 +123,15 @@ a, a:focus, a:hover {
     justify-content: left;
   }
 
-  .test-dropdown-toggle {
+  .nav-dropdown-toggle {
     padding: 0;
     margin: 0;
     border: 0;
     background-color: transparent;
     position: relative;
 
-    .test-dropdown-menu {
+    .nav-dropdown-menu {
+      position: absolute;
       left: -7rem;
       right: 0;
       display: grid;
@@ -155,12 +156,7 @@ a, a:focus, a:hover {
     }
   }
 
-  .test-dropdown-toggle > * {
-    position: absolute;
-    left: -9999px;
-  }
-
-  .test-dropdown-toggle:hover, .test-dropdown-toggle:active, .test-dropdown-toggle:focus {
+  .nav-dropdown-toggle:hover, .nav-dropdown-toggle:active, .nav-dropdown-toggle:focus {
     color: white;
   }
 }
