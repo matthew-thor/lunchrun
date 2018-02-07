@@ -1,21 +1,25 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const NavbarLoggedOut = () =>
-  (
+const NavbarLoggedOut = ({ willCollapse }) => {
+  const divClass = willCollapse ? 'item will-collapse' : 'item';
+  const linkClass = willCollapse ? 'navbar-link' : 'nav-dropdown-item';
+
+  return (
     <React.Fragment>
-      <div className="item">
-        <NavLink className="navbar-link" activeClassName="active" to="/signup">
+      <div className={divClass}>
+        <NavLink className={linkClass} activeClassName="active" to="/signup">
           Sign up
         </NavLink>
       </div>
-      <div className="item">
-        <NavLink className="navbar-link" activeClassName="active" to="/login">
+      <div className={divClass}>
+        <NavLink className={linkClass} activeClassName="active" to="/login">
           Log in
         </NavLink>
       </div>
     </React.Fragment>
-  )
-  ;
+  );
+};
+
 
 export default NavbarLoggedOut;

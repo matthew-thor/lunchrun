@@ -23,3 +23,4 @@ export { default as GroupAdmin } from './GroupAdmin';
 export { default as NavbarAdmin } from './NavbarAdmin';
 export { default as NavbarLoggedOut } from './NavbarLoggedOut';
 export { default as NavbarLoggedIn } from './NavbarLoggedIn';
+export { default as NavbarCollapse } from './NavbarCollapse';

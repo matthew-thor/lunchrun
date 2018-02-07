@@ -1,21 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const NavbarLoggedIn = ({ handleLogout }) =>
-  (
+const NavbarLoggedIn = ({ handleLogout, willCollapse }) => {
+  const classes = willCollapse ? 'item will-collapse navbar-link' : 'nav-dropdown-item';
+
+  return (
     <React.Fragment>
-      <div className="item">
-        <NavLink className="navbar-link" activeClassName="active" to="/home">
-          Home
-        </NavLink>
-      </div>
-      <div className="item">
-        <NavLink className="navbar-link" activeClassName="active" to="#" onClick={handleLogout}>
-          Logout
-        </NavLink>
-      </div>
+      <NavLink className={`home ${classes}`} activeClassName="active" to="/home">
+        Home
+      </NavLink>
+      <NavLink className={`logout ${classes}`} activeClassName="active" to="#" onClick={handleLogout}>
+        Logout
+      </NavLink>
     </React.Fragment>
-  )
-  ;
+  );
+};
+
 
 export default NavbarLoggedIn;

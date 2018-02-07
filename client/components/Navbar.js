@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { NavbarAdmin, NavbarLoggedIn, NavbarLoggedOut } from './index';
+import { NavbarAdmin, NavbarLoggedIn, NavbarLoggedOut, NavbarCollapse } from './index';
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showDropdown: false };
+    this.state = { showAdminDropdown: false, showCollapseDropdown: false };
   }
 
-  handleToggle = event => {
+  handleToggleAdmin = event => {
     event.preventDefault();
-    this.setState({ showDropdown: !this.state.showDropdown });
+    this.setState({ showAdminDropdown: !this.state.showAdminDropdown });
+  }
+
+  handleToggleCollapse = event => {
+    event.preventDefault();
+    this.setState({ showCollapseDropdown: !this.state.showCollapseDropdown });
   }
 
   render() {
@@ -18,17 +23,17 @@ class Navbar extends React.Component {
 
     return (
       <nav className="container-nav">
-        <div className="item">
+        <div className="logo">
           <Link className="navbar-brand" to="/">Loop Lunch Run</Link>
         </div>
         {
           isLoggedIn
-            ? <NavbarLoggedIn handleLogout={handleLogout} />
-            : <NavbarLoggedOut />
+            ? <NavbarLoggedIn handleLogout={handleLogout} willCollapse={true} />
+            : <NavbarLoggedOut willCollapse={true} />
         }
         {
           isLoggedIn && !(isGroupAdmin || isSiteAdmin) &&
-          <div className="item">
+          <div className="item will-collapse">
             <NavLink className="navbar-link" activeClassName="active" to="/account">
               <i className="fas fa-cog" />
             </NavLink>
@@ -36,12 +41,24 @@ class Navbar extends React.Component {
         }
         {
           (isGroupAdmin || isSiteAdmin) &&
-          <NavbarAdmin isGroupAdmin isSiteAdmin showDropdown={this.state.showDropdown} handleToggle={this.handleToggle} />
+          <NavbarAdmin
+            isGroupAdmin={isGroupAdmin}
+            isSiteAdmin={isSiteAdmin}
+            showDropdown={this.state.showAdminDropdown}
+            handleToggle={this.handleToggleAdmin}
+          />
         }
+        <NavbarCollapse
+          isGroupAdmin={isGroupAdmin}
+          isSiteAdmin={isSiteAdmin}
+          isLoggedIn={isLoggedIn}
+          handleLogout={handleLogout}
+          showDropdown={this.state.showCollapseDropdown}
+          handleToggle={this.handleToggleCollapse}
+        />
       </nav>
     );
   }
 }
 
 export default Navbar;
-

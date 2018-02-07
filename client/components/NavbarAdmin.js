@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const NavbarAdmin = ({ isGroupAdmin, isSiteAdmin, handleToggle, showDropdown }) =>
   (
-    <div className="item">
+    <div className="item will-collapse">
       <div
         className="navbar-link nav-dropdown-toggle"
         onClick={handleToggle}
@@ -23,7 +23,7 @@ const NavbarAdmin = ({ isGroupAdmin, isSiteAdmin, handleToggle, showDropdown }) 
             }
             {
               isSiteAdmin &&
-              <Link className="nav-dropdown-item" to="/admin">
+              <Link className="site-settings nav-dropdown-item" to="/admin">
                 Site Settings
               </Link>
             }

@@ -89,8 +89,6 @@ a, a:focus, a:hover {
  */
 
 .container-nav {
-  // DIVIDE INTO GRID AREAS
-
   background-color: rgba(69, 69, 76, 0.86) !important;
   padding: 0 1.5rem;
   display: grid;
@@ -118,7 +116,7 @@ a, a:focus, a:hover {
   }
 
   .navbar-brand {
-    font-size: 30px;
+    font-size: 1.8rem;
     font-family: 'Pacifico', cursive;
     justify-content: left;
   }
@@ -137,7 +135,7 @@ a, a:focus, a:hover {
       display: grid;
       grid-auto-flow: row;
       grid-template-columns: auto;
-      grid-template-rows: repeat(3, auto);
+      grid-template-rows: repeat(5, auto);
       justify-content: center;
       background-color: #c3c3c5;
       font-size: 1rem;
@@ -158,6 +156,31 @@ a, a:focus, a:hover {
 
   .nav-dropdown-toggle:hover, .nav-dropdown-toggle:active, .nav-dropdown-toggle:focus {
     color: white;
+  }
+
+  .nav-collapse-toggle {
+    display: none;
+    font-size: 2rem;
+
+    .nav-dropdown-menu {
+      .home {
+        grid-row: 1;
+      }
+
+      .logout {
+        grid-row: -1;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-collapse-toggle {
+    display: inline !important;
+  }
+
+  .container-nav > .will-collapse {
+    display: none;
   }
 }
 
