@@ -59,8 +59,8 @@ export const participantsQuery = gql`
 `;
 
 export const todaysRunQuery = gql`
-  query TodaysRunQuery($today: String!) {
-    run(date: $today) {
+  query TodaysRunQuery($today: String!, $groupId: Int!) {
+    run(date: $today, groupId: $groupId) {
       id
       date
       startTime
@@ -95,7 +95,7 @@ query TodaysRunAdminQuery(
       name
     }
   }
-  run(date: $today) {
+  run(date: $today, groupId: $groupId) {
     id
     date
     startTime
