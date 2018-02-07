@@ -102,7 +102,7 @@ const resolvers = {
         return user.update({ password: args.newPw });
       }
       else { throw new Error('Not authorized'); }
-    }
+    },
   },
   Group: {
     admins: group => group.getAdmins(),

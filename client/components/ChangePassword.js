@@ -4,12 +4,12 @@ import { graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 import { changePasswordMutation } from '../mutations';
 import { me } from '../store';
-import history from '../history';
 
 const ChangePassword = ({
   user,
   changePassword,
   successRedirect,
+  handleClick,
  }) => {
   const displaySuccessMessageAndRedirect = () => {
     const modal = $('.change-pw-success-modal');
@@ -40,68 +40,48 @@ const ChangePassword = ({
   };
 
   return (
-    <div className="container change-password-form">
-      <form onSubmit={handleSubmit}>
-        <div
-          className="modal fade change-pw-success-modal"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="mySmallModalLabel"
-          aria-hidden="true"
+    <form className="change-password-form" onSubmit={handleSubmit}>
+      <div
+        className="modal fade change-pw-success-modal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="mySmallModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-sm">
+          <div className="modal-content">
+            <br /><span><i className="fas fa-check" /> Password changed</span><br />
+          </div>
+        </div>
+      </div>
+      <input
+        name="current-pw"
+        type="password"
+        className="input"
+        placeholder="Current Password" />
+      <input
+        name="new-pw"
+        type="password"
+        className="input"
+        placeholder="New Password" />
+      <input
+        name="new-pw-retype"
+        className="input"
+        type="password"
+        placeholder="Re-type New Password" />
+      <div className="submit">
+        <button
+          type="submit"
+          className="btn btn-default"
+          data-target=".change-pw-success-modal"
         >
-          <div className="modal-dialog modal-sm">
-            <div className="modal-content">
-              <br /><span><i className="fas fa-check" /> Password changed</span><br />
-            </div>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label" htmlFor="current-pw">
-            <small>Current Password</small>
-          </label>
-          <div className="col-sm-9">
-            <input
-              name="current-pw"
-              type="password"
-              className="form-control"
-              placeholder="Current Password" />
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label" htmlFor="new-pw">
-            <small>New Password</small>
-          </label>
-          <div className="col-sm-9">
-            <input
-              name="new-pw"
-              type="password"
-              className="form-control"
-              placeholder="New Password" />
-          </div>
-        </div>
-        <div className="form-group row has-error">
-          <label className="col-sm-3 col-form-label" htmlFor="new-pw-retype">
-            <small>Re-type New Password</small>
-          </label>
-          <div className="col-sm-9">
-            <input
-              name="new-pw-retype"
-              className="form-control"
-              type="password"
-              placeholder="Re-type New Password" />
-          </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="btn btn-lg btn-default"
-            data-target=".change-pw-success-modal"
-          >
-            Submit changes
+          Submit
       </button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div className="cancel">
+        <button className="btn btn-default" onClick={handleClick}>Cancel</button>
+      </div>
+    </form>
   );
 };
 
