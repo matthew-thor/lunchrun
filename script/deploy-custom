@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -e
-git checkout deploy
+
+function cleanup_at_exit {
+  git checkout master
+  git branch -D deploy
+}
+trap cleanup_at_exit EXIT
+
+git checkout -b deploy
 webpack -p
 git add -f public/bundle.js public/bundle.js.map
 git commit --allow-empty -m 'deploying'
-git push
-git checkout master
+git push -u origin deploy
