@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 
-let siteUrl = 'http://looplunchrun.com';
+// let siteUrl = 'http://looplunchrun.com';
+let siteUrl = 'http://lunchrun.herokuapp.com';
 
 if (process.env.NODE_ENV !== 'production') {
   require('../secrets');

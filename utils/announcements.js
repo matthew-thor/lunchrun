@@ -7,7 +7,8 @@ const chalk = require('chalk');
 const blueRedBg = text => { console.log(chalk.blue.bgRed.bold(text)); };
 
 const today = moment(new Date()).format('YYYY-MM-DD');
-let siteUrl = 'http://looplunchrun.com';
+// let siteUrl = 'http://looplunchrun.com';
+let siteUrl = 'http://lunchrun.herokuapp.com';
 
 if (process.env.NODE_ENV !== 'production') {
   require('../secrets');

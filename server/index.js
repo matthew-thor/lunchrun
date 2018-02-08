@@ -1,6 +1,6 @@
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import schema from './graphql/schema';
-import { Engine } from 'apollo-engine';
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const schema = require('./graphql/schema');
+const { Engine } = require('apollo-engine');
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
@@ -91,7 +91,9 @@ const createApp = () => {
   }
   ));
 
-  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+  if (process.env.NODE_ENV !== 'production') {
+    app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+  }
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
