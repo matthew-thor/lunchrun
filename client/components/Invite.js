@@ -6,14 +6,13 @@ import { inviteUserMutation } from '../mutations';
  * COMPONENT
  */
 
-
 const Invite = ({
   groupId,
   inviteUser,
 }) => {
   const displaySuccessMessage = () => {
     const modal = $('.invite-success-modal');
-    modal.modal({ focus: true });
+    modal.modal('toggle');
     setTimeout(() => { modal.modal('toggle'); }, 1300);
   };
 
@@ -30,44 +29,39 @@ const Invite = ({
   };
 
   return (
-    <div className="container invite-form input-form">
-      <form onSubmit={handleSubmit}>
-        <div
-          className="modal fade invite-success-modal"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="mySmallModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-sm">
-            <div className="modal-content">
-              <br /><span><i className="fas fa-envelope" /> Email sent</span><br />
-            </div>
+    <React.Fragment>
+      <div
+        className="modal fade invite-success-modal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="mySmallModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-sm">
+          <div className="modal-content">
+            <br /><span><i className="fas fa-envelope" /> Email sent</span><br />
           </div>
         </div>
-        <h3>Invite someone:</h3>
-        <div className="route-title row justify-content-center">
-          <div className="col-sm-6 left-col">
-            <h2>Email:</h2>
-          </div>
-          <div className="col-sm-6 right-col">
-            <input
-              name="email"
-              type="text"
-              className="form-control"
-              placeholder="email@domain.com"
-            />
-          </div>
+      </div>
+      <form className="container-invite-form" onSubmit={handleSubmit}>
+        <div className="item">
+          Send invite:
         </div>
+        <input
+          name="email"
+          type="text"
+          className="input"
+          placeholder="email@domain.com"
+        />
         <button
           type="submit"
           className="btn btn-lg btn-default"
           data-target=".invite-success-modal"
         >
-          Send email
+          Send
         </button>
       </form>
-    </div>
+    </React.Fragment>
   );
 };
 

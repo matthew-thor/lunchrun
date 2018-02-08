@@ -24,7 +24,7 @@ class GroupAdmin extends React.Component {
     this.setState({ view });
   }
 
-  displayView = () => {
+  displayView = groupId => {
     switch (this.state.view) {
       case 'Invites':
         return (<Invite groupId={this.props.groupId} />);
@@ -35,14 +35,13 @@ class GroupAdmin extends React.Component {
         // <GroupRoutes groupId={this.props.groupId} />
         return (
           <div>
-            Group Routes
             <AddRoute groupId={this.props.groupId} />
           </div>
         );
       case 'Emails':
         return (<GroupEmails group={this.props.data.group} />);
       default:
-        return null;
+        return (<h3>Group {groupId} Admin Options</h3>);
     }
 
   }
@@ -56,17 +55,16 @@ class GroupAdmin extends React.Component {
 
     const generateNavLinks = nameArray =>
       nameArray.map(name => (
-        <li className="nav-item item-sidenav" key={name}>
-          <NavLink
-            className="nav-link"
-            activeClassName="active"
-            name={name}
-            to="#"
-            onClick={this.navHandler}
-          >
-            {name}
-          </NavLink>
-        </li>
+        <NavLink
+          className="sidenav-link item-sidenav"
+          activeClassName="active"
+          name={name}
+          to="#"
+          onClick={this.navHandler}
+          key={name}
+        >
+          {name}
+        </NavLink>
       )
       );
 
@@ -78,13 +76,13 @@ class GroupAdmin extends React.Component {
     }
 
     return (
-      <div className="container group-admin-page">
-        <ul className="nav flex-column">
+      <div className="container-admin-page">
+        <div className="container-side-nav">
           {generateNavLinks(['Invites', 'Members', 'Routes', 'Emails'])}
-        </ul>
-        <div className="item-content">
-          Group {groupId} Admin Options
-          {this.displayView()}
+          <div className="item-placeholder" />
+        </div>
+        <div className="current-view">
+          {this.displayView(groupId)}
         </div>
       </div>
     );

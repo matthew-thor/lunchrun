@@ -35,7 +35,7 @@ class SiteAdmin extends React.Component {
       case 'Groups':
         return (<div>Groups</div>);
       default:
-        return null;
+        return (<h3>Site Admin Options</h3>);
     }
 
   }
@@ -49,17 +49,16 @@ class SiteAdmin extends React.Component {
 
     const generateNavLinks = nameArray =>
       nameArray.map(name => (
-        <li className="nav-item item-sidenav" key={name}>
-          <NavLink
-            className="nav-link"
-            activeClassName="active"
-            name={name}
-            to="#"
-            onClick={this.navHandler}
-          >
-            {name}
-          </NavLink>
-        </li>
+        <NavLink
+          className="sidenav-link item-sidenav"
+          activeClassName="active"
+          name={name}
+          to="#"
+          onClick={this.navHandler}
+          key={name}
+        >
+          {name}
+        </NavLink>
       )
       );
 
@@ -71,12 +70,12 @@ class SiteAdmin extends React.Component {
     // }
 
     return (
-      <div className="container group-admin-page">
-        <ul className="nav flex-column">
+      <div className="container-admin-page">
+        <div className="container-side-nav">
           {generateNavLinks(['Users', 'Groups'])}
-        </ul>
-        <div className="item-content">
-          Site Admin Options
+          <div className="item-placeholder" />
+        </div>
+        <div className="current-view">
           {this.displayView()}
         </div>
       </div>

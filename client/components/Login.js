@@ -14,21 +14,17 @@ const Login = props => {
 
   return (
     <form className="container-auth login" onSubmit={handleSubmit}>
-      <div className="item-input">
-        <input
-          name="email"
-          type="text"
-          className="input"
-          placeholder="Email"
-          defaultValue={email} />
-      </div>
-      <div className="item-input">
-        <input
-          name="password"
-          type="password"
-          className="input"
-          placeholder="Password" />
-      </div>
+      <input
+        name="email"
+        type="text"
+        className="input"
+        placeholder="Email"
+        defaultValue={email} />
+      <input
+        name="password"
+        type="password"
+        className="input"
+        placeholder="Password" />
       <div className="item-button">
         <button type="submit" className="btn btn-lg button-default">Log in</button>
       </div>
