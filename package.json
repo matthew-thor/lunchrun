@@ -9,7 +9,7 @@
   "scripts": {
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
-    "deploy": "script/deploy",
+    "deploy": "script/deploy-custom",
     "lint": "eslint ./ --ignore-path .gitignore",
     "postinstall": "touch secrets.js",
     "seed": "nodemon script/seed/index.js --exec babel-node",
