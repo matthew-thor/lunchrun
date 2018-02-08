@@ -1,8 +1,8 @@
-import { User, Run, Route, Participant, Group, Invite, Email } from './connectors';
-import { updateEmailService } from '../../utils';
-import _ from 'lodash';
+const { User, Run, Route, Participant, Group, Invite, Email } = require('./connectors');
+const { updateEmailService } = require('../../utils');
+const _ = require('lodash');
 
-const resolvers = {
+module.exports = {
   Query: {
     me: (_, args, context) => {
       if (context.user) return User.findById(context.user.id);
@@ -124,5 +124,3 @@ const resolvers = {
     user: participant => User.findById(participant.userId),
   },
 };
-
-export default resolvers;

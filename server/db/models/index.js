@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import db from '../db';
+const Sequelize = require('sequelize');
+const db = require('../db');
 const User = require('./user');
 const Route = require('./route');
 const Run = require('./run');
