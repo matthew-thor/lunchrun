@@ -13,7 +13,9 @@ const startEmailService = async () => {
   emails.forEach(email => {
     const name = email.groupId + email.type;
     const minutes = email.time.slice(3);
-    const hours = email.time.slice(0, 2);
+    const hours = process.env.NODE_ENV !== 'production'
+      ? email.time.slice(0, 2)
+      : Number(email.time.slice(0, 2)) + 6;
     const days = email.days;
     const cronFormat = `${minutes} ${hours} * * ${days}`;
 
@@ -42,7 +44,9 @@ const updateEmailService = async emailId => {
 
   const name = email.groupId + email.type;
   const minutes = email.time.slice(3);
-  const hours = email.time.slice(0, 2);
+  const hours = process.env.NODE_ENV !== 'production'
+    ? email.time.slice(0, 2)
+    : Number(email.time.slice(0, 2)) + 6;
   const days = email.days;
   const cronFormat = `${minutes} ${hours} * * ${days}`;
 

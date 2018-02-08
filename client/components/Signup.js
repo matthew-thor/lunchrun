@@ -11,7 +11,6 @@ const Signup = props => {
   const { handleSubmit, error } = props;
   const { email, gId, code } = qs.parse(props.location.search);
 
-  console.log('error', error);
   return (
     <form
       className="container-auth signup"
@@ -88,7 +87,7 @@ const mapDispatch = dispatch => {
       const userData = {
         email: event.target.email.value,
         password: event.target.password.value,
-        code: event.target['invite-code'].value,
+        code: event.target['invite-code'].value || event.target.attributes['data-invitecode'].value,
         firstName: event.target['first-name'].value,
         lastName: event.target['last-name'].value,
         groupId: event.target.attributes['data-groupid'].value,
