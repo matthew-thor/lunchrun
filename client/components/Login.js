@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
 import qs from 'query-string';
@@ -7,92 +8,38 @@ import qs from 'query-string';
 /**
  * COMPONENT
  */
-const AuthForm = props => {
-  const { name, displayName, handleSubmit, error } = props;
+const Login = props => {
+  const { handleSubmit, error } = props;
   const { email } = qs.parse(props.location.search);
 
   return (
-    <div>
-      <form className="auth-form" onSubmit={handleSubmit} name={name}>
-        {name === 'signup' &&
-          <div>
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label" htmlFor="first-name">
-                <small>First Name</small>
-              </label>
-              <div className="col-sm-9">
-                <input
-                  name="first-name"
-                  type="text"
-                  className="form-control"
-                  placeholder="First Name" />
-              </div>
-            </div>
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label" htmlFor="last-name">
-                <small>Last Name</small>
-              </label>
-              <div className="col-sm-9">
-                <input
-                  name="last-name"
-                  type="text"
-                  className="form-control"
-                  placeholder="Last Name" />
-              </div>
-            </div>
-          </div>
-        }
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label" htmlFor="email">
-            <small>Email</small>
-          </label>
-          <div className="col-sm-9">
-            <input
-              name="email"
-              type="text"
-              className="form-control"
-              placeholder="Email"
-              defaultValue={email} />
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label" htmlFor="password">
-            <small>Password</small>
-          </label>
-          <div className="col-sm-9">
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder="Password" />
-          </div>
-        </div>
-        {name === 'signup' &&
-          <div className="form-group row has-error">
-            <label className="col-sm-3 col-form-label" htmlFor="password-retype">
-              <small>Re-type Password</small>
-            </label>
-            <div className="col-sm-9">
-              <input
-                name="password-retype"
-                className="form-control"
-                type="password"
-                placeholder="Re-type Password" />
-            </div>
-          </div>
-        }
-        <div>
-          <button type="submit" className="btn btn-lg btn-default">
-            {displayName}
-          </button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google/login" className="google-btn">
-        <i className="fab fa-google" />
-        <span>{displayName} with Google</span>
+    <form className="container-auth login" onSubmit={handleSubmit}>
+      <div className="item-input">
+        <input
+          name="email"
+          type="text"
+          className="input"
+          placeholder="Email"
+          defaultValue={email} />
+      </div>
+      <div className="item-input">
+        <input
+          name="password"
+          type="password"
+          className="input"
+          placeholder="Password" />
+      </div>
+      <div className="item-button">
+        <button type="submit" className="btn btn-lg button-default">Log in</button>
+      </div>
+      <a href="/auth/google/login" className="item-button">
+        <button type="button" className="btn btn-lg google-btn">
+          <i className="fab fa-google" />
+          <span>Log in with Google</span>
+        </button>
       </a>
-    </div>
+      {error && error.response && <div className="error"> {error.response.data} </div>}
+    </form>
   );
 };
 
@@ -108,7 +55,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
-      const formName = evt.target.name;
+      const formName = 'login';
       const email = evt.target.email.value;
       const password = evt.target.password.value;
       dispatch(auth(email, password, formName));
@@ -116,14 +63,12 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapLogin, mapDispatch)(AuthForm);
+export default connect(mapLogin, mapDispatch)(Login);
 
 /**
  * PROP TYPES
  */
-AuthForm.propTypes = {
-  name: PropTypes.string.isRequired,
-  displayName: PropTypes.string.isRequired,
+Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object,
 };

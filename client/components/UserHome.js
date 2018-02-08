@@ -27,7 +27,7 @@ const UserHome = ({
   const isAdmin = group.admins.find(u => u.id === user.id);
 
   return (
-    <div>
+    <div className="container-home">
       <h3>Hey, {user.firstName}!</h3>
       {isAdmin
         ? <TodaysRunAdmin />

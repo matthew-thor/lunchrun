@@ -43,19 +43,23 @@ class Account extends React.Component {
       return <p>{error.message}</p>;
     }
 
-    const isAdmin = group.admins.find(u => u.id === user.id);
     const isGoogleConnected = user.googleId;
 
     return (
-      <div>
+      <div className="container-account">
         <h3>Name: {user.fullName}</h3>
         <h3>Email: {user.email}</h3>
-        <button onClick={this.handleClick}>Change password</button>
-        {this.state.showPasswordForm && <ChangePassword />}
+        {
+          this.state.showPasswordForm
+            ? <ChangePassword handleClick={this.handleClick} />
+            : <button className="btn btn-default" onClick={this.handleClick}>Change password</button>
+        }
         {!isGoogleConnected &&
-          <a href="/auth/google/connect" className="google-btn">
-            <i className="fab fa-google" />
-            <span>Connect Google Account</span>
+          <a href="/auth/google/connect">
+            <button type="button" className="btn btn-lg google-btn">
+              <i className="fab fa-google" />
+              <span>Connect Google Account</span>
+            </button>
           </a>
         }
       </div>

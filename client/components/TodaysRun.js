@@ -7,6 +7,11 @@ import { todaysRunQuery } from '../queries';
 import { updateParticipantMutation } from '../mutations';
 import { Participants } from '../components';
 
+/**
+ * groupId needs to be changed later to reflect actual group
+ */
+const groupId = 1;
+
 const today = moment(new Date()).format('YYYY-MM-DD');
 
 /**
@@ -27,13 +32,9 @@ const TodaysRun = ({
   const route = run.route || null;
 
   return (
-    <div className="todays-run">
-      <div className="route-title">
-        <h3>Today's route: {route ? route.name : 'TBA'}</h3>
-      </div>
-      <div className="start-time">
-        <h3>Start time: {run.startTime || 'TBA'}</h3>
-      </div>
+    <div className="container-todays-run">
+      <h3>Today's route: {route ? route.name : 'TBA'}</h3>
+      <h3>Start time: {run.startTime || 'TBA'}</h3>
       <Participants />
     </div>
   );
@@ -47,7 +48,17 @@ const mapState = state => ({ user: state.user });
 const TodaysRunConnected = connect(mapState)(TodaysRun);
 
 export default compose(
-  graphql(todaysRunQuery, { options: { variables: { today: today } } }),
+  graphql(todaysRunQuery, {
+    options: {
+      variables: {
+        today: today,
+        /**
+         * groupId needs to be changed later to reflect actual group
+         */
+        groupId: groupId,
+      },
+    },
+  }),
   graphql(updateParticipantMutation, { name: 'updateParticipant' })
 )(TodaysRunConnected);
 

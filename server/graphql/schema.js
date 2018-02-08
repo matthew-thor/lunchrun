@@ -7,7 +7,7 @@ type Query {
   group(id: Int!): Group
   user(id: Int!): User
   allUsers: [User]
-  run(date: String): Run
+  run(date: String, groupId: Int): Run
   allRoutes: [Route]
 }
 

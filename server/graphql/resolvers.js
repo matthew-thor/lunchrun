@@ -22,8 +22,8 @@ const resolvers = {
     },
     run: async (_, args, context) => {
       if (!context.user) throw new Error('Not authorized');
-      const run = await Run.findOrCreate({ where: args });
-      return run[0];
+      const foundRun = await Run.find({ where: args });
+      return foundRun ? foundRun : Run.create(args);
     },
     allRoutes: (_, args, context) => {
       if (!context.user) throw new Error('Not authorized');
@@ -102,7 +102,7 @@ const resolvers = {
         return user.update({ password: args.newPw });
       }
       else { throw new Error('Not authorized'); }
-    }
+    },
   },
   Group: {
     admins: group => group.getAdmins(),
