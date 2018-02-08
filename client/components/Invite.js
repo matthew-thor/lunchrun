@@ -6,7 +6,6 @@ import { inviteUserMutation } from '../mutations';
  * COMPONENT
  */
 
-
 const Invite = ({
   groupId,
   inviteUser,
@@ -47,7 +46,7 @@ const Invite = ({
       <form className="container-invite-form" onSubmit={handleSubmit}>
         <div className="item">
           Send invite:
-      </div>
+        </div>
         <input
           name="email"
           type="text"
@@ -60,7 +59,7 @@ const Invite = ({
           data-target=".invite-success-modal"
         >
           Send
-      </button>
+        </button>
       </form>
     </React.Fragment>
   );

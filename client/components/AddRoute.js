@@ -32,48 +32,36 @@ const AddRoute = ({
   };
 
   return (
-    <div className="container invite-form input-form">
-      <form onSubmit={handleSubmit}>
-        <div
-          className="modal fade add-route-success-modal"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="mySmallModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-sm">
-            <div className="modal-content">
-              <br /><span><i className="fas fa-check" /> Route added</span><br />
-            </div>
+    <React.Fragment>
+      <div
+        className="modal fade add-route-success-modal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="mySmallModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-sm">
+          <div className="modal-content">
+            <br /><span><i className="fas fa-check" /> Route added</span><br />
           </div>
         </div>
-        <h3>Add a new route:</h3>
-        <div className="route-title row justify-content-center">
-          <div className="col-sm-6 left-col">
-            <h4>Name:</h4>
-          </div>
-          <div className="col-sm-6 right-col">
-            <input
-              name="name"
-              type="text"
-              className="form-control"
-              placeholder="Name your route"
-            />
-          </div>
-        </div>
-        <div className="route-title row justify-content-center">
-          <div className="col-sm-6 left-col">
-            <h4>Link to map:</h4>
-          </div>
-          <div className="col-sm-6 right-col">
-            <input
-              name="map"
-              type="text"
-              className="form-control"
-              placeholder="MapMyRun, Gmap-pedometer, etc."
-            />
-          </div>
-        </div>
+      </div>
+      <form className="container-add-route" onSubmit={handleSubmit}>
+        <h3>Add a new route</h3>
+        <div className="item">Name:</div>
+        <input
+          name="name"
+          type="text"
+          className="input"
+          placeholder="Name your route"
+        />
+        <div className="item">Link to map:</div>
+        <input
+          name="map"
+          type="text"
+          className="input"
+          placeholder="MapMyRun, Gmap-pedometer, etc."
+        />
         <button
           type="submit"
           className="btn btn-lg btn-default"
@@ -82,7 +70,7 @@ const AddRoute = ({
           Save
         </button>
       </form>
-    </div>
+    </React.Fragment>
   );
 };
 

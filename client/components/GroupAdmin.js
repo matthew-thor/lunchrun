@@ -35,7 +35,6 @@ class GroupAdmin extends React.Component {
         // <GroupRoutes groupId={this.props.groupId} />
         return (
           <div>
-            Group Routes
             <AddRoute groupId={this.props.groupId} />
           </div>
         );
