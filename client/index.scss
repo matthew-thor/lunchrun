@@ -431,6 +431,7 @@ footer {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     justify-content: start;
+    padding-top: 2%;
 
     h3 {
       justify-self: center;
@@ -479,6 +480,39 @@ footer {
     grid-column: span 2;
     justify-self: center;
     align-self: start;
+  }
+}
+
+.container-email-form {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: auto minmax(12rem, 30rem);
+  grid-template-rows: repeat(3, auto) 1fr;
+  justify-content: center;
+
+  .item {
+    align-self: center;
+    justify-self: center;
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    grid-column: span 2;
+    justify-self: center;
+    align-self: start;
+  }
+
+  .days {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2rem, 4rem));
+    grid-gap: 1rem;
+    justify-content: center;
+    padding: 1rem 0;
+
+    .form-check {
+      justify-self: center;
+    }
   }
 }
 
@@ -560,6 +594,18 @@ footer {
 
   .container-add-route {
     grid-gap: .3rem;
+
+    .item {
+      font-size: 1rem;
+    }
+
+    input {
+      font-size: .8rem;
+    }
+  }
+
+  .container-email-form {
+    grid-gap: .5rem;
 
     .item {
       font-size: 1rem;

@@ -83,7 +83,7 @@ const GroupEmails = ({ group, updateEmailSchedule }) => {
   const allDays = [1, 2, 3, 4, 5, 6, 7];
 
   return (
-    <div className="container group-emails input-form">
+    <React.Fragment>
       <div className="modal fade email-success-modal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-sm">
           <div className="modal-content">
@@ -91,37 +91,27 @@ const GroupEmails = ({ group, updateEmailSchedule }) => {
           </div>
         </div>
       </div>
-      <form className="first-email-form" onSubmit={handleSubmit}>
-        <div className="row">
-          <div className="col-sm-6 left-col">First email:</div>
-          <div className="col-sm-6 right-col">
-            <input
-              name="first-email-time"
-              type="time"
-              className="form-control"
-              defaultValue={group.emails.filter(e => e.type === 'first')[0].time}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-sm-6 left-col">Second email:</div>
-          <div className="col-sm-6 right-col">
-            <input
-              name="update-email-time"
-              type="time"
-              className="form-control"
-              defaultValue={group.emails.filter(e => e.type === 'update')[0].time}
-            />
-          </div>
-        </div>
-        <div className="row justify-content-center">
-          {allDays.map(d => {
-            return generateCheckBox(d, daysArray);
-          })}
+      <form className="container-email-form" onSubmit={handleSubmit}>
+        <div className="item">First email:</div>
+        <input
+          name="first-email-time"
+          type="time"
+          className="input"
+          defaultValue={group.emails.filter(e => e.type === 'first')[0].time}
+        />
+        <div className="item">Second email:</div>
+        <input
+          name="update-email-time"
+          type="time"
+          className="input"
+          defaultValue={group.emails.filter(e => e.type === 'update')[0].time}
+        />
+        <div className="days">
+          {allDays.map(d => generateCheckBox(d, daysArray))}
         </div>
         <button type="submit" className="btn btn-lg btn-default" data-target=".email-success-modal">Submit changes</button>
       </form>
-    </div>
+    </React.Fragment>
   );
 };
 
