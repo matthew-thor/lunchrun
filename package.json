@@ -13,7 +13,7 @@
     "lint": "eslint ./ --ignore-path .gitignore",
     "postinstall": "touch secrets.js",
     "seed": "nodemon script/seed/index.js --exec babel-node",
-    "start": "node server",
+    "start": "babel-node server --presets react,es2015,stage-0",
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public --exec babel-node",
     "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/lunchrun-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register --require babel-polyfill",
