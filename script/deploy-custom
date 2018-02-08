@@ -11,4 +11,4 @@ git checkout -b deploy
 webpack -p
 git add -f public/bundle.js public/bundle.js.map
 git commit --allow-empty -m 'deploying'
-git push -u origin deploy
+git push --force origin deploy
