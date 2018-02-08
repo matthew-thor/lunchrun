@@ -91,7 +91,9 @@ const createApp = () => {
   }
   ));
 
-  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+  if (process.env.NODE_ENV !== 'production') {
+    app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+  }
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
