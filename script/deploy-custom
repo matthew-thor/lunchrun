@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 git checkout deploy
+git merge master
 webpack -p
 git add -f public/bundle.js public/bundle.js.map
 git commit --allow-empty -m 'deploying'
