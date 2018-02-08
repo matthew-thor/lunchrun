@@ -31,7 +31,7 @@ const TodaysRunAdmin = ({
 
   const displaySuccessMessage = () => {
     const modal = $('.todays-run-success-modal');
-    modal.modal({ focus: true });
+    modal.modal('toggle');
     setTimeout(() => { modal.modal('toggle'); }, 1300);
   };
 

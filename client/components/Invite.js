@@ -13,7 +13,7 @@ const Invite = ({
 }) => {
   const displaySuccessMessage = () => {
     const modal = $('.invite-success-modal');
-    modal.modal({ focus: true });
+    modal.modal('toggle');
     setTimeout(() => { modal.modal('toggle'); }, 1300);
   };
 
