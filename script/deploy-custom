@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+git checkout deploy
+webpack -p
+git add -f public/bundle.js public/bundle.js.map
+git commit --allow-empty -m 'deploying'
+git push
