@@ -27,7 +27,9 @@ const Main = ({
         isGroupAdmin={isGroupAdmin}
         isSiteAdmin={isSiteAdmin}
       />
-      {children}
+      <div className="container-main-content">
+        {children}
+      </div>
       <Footer />
     </div>
   );
