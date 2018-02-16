@@ -139,3 +139,32 @@ query RoutesQuery($groupId: Int!) {
   }
 }
 `;
+
+export const siteAdminQuery = gql`
+query SiteAdminQuery {
+  allGroups {
+    id
+    name
+    admins {
+      id
+    }
+    routes {
+      id
+      name
+    }
+    emails {
+      id
+    }
+  }
+  allUsers {
+    id
+    fullName
+    email
+    admin
+    groups {
+      id
+      name
+    }
+  }
+}
+`;

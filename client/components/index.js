@@ -24,3 +24,4 @@ export { default as NavbarAdmin } from './NavbarAdmin';
 export { default as NavbarLoggedOut } from './NavbarLoggedOut';
 export { default as NavbarLoggedIn } from './NavbarLoggedIn';
 export { default as NavbarCollapse } from './NavbarCollapse';
+export { default as UserList } from './UserList';

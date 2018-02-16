@@ -5,6 +5,7 @@ const typeDefs = `
 type Query {
   me: User
   group(id: Int!): Group
+  allGroups: [Group]
   user(id: Int!): User
   allUsers: [User]
   run(date: String, groupId: Int): Run

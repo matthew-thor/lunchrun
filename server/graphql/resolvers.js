@@ -16,8 +16,12 @@ module.exports = {
       // if (!context.user) throw new Error('Not authorized');
       return Group.findById(args.id);
     },
-    allUsers: (_, args, context) => {
+    allGroups: (_, args, context) => {
       if (!context.user) throw new Error('Not authorized');
+      return Group.findAll();
+    },
+    allUsers: (_, args, context) => {
+      if (!context.user || !context.user.admin) throw new Error('Not authorized');
       return User.findAll();
     },
     run: async (_, args, context) => {
