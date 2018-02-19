@@ -31,7 +31,7 @@ class SiteAdmin extends React.Component {
   displayView = (users, groups) => {
     switch (this.state.view) {
       case 'Users':
-        return <UserList users={users} admin={true} />;
+        return <UserList users={users} />;
       case 'Groups':
         return <div>Groups</div>;
       default:
