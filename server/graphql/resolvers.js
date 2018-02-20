@@ -107,6 +107,20 @@ module.exports = {
       }
       else { throw new Error('Not authorized'); }
     },
+    resetPassword: async (_, args, context) => {
+      if (context.user && (context.user.id === args.userId || context.user.admin)) {
+        const user = await User.findById(args.userId);
+        return user.resetPassword();
+      }
+      else { throw new Error('Not authorized'); }
+    },
+    deleteUser: async (_, args, context) => {
+      if (context.user && (context.user.id === args.userId || context.user.admin)) {
+        const user = await User.findById(args.userId);
+        return user.destroy();
+      }
+      else { throw new Error('Not authorized'); }
+    },
   },
   Group: {
     admins: group => group.getAdmins(),

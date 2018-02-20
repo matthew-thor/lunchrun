@@ -44,6 +44,12 @@ type Mutation {
     currentPw: String!,
     newPw: String!,
   ): User
+  resetPassword(
+    userId: Int!
+  ): User
+  deleteUser(
+    userId: Int!
+  ): User
 }
 
 type Group {

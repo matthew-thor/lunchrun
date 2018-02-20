@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import { addRouteMutation } from '../mutations';
+import { deleteUserMutation, resetPasswordMutation } from '../mutations';
+import { siteAdminQuery } from '../queries';
+import { UserCard } from '../components';
 
 /**
  * COMPONENT
@@ -10,32 +12,47 @@ import { addRouteMutation } from '../mutations';
 
 const UserList = ({
   user,
-  addRoute,
+  users,
+  resetPassword,
+  deleteUser,
 }) => {
-  // const displayDeleteMessage = () => {
-  //   const modal = $('.add-route-success-modal');
-  //   modal.modal({ focus: true });
-  //   setTimeout(() => { modal.modal('toggle'); }, 1300);
-  // };
+  const displayPasswordResetMessage = () => {
+    const modal = $('.reset-password-success-modal');
+    modal.modal({ focus: true });
+    setTimeout(() => { modal.modal('toggle'); }, 1300);
+  };
+
+  const displayDeleteMessage = () => {
+    const modal = $('.delete-user-success-modal');
+    modal.modal({ focus: true });
+    setTimeout(() => { modal.modal('toggle'); }, 1300);
+  };
+
+  const handleResetPassword = async event => {
+    event.preventDefault();
+    const res = await resetPassword({
+      variables: { userId: event.target.name },
+    });
+
+    if (res.data) displayPasswordResetMessage();
+  };
 
   const handleDeleteUser = async event => {
     event.preventDefault();
-    console.log(event.target.map.value)
-    const res = await addRoute({
-      variables: {
-        name: event.target.name.value,
-        map: event.target.map.value || undefined,
-        groupId,
-      },
+    const res = await deleteUser({
+      variables: { userId: event.target.name },
+      refetchQueries: [{ // change this to use update and optimisticResponse
+        query: siteAdminQuery,
+      }],
     });
 
-    // if (res.data) displayDeleteMessage();
+    if (res.data) displayDeleteMessage();
   };
 
   return (
     <React.Fragment>
       <div
-        className="modal fade add-route-success-modal"
+        className="modal fade red-modal delete-user-success-modal"
         tabIndex="-1"
         role="dialog"
         aria-labelledby="mySmallModalLabel"
@@ -47,30 +64,35 @@ const UserList = ({
           </div>
         </div>
       </div>
-      <form className="container-user-list" onSubmit={handleSubmit}>
-        <h3>Add a new route</h3>
-        <div className="item">Name:</div>
-        <input
-          name="name"
-          type="text"
-          className="input"
-          placeholder="Name your route"
-        />
-        <div className="item">Link to map:</div>
-        <input
-          name="map"
-          type="text"
-          className="input"
-          placeholder="MapMyRun, Gmap-pedometer, etc."
-        />
-        <button
-          type="submit"
-          className="btn btn-lg btn-default"
-          data-target=".add-route-success-modal"
-        >
-          Save
-        </button>
-      </form>
+      <div
+        className="modal fade reset-password-success-modal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="mySmallModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-sm">
+          <div className="modal-content">
+            <br /><span><i className="fas fa-check" /> Password reset</span><br />
+          </div>
+        </div>
+      </div>
+      <div className="container-user-list">
+        <h3>Users</h3>
+        <div className="user-list">
+          {
+            users.map(u => (
+              <UserCard
+                key={u.id}
+                user={user}
+                display={u}
+                handleDeleteUser={handleDeleteUser}
+                handleResetPassword={handleResetPassword}
+              />
+            ))
+          }
+        </div>
+      </div>
     </React.Fragment>
   );
 };
@@ -80,5 +102,6 @@ const mapState = state => ({ user: state.user });
 const UserListConnected = connect(mapState)(UserList);
 
 export default compose(
-  graphql(addRouteMutation, { name: 'addRoute' }),
-)(UserList);
+  graphql(resetPasswordMutation, { name: 'resetPassword' }),
+  graphql(deleteUserMutation, { name: 'deleteUser' }),
+)(UserListConnected);

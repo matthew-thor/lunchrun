@@ -2,13 +2,15 @@ const sendInviteEmail = require('./invites');
 const {
   sendFirstEmail,
   sendUpdateEmail,
- } = require('./announcements');
+} = require('./announcements');
 const {
   startEmailService,
   stopEmailService,
   updateEmailService,
   createRunsAtMidnight,
 } = require('./scheduler');
+const sendPasswordResetEmail = require('./resetPw');
+
 const chalk = require('chalk');
 
 const blueRedBg = text => { console.log(chalk.blue.bgRed.bold(text)); };
@@ -32,4 +34,5 @@ module.exports = {
   stopEmailService,
   updateEmailService,
   createRunsAtMidnight,
+  sendPasswordResetEmail,
 };

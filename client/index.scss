@@ -79,6 +79,10 @@ a, a:focus, a:hover {
   }
 }
 
+.red-modal {
+  color: red !important;
+}
+
 .btn-outline-secondary.dropdown-toggle {
   border: 0px !important;
   color: rgba(255,255,255,.5) !important;
@@ -512,6 +516,30 @@ footer {
 
     .form-check {
       justify-self: center;
+    }
+  }
+}
+
+.container-user-list {
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(2, auto) 1fr;
+
+  .user-list {
+    display: grid;
+    justify-content: center;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(4, auto);
+
+    * {
+      align-self: center;
+    }
+
+    .admin-label {
+      font-weight: bold;
+      color: green;
+      padding-left: .5rem;
     }
   }
 }
