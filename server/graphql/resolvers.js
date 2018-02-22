@@ -121,6 +121,13 @@ module.exports = {
       }
       else { throw new Error('Not authorized'); }
     },
+    deleteGroup: async (_, args, context) => {
+      if (context.user && context.user.admin) {
+        const group = await Group.findById(args.groupId);
+        return group.destroy();
+      }
+      else { throw new Error('Not authorized'); }
+    },
   },
   Group: {
     admins: group => group.getAdmins(),

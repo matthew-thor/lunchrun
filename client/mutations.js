@@ -126,3 +126,15 @@ mutation deleteUser(
   }
 }
 `;
+
+export const deleteGroupMutation = gql`
+mutation deleteGroup(
+  $groupId: Int!,
+) {
+  deleteGroup(
+    groupId: $groupId,
+  ) {
+    id
+  }
+}
+`;

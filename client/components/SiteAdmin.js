@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import { siteAdminQuery } from '../queries';
-import { UserList } from '../components';
-
-/**
- * groupId needs to be changed later to reflect actual group
- */
+import { UserList, GroupList } from '../components';
 
 /**
  * COMPONENT
@@ -33,17 +29,15 @@ class SiteAdmin extends React.Component {
       case 'Users':
         return <UserList users={users} />;
       case 'Groups':
-        return <div>Groups</div>;
+        return <GroupList groups={groups} />;
       default:
         return <h3>Site Admin Options</h3>;
     }
-
   }
 
   render() {
     const {
       user,
-      // groupId,
       data: { loading, error, allGroups, allUsers },
     } = this.props;
 

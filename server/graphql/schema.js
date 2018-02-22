@@ -50,6 +50,9 @@ type Mutation {
   deleteUser(
     userId: Int!
   ): User
+  deleteGroup(
+    groupId: Int!
+  ): Group
 }
 
 type Group {
