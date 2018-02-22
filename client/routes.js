@@ -4,7 +4,7 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { Main, Login, Signup, UserHome, Landing, Account, GroupAdmin, SiteAdmin } from './components';
+import { Main, Login, Signup, UserHome, Landing, Account, GroupAdmin, SiteAdmin, PasswordReset } from './components';
 import { me } from './store';
 import { graphql, compose } from 'react-apollo';
 import { routesQuery } from './queries';
@@ -23,7 +23,7 @@ class Routes extends Component {
       user,
       data: { loading, error, group },
       groupId,
-     } = this.props;
+    } = this.props;
 
     if (loading) {
       return <h1>Loading...</h1>;
@@ -46,6 +46,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/reset" component={PasswordReset} />
             {
               isSiteAdmin &&
               <Route path="/admin" component={SiteAdmin} />

@@ -45,7 +45,8 @@ type Mutation {
     newPw: String!,
   ): User
   resetPassword(
-    userId: Int!
+    userId: Int,
+    email: String,
   ): User
   deleteUser(
     userId: Int!
