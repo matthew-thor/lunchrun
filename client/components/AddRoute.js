@@ -19,7 +19,6 @@ const AddRoute = ({
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(event.target.map.value)
     const res = await addRoute({
       variables: {
         name: event.target.name.value,

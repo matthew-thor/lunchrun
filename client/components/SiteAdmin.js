@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
-import { accountQuery } from '../queries';
-import { Invite, GroupEmails, AddRoute, ChangePassword } from '../components';
-
-/**
- * groupId needs to be changed later to reflect actual group
- */
+import { siteAdminQuery } from '../queries';
+import { UserList, GroupList } from '../components';
 
 /**
  * COMPONENT
@@ -28,23 +24,21 @@ class SiteAdmin extends React.Component {
     this.setState({ view });
   }
 
-  displayView = () => {
+  displayView = (users, groups) => {
     switch (this.state.view) {
       case 'Users':
-        return (<div>Users</div>);
+        return <UserList users={users} />;
       case 'Groups':
-        return (<div>Groups</div>);
+        return <GroupList groups={groups} />;
       default:
-        return (<h3>Site Admin Options</h3>);
+        return <h3>Site Admin Options</h3>;
     }
-
   }
 
   render() {
     const {
       user,
-      // groupId,
-      // data: { loading, error, group },
+      data: { loading, error, allGroups, allUsers },
     } = this.props;
 
     const generateNavLinks = nameArray =>
@@ -62,12 +56,12 @@ class SiteAdmin extends React.Component {
       )
       );
 
-    // if (loading) {
-    //   return <h1>Loading...</h1>;
-    // }
-    // if (error) {
-    //   return <p>{error.message}</p>;
-    // }
+    if (loading) {
+      return <h1>Loading...</h1>;
+    }
+    if (error) {
+      return <p>{error.message}</p>;
+    }
 
     return (
       <div className="container-admin-page">
@@ -76,7 +70,7 @@ class SiteAdmin extends React.Component {
           <div className="item-placeholder" />
         </div>
         <div className="current-view">
-          {this.displayView()}
+          {this.displayView(allUsers, allGroups)}
         </div>
       </div>
     );
@@ -90,15 +84,7 @@ const mapState = state => ({ user: state.user });
 
 const SiteAdminConnected = connect(mapState)(SiteAdmin);
 
-export default compose(
-  // graphql(accountQuery, {
-  //   options: {
-  //     variables: {
-  //       groupId: groupId,
-  //     },
-  //   },
-  // }),
-)(SiteAdminConnected);
+export default compose(graphql(siteAdminQuery))(SiteAdminConnected);
 
 /**
  * PROP TYPES

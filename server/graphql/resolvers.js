@@ -16,8 +16,12 @@ module.exports = {
       // if (!context.user) throw new Error('Not authorized');
       return Group.findById(args.id);
     },
-    allUsers: (_, args, context) => {
+    allGroups: (_, args, context) => {
       if (!context.user) throw new Error('Not authorized');
+      return Group.findAll();
+    },
+    allUsers: (_, args, context) => {
+      if (!context.user || !context.user.admin) throw new Error('Not authorized');
       return User.findAll();
     },
     run: async (_, args, context) => {
@@ -100,6 +104,27 @@ module.exports = {
         const user = await User.findById(args.userId);
         if (!user.correctPassword(args.currentPw)) return new Error('Not authorized');
         return user.update({ password: args.newPw });
+      }
+      else { throw new Error('Not authorized'); }
+    },
+    resetPassword: async (_, args, context) => {
+      if (context.user && (context.user.id === args.userId || context.user.admin)) {
+        const user = await User.findById(args.userId);
+        return user.resetPassword();
+      }
+      else { throw new Error('Not authorized'); }
+    },
+    deleteUser: async (_, args, context) => {
+      if (context.user && (context.user.id === args.userId || context.user.admin)) {
+        const user = await User.findById(args.userId);
+        return user.destroy();
+      }
+      else { throw new Error('Not authorized'); }
+    },
+    deleteGroup: async (_, args, context) => {
+      if (context.user && context.user.admin) {
+        const group = await Group.findById(args.groupId);
+        return group.destroy();
       }
       else { throw new Error('Not authorized'); }
     },

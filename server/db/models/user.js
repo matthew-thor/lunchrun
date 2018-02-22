@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('../db');
+const { sendPasswordResetEmail } = require('../../../utils');
 
 const User = db.define('user', {
   firstName: {
@@ -53,6 +54,14 @@ module.exports = User;
  */
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
+};
+
+User.prototype.resetPassword = function () {
+  const tempPw = crypto.randomBytes(8).toString('base64');
+  this.password = tempPw;
+  this.save();
+  sendPasswordResetEmail(tempPw, this.email);
+  return this.id;
 };
 
 /**

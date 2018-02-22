@@ -5,6 +5,7 @@ const typeDefs = `
 type Query {
   me: User
   group(id: Int!): Group
+  allGroups: [Group]
   user(id: Int!): User
   allUsers: [User]
   run(date: String, groupId: Int): Run
@@ -43,6 +44,15 @@ type Mutation {
     currentPw: String!,
     newPw: String!,
   ): User
+  resetPassword(
+    userId: Int!
+  ): User
+  deleteUser(
+    userId: Int!
+  ): User
+  deleteGroup(
+    groupId: Int!
+  ): Group
 }
 
 type Group {

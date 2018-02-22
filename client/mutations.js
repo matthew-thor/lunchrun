@@ -102,3 +102,39 @@ mutation changePassword(
   }
 }
 `;
+
+export const resetPasswordMutation = gql`
+mutation resetPassword(
+  $userId: Int!,
+) {
+  resetPassword(
+    userId: $userId,
+  ) {
+    id
+  }
+}
+`;
+
+export const deleteUserMutation = gql`
+mutation deleteUser(
+  $userId: Int!,
+) {
+  deleteUser(
+    userId: $userId,
+  ) {
+    id
+  }
+}
+`;
+
+export const deleteGroupMutation = gql`
+mutation deleteGroup(
+  $groupId: Int!,
+) {
+  deleteGroup(
+    groupId: $groupId,
+  ) {
+    id
+  }
+}
+`;
