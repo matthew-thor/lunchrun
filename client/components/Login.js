@@ -34,6 +34,7 @@ const Login = props => {
           <span>Log in with Google</span>
         </button>
       </a>
+      <Link to="/reset" className="forgot-pw-link">Forgot password?</Link>
       {error && error.response && <div className="error"> {error.response.data} </div>}
     </form>
   );

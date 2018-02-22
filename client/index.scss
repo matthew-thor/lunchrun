@@ -197,6 +197,11 @@ a, a:focus, a:hover {
     grid-template-columns: 1fr;
     justify-content: center;
     padding: 0 10px;
+
+    .password-reset-confirm {
+      text-align: center;
+      padding-top: 2rem;
+    }
   }
 }
 
@@ -267,11 +272,24 @@ footer {
 }
 
 .container-auth.login {
-  grid-template-rows: repeat(4, auto) 1fr;
+  grid-template-rows: repeat(5, auto) 1fr;
+
+  .forgot-pw-link {
+    color: rgba(255, 255, 255, 0.7);
+    justify-self: center;
+  }
+
+  .forgot-pw-link:focus, .forgot-pw-link:hover {
+    color: #fff;
+  }
 }
 
 .container-auth.signup {
   grid-template-rows: repeat(7, auto) 1fr;
+}
+
+.container-auth.password-reset {
+  grid-template-rows: repeat(2, auto) 1fr;
 }
 
 .container-home {

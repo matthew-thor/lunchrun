@@ -105,10 +105,12 @@ mutation changePassword(
 
 export const resetPasswordMutation = gql`
 mutation resetPassword(
-  $userId: Int!,
+  $userId: Int,
+  $email: String,
 ) {
   resetPassword(
     userId: $userId,
+    email: $email,
   ) {
     id
   }

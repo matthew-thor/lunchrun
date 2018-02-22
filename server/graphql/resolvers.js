@@ -108,11 +108,14 @@ module.exports = {
       else { throw new Error('Not authorized'); }
     },
     resetPassword: async (_, args, context) => {
-      if (context.user && (context.user.id === args.userId || context.user.admin)) {
-        const user = await User.findById(args.userId);
-        return user.resetPassword();
-      }
-      else { throw new Error('Not authorized'); }
+      // if (context.user && (context.user.id === args.userId || context.user.admin)) {
+      // need to figure out a better way to protect this route
+      const user = args.userId
+        ? await User.findById(args.userId)
+        : await User.find({ where: { email: args.email } });
+      return user.resetPassword();
+      // }
+      // else { throw new Error('Not authorized'); }
     },
     deleteUser: async (_, args, context) => {
       if (context.user && (context.user.id === args.userId || context.user.admin)) {
