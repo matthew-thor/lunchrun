@@ -78,7 +78,6 @@ const UserList = ({
         </div>
       </div>
       <div className="container-user-list">
-        <h3>Users</h3>
         <div className="user-list">
           {
             users.map(u => (

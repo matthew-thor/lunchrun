@@ -548,7 +548,7 @@ footer {
  * Media queries
  */
 
- @media (max-width: 768px) {
+@media (max-width: 768px) {
   .nav-collapse-toggle {
     display: inline !important;
   }
@@ -642,5 +642,9 @@ footer {
     input {
       font-size: .8rem;
     }
+  }
+
+  .container-user-list .user-list {
+    grid-template-columns: repeat(2, auto);
   }
 }
