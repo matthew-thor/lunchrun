@@ -62,6 +62,7 @@ type Group {
   admins: [User]
   routes: [Route]
   emails: [Email]
+  members: [User]
 }
 
 type User {

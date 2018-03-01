@@ -94,6 +94,11 @@ query TodaysRunAdminQuery(
       id
       name
     }
+    members {
+      id
+      fullName
+      email
+    }
   }
   run(date: $today, groupId: $groupId) {
     id

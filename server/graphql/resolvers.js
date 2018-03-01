@@ -136,6 +136,7 @@ module.exports = {
     admins: group => group.getAdmins(),
     routes: group => group.getRoutes(),
     emails: group => group.getEmails(),
+    members: group => group.getMembers(),
   },
   User: {
     groups: user => user.getGroups(),

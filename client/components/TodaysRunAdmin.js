@@ -29,6 +29,8 @@ const TodaysRunAdmin = ({
     return <p>{error.message}</p>;
   }
 
+  console.log('group members', group.members)
+
   const displaySuccessMessage = () => {
     const modal = $('.todays-run-success-modal');
     modal.modal('toggle');
@@ -72,7 +74,7 @@ const TodaysRunAdmin = ({
             </div>
           </div>
         </div>
-        <h3>Today's route:</h3>
+        <h4>Today's route:</h4>
         <select
           name="route-select"
           className="route-select form-control"
@@ -92,7 +94,7 @@ const TodaysRunAdmin = ({
             })
           }
         </select>
-        <h3>Start time:</h3>
+        <h4>Start time:</h4>
         <input
           name="start-time"
           type="time"

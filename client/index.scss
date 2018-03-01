@@ -301,6 +301,10 @@ footer {
   h3 {
     justify-self: center;
   }
+
+  h4 {
+    justify-self: center;
+  }
 }
 
 .container-todays-run {
@@ -308,10 +312,6 @@ footer {
   grid-template-rows: auto auto 1fr;
   grid-gap: 1rem;
   justify-content: center;
-
-  h3 {
-    justify-self: center;
-  }
 }
 
 .container-todays-run-admin {
